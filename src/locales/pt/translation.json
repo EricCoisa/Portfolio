@@ -1,0 +1,67 @@
+{
+  "home": {
+    "title": "Bem-vindo ao meu portfólio"
+  },
+  "about": {
+    "title": "Sobre mim"
+  },
+  "projects": {
+    "repository": "Ver Repositório",
+    "see": "Ver Projeto",
+    "title": "Projetos",
+    "coap": {
+      "title": "COAP",
+      "text": "Aplicação de criação de conteúdo institucional"
+    },
+    "customDeploy": {
+      "title": "Custom Deploy",
+      "text": "Aplicação de implantação personalizada"
+    }
+  },
+  "navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "skills": "Habilidades",
+    "projects": "Projetos",
+    "contact": "Contato"
+  },
+  "theme": {
+    "theme": "Tema",
+    "Default": "Padrão",
+    "LiquidGlass": "Liquid Glass"
+  },
+  "modal": {
+    "close": "Fechar"
+  },
+  "header": {
+    "settings": "Configurações"
+  },
+  "language": {
+    "switch": "Alternar idioma"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "contact": "Contato"
+  },
+  "skills": {
+    "title": "Habilidades",
+    "react": {
+      "title": "React",
+      "text": "Experiência sólida no desenvolvimento de aplicações modernas utilizando React.js, com foco em performance, componentização e boas práticas de arquitetura."
+    },
+    "reactNative": {
+      "title": "React Native",
+      "text": "Desenvolvimento de aplicativos móveis multiplataforma com React Native, garantindo alta performance e integração com recursos nativos."
+    },
+    "apis": {
+      "title": "APIs & Backend",
+      "text": "Criação de APIs RESTful escaláveis e seguras, integrando sistemas e garantindo eficiência na comunicação entre serviços."
+    },
+    "devops": {
+      "title": "Infra & DevOps",
+      "text": "Experiência com automação, integração contínua e deploy em nuvem, garantindo escalabilidade e alta disponibilidade."
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "home": {
+    "title": "Welcome to my portfolio"
+  },
+  "about": {
+    "title": "About Me"
+  },
+  "projects": {
+    "repository": "View Repository",
+    "see": "See Project",
+    "title": "Projects",
+    "coap": {
+      "title": "COAP",
+      "text": "Application of institutional content creation"
+    },
+    "customDeploy": {
+      "title": "Custom Deploy",
+      "text": "Aplication"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "theme": {
+    "theme": "Theme",
+    "Ddefault": "Default",
+    "LiquidGlass": "Liquid Glass"
+  },
+  "modal": {
+    "close": "Close"
+  },
+  "header": {
+    "settings": "Settings"
+  },
+  "language": {
+    "switch": "Switch language"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact"
+  },
+  "skills": {
+    "title": "Skills",
+    "react": {
+      "title": "React",
+      "text": "Solid experience in developing modern applications using React.js, focusing on performance, componentization, and best architecture practices."
+    },
+    "reactNative": {
+      "title": "React Native",
+      "text": "Development of cross-platform mobile apps with React Native, ensuring high performance and integration with native features."
+    },
+    "apis": {
+      "title": "APIs & Backend",
+      "text": "Creation of scalable and secure RESTful APIs, integrating systems and ensuring efficient communication between services."
+    },
+    "devops": {
+      "title": "Infra & DevOps",
+      "text": "Experience with automation, continuous integration, and cloud deployment, ensuring scalability and high availability."
+    }
+  }
+}
