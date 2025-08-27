@@ -25,7 +25,7 @@ const connector = connectUtil(
 
 export type SkillsProps = PropsFromRedux<typeof connector>;
 
-function Skills(props: SkillsProps) {
+function Skills(_props: SkillsProps) {
   const { t } = useTranslation();
 
   return (

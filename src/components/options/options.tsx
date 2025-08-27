@@ -1,4 +1,3 @@
-import React from 'react';
 import { OptionButton, OptionsContainer } from './options.styles';
 
 

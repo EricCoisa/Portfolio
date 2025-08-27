@@ -28,7 +28,7 @@ const connector = connectUtil(
 
 export type HomeProps = PropsFromRedux<typeof connector>;
 
-function Projects(props: HomeProps) {
+function Projects(_props: HomeProps) {
   const [projectModal, setProjectModal] = useState<string | undefined>(undefined);
   const { t } = useTranslation();
 
