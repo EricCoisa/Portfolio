@@ -1,7 +1,7 @@
 
 import liquidGlassTheme from '../../../themes/liquidGlassTheme';
 import normalTheme from '../../../themes/normalTheme';
-import { THEME_ADD, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, CURRENTVIEW_SET, LOWPERFORMANCE_SET, type ApplicationState, type ApplicationTypes, VIEWS_ADD } from '../../../types/application';
+import { THEME_ADD, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, CURRENTVIEW_SET, LOWPERFORMANCE_SET, type ApplicationState, type ApplicationTypes, VIEWS_ADD, VIEWS_UPDATE } from '../../../types/application';
 
 const INITIAL_STATE: ApplicationState = {
     currentView: undefined,
@@ -23,6 +23,13 @@ export function ApplicationReducer(state = INITIAL_STATE, action: ApplicationTyp
                 return state;
             }
             return { ...state, views: [...state.views, action.payload] };
+        case VIEWS_UPDATE:
+            return {
+                ...state,
+                views: state.views.map(view =>
+                    view.name === action.payload.name ? { ...view, name: action.payload.newName } : view
+                )
+            };
         case LOWPERFORMANCE_SET:
             return { ...state, isLowPerformance: action.payload };
         case CURRENTVIEW_SET:

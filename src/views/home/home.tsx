@@ -20,11 +20,13 @@ function Home(_props: HomeProps) {
   const { t } = useTranslation();
 
   return (
-    <ViewContainer name={t('navigation.home')} color='rgba(155,89,182,0.20)' background='rgba(30,144,255,0.18)'>
+    <ViewContainer maskSrc='./mask/teste1.png' name={t('navigation.home')} color='rgba(155,89,182,0.20)' background='rgba(30,144,255,0.18)'>
       <Title>{t('home.title')}</Title>
     </ViewContainer>
   );
 }
+
+
 
 const ConnectedHome = connector(Home);
 export default ConnectedHome;

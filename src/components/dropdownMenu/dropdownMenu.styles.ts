@@ -55,7 +55,7 @@ export const DropdownList = styled(ColorContainer).attrs({ as: "ul" })`
   max-height: 60vh;
   overflow-x: auto;
   overflow-y: auto;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
   backdrop-filter: ${({ theme }) => theme.blur};
   border: 1px solid rgba(255, 255, 255, 0.1);

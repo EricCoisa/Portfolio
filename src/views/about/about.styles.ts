@@ -24,7 +24,7 @@ const Button = styled.button`
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.text};
   border: none;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;

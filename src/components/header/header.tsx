@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import DropdownMenu from '../dropdownMenu/dropdownMenu';
 import Options from '../options/options';
+import { scan } from "react-scan";
 
 
 const connector = connectUtil(
@@ -30,6 +31,7 @@ function Header(props: HeaderProps) {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [reactScanEnabled, setReactScanEnabled] = useState(false);
 
   // Detecta scroll para mudar tamanho do header
   useEffect(() => {
@@ -40,6 +42,18 @@ function Header(props: HeaderProps) {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+
+    function handleReactScan() {
+      setReactScanEnabled(!reactScanEnabled);
+    }
+
+    useEffect(() => {
+        scan({
+          enabled: reactScanEnabled,
+          showToolbar: reactScanEnabled
+          });
+    }, [reactScanEnabled]);
 
   function handleNavClick(view: string) {
     props.SetCurrentView(view);
@@ -141,7 +155,20 @@ function Header(props: HeaderProps) {
                   onSelect={handleThemeSwitch}
                 />
               )
-            }]}
+            },{
+              label: t(`header.reactScan`),
+              action: (
+               <Switch
+                 checked={reactScanEnabled}
+                 onChange={handleReactScan}
+                 label={reactScanEnabled ? "On" : "Off"}
+               />
+              )
+            }
+          
+          
+          
+          ]}
           />
         </Switches>
       </HeaderContainer>

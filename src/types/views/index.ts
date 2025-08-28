@@ -3,3 +3,8 @@ export interface ViewsType{
     color : string
     background : string
 }
+
+export interface ViewsUpdateType{
+    name : string
+    newName : string
+}

@@ -2,15 +2,24 @@
 import type { AppThunk } from "../../../utils/reduxUtil";
 import i18n from '../../../i18n';
 
-import { CURRENTVIEW_SET, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, VIEWS_ADD } from "../../../types/application";
+import { CURRENTVIEW_SET, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, VIEWS_ADD, VIEWS_UPDATE } from "../../../types/application";
 import type { DefaultTheme } from "styled-components";
-import type { ViewsType } from "../../../types/views";
+import type { ViewsType, ViewsUpdateType } from "../../../types/views";
 
 export function AddView(label: ViewsType): AppThunk {
     return async function dispatchAddHeaderButton(dispatch) {
         dispatch({
             payload: label,
             type: VIEWS_ADD
+        });
+    };
+}
+
+export function UpdateView(label: ViewsUpdateType): AppThunk {
+    return async function dispatchUpdateView(dispatch) {
+        dispatch({
+            payload: label,
+            type: VIEWS_UPDATE  
         });
     };
 }

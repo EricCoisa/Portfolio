@@ -14,9 +14,14 @@ const normalTheme = {
   },
   blur: "none",
   border: "1px solid rgba(255,255,255,0.05)",
+  borderRadius: "12px",
   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
   glassOverlay: "none",
-  hoverHighlight: "rgba(255, 255, 255, 0.2)"
+  hoverHighlight: "rgba(255, 255, 255, 0.2)",
+  header: {
+    top: "90px",
+    normal: "60px",
+  },
 } as DefaultTheme;
 
 export default normalTheme;

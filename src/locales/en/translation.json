@@ -6,16 +6,20 @@
     "title": "About Me"
   },
   "projects": {
-    "repository": "View Repository",
-    "see": "See Project",
+    "repository": "Repository",
+    "see": "Project",
     "title": "Projects",
     "coap": {
       "title": "COAP",
-      "text": "Application of institutional content creation"
+      "text": "COAP is a drag-and-drop visual tool for creating educational content, similar to Canva or Wix, but specifically focused on teaching materials. With an intuitive interface, it allows educators, instructional designers, and content creators to quickly assemble interactive materials without the need for technical knowledge."
     },
     "customDeploy": {
       "title": "Custom Deploy",
-      "text": "Aplication"
+      "text": "CustomDeploy is a complete solution for automating the deployment of web applications and APIs hosted on IIS, integrating a robust backend in .NET 8 and a modern frontend in React + TypeScript. The system allows managing publications, authentication, and centralized permissions."
+    },
+    "netcoreStarter": {
+      "title": "NetCore Api StarterPack",
+      "text": "API in ASP.NET Core 8.0 designed as a starting point for any project that needs the basics:\n✅ JWT Authentication\n✅ Secrets Management (User Secrets / Docker Secrets)\n✅ Localizer ready for multiple languages\n✅ Complete test structure (unit, integration, and contract)\n✅ Docker ready for production"
     }
   },
   "navigation": {
@@ -34,7 +38,8 @@
     "close": "Close"
   },
   "header": {
-    "settings": "Settings"
+    "settings": "Settings",
+    "reactScan": "React Scan"
   },
   "language": {
     "switch": "Switch language"

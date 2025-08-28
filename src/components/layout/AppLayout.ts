@@ -15,4 +15,6 @@ export const MainContent = styled.main<{ $scrolled?: boolean; paddingTop?: numbe
   padding-top: ${({ $scrolled, paddingTop }) => $scrolled ? '0px' : `${paddingTop ?? 120}px`};
   padding-bottom: ${({ $scrolled }) => $scrolled ? '0px' : '30px'};
   gap: 24px;
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
 `;

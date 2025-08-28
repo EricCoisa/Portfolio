@@ -9,7 +9,7 @@ export const HeaderContainer = styled(ColorContainer).attrs({ as: "header" })<{$
   left: 0;
   width: 100vw;
   max-width: 100vw;
-  height: ${({ $isAtTop }) => $isAtTop ? '90px' : '60px'};
+  height: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.top : theme.header.normal};
   display: grid;
   grid-template-columns: 60px minmax(200px, 1fr) minmax(120px, 220px);
   align-items: center;
@@ -141,7 +141,7 @@ export const MobileNavButton = styled.button<{ active: boolean }>`
   background: ${({ active, theme }) => active ? theme.colors.primary : 'transparent'};
   color: ${({ active, theme }) => active ? theme.colors.text : theme.colors.textSecondary};
   border: none;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   padding: 12px 16px;
   font-size: 1rem;
   cursor: pointer;

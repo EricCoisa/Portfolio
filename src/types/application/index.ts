@@ -1,7 +1,8 @@
 import type { DefaultTheme } from "styled-components";
-import type { ViewsType } from "../views";
+import type { ViewsType, ViewsUpdateType } from "../views";
 
-export const VIEWS_ADD = 'HEADERBUTTON_ADD';
+export const VIEWS_ADD = 'VIEWS_ADD';
+export const VIEWS_UPDATE = 'VIEWS_UPDATE';
 
 export const LOWPERFORMANCE_SET = 'LOWPERFORMANCE_SET';
 
@@ -23,6 +24,11 @@ export interface ApplicationState {
 export interface ApplicationViewsAction {
     type: typeof VIEWS_ADD;
     payload: ViewsType;
+}
+
+export interface ApplicationViewsUpdateAction {
+    type: typeof VIEWS_UPDATE;
+    payload: ViewsUpdateType;
 }
 
 export interface ApplicationLowPerformanceAction {
@@ -50,4 +56,4 @@ export interface ApplicationLanguageAction {
     payload: string;
 }
 
-export type ApplicationTypes = ApplicationAction | ApplicationLanguageAction | ApplicationThemeAction | ApplicationAddThemeAction | ApplicationLowPerformanceAction | ApplicationViewsAction;
+export type ApplicationTypes = ApplicationAction | ApplicationLanguageAction | ApplicationThemeAction | ApplicationAddThemeAction | ApplicationLowPerformanceAction | ApplicationViewsAction | ApplicationViewsUpdateAction;

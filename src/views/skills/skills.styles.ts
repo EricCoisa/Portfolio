@@ -1,4 +1,5 @@
 import styled from 'wrapper-styled-components';
+import type { SkillsProps } from './skills';
 
 const Title = styled.h1`
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -24,7 +25,7 @@ const Button = styled.button`
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.text};
   border: none;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
@@ -52,4 +53,60 @@ const Button = styled.button`
   }
 `;
 
-export { Title, Button };
+const SkillBannerContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 2rem;
+  @media (max-width: 768px) {
+
+  }
+  
+  @media (max-width: 480px) {
+
+  }
+`;
+
+const ViewBannerContainer = styled.div<SkillsProps>`
+${styled.themeLayer};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  min-height: 100vh;
+  padding: 2rem clamp(1rem, 4vw, 2rem) 2rem;
+  box-sizing: border-box;
+  width: 100%;
+
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 76px 1rem 2rem;
+    min-height: calc(100vh - 56px);
+  }
+
+  @media (max-width: 480px) {
+    padding: 72px 1rem 1rem;
+  }
+`;
+
+const SkillBannerItem = styled.div`
+  padding: 8px;
+  background-color: ${({ theme }) => theme.colors.textSecondary};
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  width:100px;
+  height:100px;
+
+  border-radius: ${({ theme }) => theme.borderRadius};
+  @media (max-width: 768px) {
+
+  }
+  
+  @media (max-width: 480px) {
+
+  }
+`;
+
+export { Title, Button, SkillBannerContainer, SkillBannerItem, ViewBannerContainer };

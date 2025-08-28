@@ -1,3 +1,8 @@
+
+import styled from 'wrapper-styled-components';
+import { css } from 'styled-components';
+import { motion } from 'framer-motion';
+
 export const CardsWrapperStyled = styled.div<{
   mode?: 'vertical' | 'horizontal' | 'grid' | 'wrap';
   maxVertical?: number;
@@ -111,6 +116,17 @@ export const CardHeaderStyled = styled.div`
   gap: 0.5rem;
   background: transparent;
   min-height: 48px;
+
+    @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    & > *:not(:first-child):not(:nth-child(2)) {
+      width: 100%;
+      background-color:red
+    }
+  }
+
 `;
 export const CardTitleStyled = styled.h3`
   font-size: 1.25rem;
@@ -121,27 +137,40 @@ export const CardTitleStyled = styled.h3`
   display: flex;
   align-items: center;
 `;
-import styled from 'wrapper-styled-components';
-import { css } from 'styled-components';
 
-export const CardContainerStyled = styled.div<{ size?: 'sm' | 'md' | 'lg' }>`
-  ${styled.themeLayer};
-  background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 16px;
-  box-shadow: ${({ theme }) => theme.boxShadow};
-  transition: box-shadow 0.3s, background 0.3s;
+export const CardHeaderMainStyled = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+`;
+
+export const CardActionStyled = styled.div`
+  flex: 1;
+  gap: 8px;
+  justify-content: flex-end;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+`;
+
+export const CardAnimateStyled = styled(motion.div)<{ size?: 'sm' | 'md' | 'lg' }>`
+  background: ${({ theme }) => theme.colors.cardBackground};
+  border-radius: ${({ theme }) => theme.borderRadius};
   overflow: hidden;
   box-sizing: border-box;
   width: 100%;
-  flex: 1;
-  
-  /* Responsivo */
-  @media (max-width: 767px) {
-    min-height: auto;
-  }
+  height: 100%;
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  transition: box-shadow 0.3s, background 0.3s;
+  text-align: justify;
   ${({ size }) => {
     switch (size) {
       case 'sm':
@@ -154,6 +183,24 @@ export const CardContainerStyled = styled.div<{ size?: 'sm' | 'md' | 'lg' }>`
     }
   }}
 `;
+
+export const CardContainerStyled = styled.div<{ size?: 'sm' | 'md' | 'lg' }>`
+  ${styled.themeLayer};
+
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+  
+  /* Responsivo */
+  @media (max-width: 767px) {
+    min-height: auto;
+  }
+  
+`;
+
 
 export const CardContentContainerStyled = styled.div<{
   mode?: 'vertical' | 'horizontal' | 'wrap';

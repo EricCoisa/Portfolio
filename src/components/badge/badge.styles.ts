@@ -29,4 +29,5 @@ export const BadgeContainerStyled = styled.span<{ color?: string; size?: 'sm' | 
     background: ${({ color, theme }) => color || theme.colors.primary};
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   }
+  height: ${({ size }) => size === 'sm' ? '1.4em' : size === 'lg' ? '2.2em' : 'auto'};
 `;

@@ -14,9 +14,14 @@ const liquidGlassTheme = {
   },
   blur: "blur(18px)",
   border: "1px solid rgba(255, 255, 255, 0.4)",
+  borderRadius: "12px",
   boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255,255,255,0.25)",
   glassOverlay: "linear-gradient(120deg, rgba(155,89,182,0.18) 0%, rgba(30,144,255,0.12) 100%)",
-  hoverHighlight: "rgba(255, 255, 255, 0.2)"
+  hoverHighlight: "rgba(255, 255, 255, 0.2)",
+    header: {
+    top: "90px",
+    normal: "60px",
+  },
 } as DefaultTheme;
 
 export default liquidGlassTheme;
