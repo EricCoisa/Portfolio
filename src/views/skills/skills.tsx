@@ -16,7 +16,6 @@ import CardContainer from '../../components/card/cardContainer';
 import Line from '../../components/line/line';
 import Badge from '../../components/badge/badge';
 import Banner from '../../components/banner/banner';
-import { useTheme } from 'styled-components';
 
 const connector = connectUtil(
   (state: RootStateBase) => ({
@@ -28,7 +27,6 @@ const connector = connectUtil(
 export type SkillsProps = PropsFromRedux<typeof connector>;
 
 function Skills(_props: SkillsProps) {
-  const theme = useTheme();
   const { t } = useTranslation();
   const iconWidth = 32;
   const iconHeight = 32;

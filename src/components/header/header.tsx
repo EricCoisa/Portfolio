@@ -69,7 +69,6 @@ function Header(props: HeaderProps) {
 
   function handleNavClick(view: string) {
     props.SetCurrentView(view, true);
-    setMobileMenuOpen(false);
     // Scroll suave para o container correspondente
     const el = document.getElementById(view);
     if (el) {

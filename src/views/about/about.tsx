@@ -16,7 +16,7 @@ const connector = connectUtil(
 
 export type AboutProps = PropsFromRedux<typeof connector>;
 
-function About(props: AboutProps) {
+function About(_props: AboutProps) {
   const { t } = useTranslation();
 
   // Detect mobile
