@@ -123,7 +123,7 @@ function Header(props: HeaderProps) {
       <HeaderContainer $isAtTop={isAtTop}>
         {/* Avatar só aparece em desktop */}
         {!window.matchMedia('(max-width: 768px)').matches && (
-          <Avatar src="/public/vite.svg" alt="Portfolio Avatar" />
+          <Avatar src="/vite.svg" alt="Portfolio Avatar" />
         )}
 
         {/* Desktop Navigation */}
