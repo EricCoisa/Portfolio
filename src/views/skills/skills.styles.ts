@@ -58,6 +58,7 @@ const SkillBannerContainer = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 2rem;
+  overflow: visible;
   @media (max-width: 768px) {
 
   }
@@ -73,7 +74,6 @@ ${styled.themeLayer};
   flex-direction: column;
   align-items: center;
   
-  min-height: 100vh;
   padding: 2rem clamp(1rem, 4vw, 2rem) 2rem;
   box-sizing: border-box;
   width: 100%;
@@ -81,7 +81,7 @@ ${styled.themeLayer};
   margin: 0 auto;
   
   @media (max-width: 768px) {
-    padding: 76px 1rem 2rem;
+    padding: 25px 1rem 2rem;
     min-height: calc(100vh - 56px);
   }
 
@@ -92,20 +92,30 @@ ${styled.themeLayer};
 
 const SkillBannerItem = styled.div`
   padding: 8px;
-  background-color: ${({ theme }) => theme.colors.textSecondary};
+  background-color: ${({ theme }) => theme.colors.background};
   display:flex;
   justify-content: center;
   align-items:center;
   width:100px;
   height:100px;
-
+  box-shadow: inset 0 0 0 2px ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius};
-  @media (max-width: 768px) {
 
+  &:hover {
+    transform:  scale(1.05);
+    box-shadow: inset 0 0 0 2px ${({ theme }) => theme.colors.primary};
+  }
+
+
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
   }
   
   @media (max-width: 480px) {
-
+    width: 64px;
+    height: 64px;
   }
 `;
 

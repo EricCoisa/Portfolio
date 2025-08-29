@@ -18,7 +18,7 @@ export type BackgroundComponentProps = PropsFromRedux<typeof connector>;
 function BackgroundComponent(props: BackgroundComponentProps) {
   if(props.isLowPerformance){ return null;}
   if (isLowPerformance()){ return null;}
-  const currentViewProp = props.views.find(view => view.name === props.currentView);
+  const currentViewProp = props.views.find(view => view.name === props.currentView?.name);
 
   return <Background aria-hidden viewColor={currentViewProp?.color} viewBg={currentViewProp?.background} />;
 }

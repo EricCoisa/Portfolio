@@ -20,7 +20,7 @@ function Home(_props: HomeProps) {
   const { t } = useTranslation();
 
   return (
-    <ViewContainer maskSrc='./mask/teste1.png' name={t('navigation.home')} color='rgba(155,89,182,0.20)' background='rgba(30,144,255,0.18)'>
+    <ViewContainer mask={{ src: './mask/code.mp4' }} icon='mdi:home-outline' name={t('navigation.home')} color='rgba(155,89,182,0.20)' background='rgba(30,144,255,0.18)'>
       <Title>{t('home.title')}</Title>
     </ViewContainer>
   );

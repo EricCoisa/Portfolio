@@ -6,11 +6,14 @@ export const HeaderContainer = styled(ColorContainer).attrs({ as: "header" })<{$
   ${styled.themeLayer};
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
+  left: ${({  $isAtTop, theme }) => $isAtTop ? theme.header.isOnTop.left : theme.header.isOnScroll.left};
+  width: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.isOnTop.width : theme.header.isOnScroll.width};
+  transform: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.isOnTop.transform : theme.header.isOnScroll.transform};
+  border-radius: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.isOnTop.borderRadius : theme.header.isOnScroll.borderRadius};
   max-width: 100vw;
-  height: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.top : theme.header.normal};
-  display: grid;
+  height: ${({ $isAtTop, theme }) => $isAtTop ? theme.header.isOnTop.height : theme.header.isOnScroll.height};
+  display: flex;
+  justify-content: space-around;
   grid-template-columns: 60px minmax(200px, 1fr) minmax(120px, 220px);
   align-items: center;
   padding: 0 clamp(12px, 3vw, 24px);
@@ -21,13 +24,18 @@ export const HeaderContainer = styled(ColorContainer).attrs({ as: "header" })<{$
   backdrop-filter: ${({ theme }) => theme.blur};
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-  transition: height 0.3s cubic-bezier(0.4,0,0.2,1);
+  transition: height 0.3s cubic-bezier(0.4,0,0.2,1),
+              left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   ${mediaQueries.mobile} {
     height: ${({ $isAtTop }) => $isAtTop ? '72px' : '56px'};
     grid-template-columns: 48px 1fr auto;
     gap: 12px;
     padding: 0 16px;
+    min-width: 80%;
   }
 
   ${mediaQueries.headerCollapse} {
@@ -51,17 +59,14 @@ export const Avatar = styled.img`
 export const Nav = styled.nav`
   display: flex;
   gap: clamp(12px, 3vw, 24px);
-  overflow-x: auto;
+
   scrollbar-width: none;
   -ms-overflow-style: none;
-  
+
   &::-webkit-scrollbar {
     display: none;
   }
 
-  ${mediaQueries.navCollapse} {
-    display: none;
-  }
 `;
 
 export const NavButton = styled.button<{ active: boolean }>`
@@ -84,10 +89,13 @@ export const NavButton = styled.button<{ active: boolean }>`
   align-items: center;
   justify-content: center;
 
+
+
   &:hover {
     background: ${({ active, theme }) => 
       active ? theme.colors.primary : theme.colors.primary + '22'};
-    transform: translateY(-1px);
+    transform: translateY(2px) scale(1.05);
+    box-shadow: inset 0 0 0 2px ${({ theme }) => theme.colors.primary};
   }
 
   &:active {

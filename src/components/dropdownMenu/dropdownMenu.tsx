@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { DropdownContainer, DropdownList, DropdownItem, DropdownOverlay } from './dropdownMenu.styles';
 import Button from '../button/button';
+import { useTheme } from 'styled-components';
 
 export type DropdownItemType = {
   label: string;
@@ -15,6 +16,7 @@ type DropdownItemProps = {
 
 function DropdownItemComponent({ item, onSelect }: DropdownItemProps) {
   const isComponent = typeof item.action !== 'function';
+
   function handleClick() {
     if (!isComponent) {
       onSelect(item);
@@ -38,7 +40,7 @@ function DropdownMenu({ items, trigger }: DropdownMenuProps) {
   const [alignRight, setAlignRight] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const listRef = React.useRef<HTMLUListElement>(null);
-
+  const theme = useTheme();
   function handleToggle() {
     setOpen(function toggleOpen(prevOpen) {
       return !prevOpen;
@@ -62,7 +64,8 @@ function DropdownMenu({ items, trigger }: DropdownMenuProps) {
       const wouldOverflow = containerRect.left + listRect.width > viewportWidth - 20;
       setAlignRight(wouldOverflow);
     }
-  }, [open]);
+  }, [open, theme]);
+
 
   return (
     <DropdownContainer ref={containerRef}>

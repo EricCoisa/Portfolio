@@ -3,7 +3,8 @@
     "title": "Welcome to my portfolio"
   },
   "about": {
-    "title": "About Me"
+    "title": "About Me",
+    "text": "I am a passionate software developer with experience in building web applications using modern technologies."
   },
   "projects": {
     "repository": "Repository",

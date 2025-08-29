@@ -1,13 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { Title, Button } from './about.styles';
+import { Title, Text } from './about.styles';
 
 import { connectUtil } from '../../utils/reduxUtil';
 import type { PropsFromRedux } from '../../utils/reduxUtil';
 import type { RootStateBase } from '../../store/rootReducer';
 import { SetCurrentView } from '../../store/application/actions/applicationAction';
 import  ViewContainer  from '../../components/global/viewContainer/viewContainer';
-import Modal from '../../components/modal/modal';
-import { useState } from 'react';
 
 const connector = connectUtil(
   (state: RootStateBase) => ({
@@ -20,18 +18,17 @@ export type AboutProps = PropsFromRedux<typeof connector>;
 
 function About(props: AboutProps) {
   const { t } = useTranslation();
-  const [s, setS] = useState(false);
-  function handleChangeToAbout() {
-    setS(true)
-    props.SetCurrentView('about');
-  }
+
+  // Detect mobile
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+  const maskConfig = isMobile
+    ? { src: './mask/drawnMobile.webp', backgroundSize: 'cover', position: 'right' }
+    : { src: './mask/drawn.webp', backgroundSize: 'cover', position: 'right' };
+
   return (
-    <ViewContainer name={t('navigation.about')} color='rgba(104, 192, 32, 0.2)' background='rgba(30,144,255,0.18)'>
+    <ViewContainer mask={maskConfig} icon='mdi:information-outline' name={t('navigation.about')} color='rgba(104, 192, 32, 0.2)' background='rgba(30,144,255,0.18)'>
       <Title>{t('about.title')}</Title>
-      <Button onClick={handleChangeToAbout}>
-        Ir para About
-      </Button>
-      <Modal size='lg' onClose={() => {setS(!s)}} isOpen={s}>teste</Modal>
+      <Text>{t('about.text')}</Text>
     </ViewContainer>
   );
 }

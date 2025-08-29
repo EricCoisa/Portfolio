@@ -18,6 +18,28 @@ const Title = styled.h1`
   }
 `;
 
+const Text = styled.p`
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.3;
+  text-align: justify;
+  margin: 0 auto 2rem auto;
+  
+  color: ${({ theme }) => theme.colors.text};
+  width:50%;
+  transform:translateX(50%);
+
+
+  @media (max-width: 768px) {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1rem, 6vw, 1.5rem);
+    margin-bottom: 1rem;
+  }
+`;
+
 const Button = styled.button`
   padding: clamp(0.625rem, 2vw, 0.75rem) clamp(1.25rem, 3vw, 1.5rem);
   font-size: clamp(0.875rem, 2vw, 1rem);
@@ -52,4 +74,4 @@ const Button = styled.button`
   }
 `;
 
-export { Title, Button };
+export { Title, Button, Text };

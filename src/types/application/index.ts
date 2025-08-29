@@ -13,7 +13,7 @@ export const CURRENTVIEW_SET = 'CURRENTVIEW_SET';
 export const CURRENTLANGUAGE_SET = 'CURRENTLANGUAGE_SET';
 
 export interface ApplicationState {
-    currentView: string | undefined;
+    currentView: {name: string; byClick: boolean} | undefined;
     currentLanguage: string;
     currentTheme: DefaultTheme;
     themeList: DefaultTheme[];
@@ -48,7 +48,7 @@ export interface ApplicationThemeAction {
 
 export interface ApplicationAction {
     type: typeof CURRENTVIEW_SET;
-    payload: string;
+    payload: {name: string; byClick: boolean};
 }
 
 export interface ApplicationLanguageAction {

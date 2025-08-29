@@ -1,8 +1,9 @@
 import styled from 'wrapper-styled-components';
 import { ColorContainer } from '../colorContainer/colorContainer';
+import type { ViewMaskProps } from './viewContainer';
 
 interface ViewContainerProps {
-  $masksrc?: string;
+  $masksrc?: ViewMaskProps;
 }
 
 export const ViewContainer = styled(ColorContainer).attrs({ as: "div" })<ViewContainerProps>`
@@ -11,27 +12,23 @@ export const ViewContainer = styled(ColorContainer).attrs({ as: "div" })<ViewCon
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: ${({ theme }) => `calc(100vh - ${theme.header.normal})`};
-  
+  min-height: ${({ theme }) => `calc(100vh - ${theme.header.isOnScroll.height})`};
   padding: 2rem clamp(1rem, 4vw, 2rem) 2rem;
   box-sizing: border-box;
   width: 100%;
-
   margin: 0 auto;
   border-radius: 20px;
-
-
+  position: relative;
   overflow: hidden;
 
   ${({ $masksrc }) => $masksrc && `
-    background-image: url(${$masksrc});
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 1;
+    background-image: url(${$masksrc.backgroundImage || $masksrc.src});
+    background-attachment: ${$masksrc.backgroundAttachment || 'fixed'};
+    background-size: ${$masksrc.backgroundSize || 'cover'};
+    background-position: ${$masksrc.backgroundPosition || $masksrc.position || 'center'};
+    background-repeat: ${$masksrc.backgroundRepeat || 'no-repeat'};
+    opacity: ${ $masksrc.opacity || $masksrc.opacity || 1};
   `}
-
   
   @media (max-width: 768px) {
     padding: 76px 1rem 2rem;
@@ -41,4 +38,18 @@ export const ViewContainer = styled(ColorContainer).attrs({ as: "div" })<ViewCon
   @media (max-width: 480px) {
     padding: 72px 1rem 1rem;
   }
+`;
+
+export const VideoBackground = styled.video<{width?: string, height?: string}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  filter: blur(8px);
+  border-radius: 20px;
 `;

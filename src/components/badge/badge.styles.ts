@@ -1,13 +1,15 @@
 import styled from 'wrapper-styled-components';
-
-export const BadgeContainerStyled = styled.span<{ color?: string; size?: 'sm' | 'md' | 'lg' }>`
+export const BadgeContainerStyled = styled.span<{
+  color?: string;
+  size?: 'sm' | 'md' | 'lg';
+}>`
   ${styled.themeLayer};
-  display: flex;
+  display: inline-flex;
   align-items: center;
   border-radius: 999px;
   font-weight: 500;
-  background: ${({ color, theme }) => color || theme.colors.primary};
-  color: ${({ theme }) => theme.colors.text};
+  background: ${({ color, theme }) => color || theme.badge.background};
+  color: ${({ theme }) => theme.badge.color};
   border: 1px solid ${({ color, theme }) => color || theme.colors.primary};
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   letter-spacing: 0.02em;
@@ -15,19 +17,37 @@ export const BadgeContainerStyled = styled.span<{ color?: string; size?: 'sm' | 
   white-space: nowrap;
   transition: filter 0.2s, border-color 0.2s, background 0.2s;
   cursor: default;
-  font-size: ${({ size }) => size === 'sm' ? '0.8em' : size === 'lg' ? '1.15em' : '0.95em'};
-  padding: ${({ size }) => size === 'sm' ? '0.12em 0.35em' : size === 'lg' ? '0.28em 0.85em' : '0.18em 0.55em'};
+
+  ${({ size }) =>
+    size === 'sm'
+      ? `
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
+        min-height: 20px;
+      `
+      : size === 'lg'
+      ? `
+        font-size: 0.9rem;
+        padding: 0.35rem 0.8rem;
+        min-height: 28px;
+      `
+      : `
+        font-size: 0.8rem;
+        padding: 0.25rem 0.6rem;
+        min-height: 24px;
+      `};
+
   & > .icon-circle:first-child {
-    margin-left: -0.55em;
+    margin-left: -0.25em;
   }
   & > .icon-circle:last-child {
-    margin-right: -0.55em;
+    margin-right: -0.25em;
   }
+
   &:hover {
     filter: saturate(1.5) brightness(1.1);
     border-color: ${({ color, theme }) => color || theme.colors.primary};
     background: ${({ color, theme }) => color || theme.colors.primary};
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   }
-  height: ${({ size }) => size === 'sm' ? '1.4em' : size === 'lg' ? '2.2em' : 'auto'};
 `;

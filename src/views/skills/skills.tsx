@@ -33,7 +33,7 @@ function Skills(_props: SkillsProps) {
   const iconWidth = 32;
   const iconHeight = 32;
   return (
-    <ViewContainer style={{display:"unset",  padding: '0', maxHeight: `calc(100vh - ${theme.header.normal})` }} name={t('navigation.skills')} color='rgba(10, 0, 146, 0.2)' background='rgba(255, 47, 238, 0.18)'>
+    <ViewContainer icon='mdi:school-outline' style={{display:"unset",  padding: '0', }} name={t('navigation.skills')} color='rgba(10, 0, 146, 0.2)' background='rgba(255, 47, 238, 0.18)'>
       <SkillBannerContainer>
         <Banner items={[
           <SkillBannerItem><Icon icon="mdi:react" width={iconWidth} height={iconHeight} /></SkillBannerItem>,
@@ -59,32 +59,32 @@ function Skills(_props: SkillsProps) {
             </CardHeader>
             {t("skills.react.text")}
             <Line />
-            <CardContent align='center' mode="wrap" maxVertical={3} maxHorizontal={3}>
-              <Badge>
+            <CardContent align='center'>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="lineicons:vite" width={16} height={16} />
                 </IconCircle>
                 <div>Vite</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="simple-icons:lerna" width={16} height={16} />
                 </IconCircle>
                 <div>Lerna</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="akar-icons:redux-fill" width={16} height={16} />
                 </IconCircle>
                 <div>Redux</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="simple-icons:storybook" width={16} height={16} />
                 </IconCircle>
                 <div>Storybook</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="simple-icons:styledcomponents" width={16} height={16} />
                 </IconCircle>
@@ -101,32 +101,32 @@ function Skills(_props: SkillsProps) {
             </CardHeader>
             {t("skills.reactNative.text")}
             <Line />
-            <CardContent align="center" mode="wrap" maxVertical={3} maxHorizontal={3}>
-              <Badge>
+            <CardContent align="center">
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="simple-icons:expo" width={16} height={16} />
                 </IconCircle>
                 <div>Expo</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="material-symbols:android" width={16} height={16} />
                 </IconCircle>
                 <div>Android Studio</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="material-symbols:ios" width={16} height={16} />
                 </IconCircle>
                 <div>iOS</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="mdi:firebase" width={16} height={16} />
                 </IconCircle>
                 <div>Firebase</div>
               </Badge>
-              <Badge>
+              <Badge size="sm">
                 <IconCircle>
                   <Icon icon="mingcute:notification-fill" width={16} height={16} />
                 </IconCircle>
@@ -143,7 +143,7 @@ function Skills(_props: SkillsProps) {
             </CardHeader>
             {t("skills.apis.text")}
             <Line />
-            <CardContent align="center" mode="wrap" maxVertical={3} maxHorizontal={3}>
+            <CardContent align="center">
               <Badge>
                 <IconCircle>
                   <Icon icon="teenyicons:c-sharp-outline" width={16} height={16} />
@@ -186,7 +186,7 @@ function Skills(_props: SkillsProps) {
             </CardHeader>
             {t("skills.devops.text")}
             <Line />
-            <CardContent align="center" mode="wrap" maxVertical={3} maxHorizontal={3}>
+            <CardContent align="center">
               <Badge>
                 <IconCircle>
                   <Icon icon="mdi:github" width={16} height={16} />

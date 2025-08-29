@@ -18,10 +18,28 @@ const liquidGlassTheme = {
   boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255,255,255,0.25)",
   glassOverlay: "linear-gradient(120deg, rgba(155,89,182,0.18) 0%, rgba(30,144,255,0.12) 100%)",
   hoverHighlight: "rgba(255, 255, 255, 0.2)",
-    header: {
-    top: "90px",
-    normal: "60px",
+  header: {
+    isOnTop: {
+      borderRadius: "0 0 0.75rem 0.75rem",
+      width: "100%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      height: "5.625rem", // 90px
+    },
+    isOnScroll: {
+      borderRadius: "0 0 0.75rem 0.75rem",
+      width: "50%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      height: "3.75rem", // 60px
+    }
   },
+  badge: {
+    background: "rgba(255, 255, 255, 0.1)",
+    color: "#FFFFFF",
+    borderRadius: "12px",
+    padding: "4px 8px",
+  }
 } as DefaultTheme;
 
 export default liquidGlassTheme;

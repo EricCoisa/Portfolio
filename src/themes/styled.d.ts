@@ -18,8 +18,26 @@ declare module 'styled-components' {
     boxShadow: string;
     glassOverlay: string;
     header: {
-      top: string;
-      normal: string;
+      isOnTop:{
+        height: string;
+        width: string;
+         transform: string;
+          left: string;
+           borderRadius: string;
+      },
+      isOnScroll:{
+         height: string;
+        width: string;
+         transform: string;
+          left: string;
+           borderRadius: string;
+      }
+    };
+    badge: {
+      background: string;
+      color: string;
+      borderRadius: string;
+      padding: string;
     };
   }
 }

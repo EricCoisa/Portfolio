@@ -10,7 +10,7 @@ export interface BadgeProps {
   style?: React.CSSProperties;
 }
 
-export function Badge({ color, size = 'sm', children, style }: BadgeProps) {
+export function Badge({ color, size = 'md', children, style }: BadgeProps) {
   return (
     <BadgeContainerStyled color={color} size={size} style={style}>
       {children}

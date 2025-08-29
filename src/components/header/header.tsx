@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { HeaderContainer, Avatar, Nav, NavButton, Switches, MobileNav, MobileNavButton, MenuToggle } from './header.styles';
+import { HeaderContainer, Avatar, Nav, NavButton } from './header.styles';
 
 import Switch from '../switch/Switch';
 import { connectUtil } from '../../utils/reduxUtil';
@@ -29,9 +29,12 @@ export type HeaderProps = PropsFromRedux<typeof connector>;
 
 function Header(props: HeaderProps) {
   const { t } = useTranslation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const [reactScanEnabled, setReactScanEnabled] = useState(false);
+  const isMiniHeader = ( 
+    (isAtTop == true && props.currentTheme.header.isOnTop.width != "100%" ||
+    isAtTop == false && props.currentTheme.header.isOnScroll.width != "100%")
+  )
 
   // Detecta scroll para mudar tamanho do header
   useEffect(() => {
@@ -42,6 +45,15 @@ function Header(props: HeaderProps) {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  
+  useEffect(() => {
+    //remove o foco do elemento ativo
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }, [props.currentView]);
 
 
     function handleReactScan() {
@@ -56,11 +68,18 @@ function Header(props: HeaderProps) {
     }, [reactScanEnabled]);
 
   function handleNavClick(view: string) {
-    props.SetCurrentView(view);
+    props.SetCurrentView(view, true);
     setMobileMenuOpen(false);
     // Scroll suave para o container correspondente
     const el = document.getElementById(view);
     if (el) {
+      const observer = new window.IntersectionObserver((entries, obs) => {
+        if (entries[0].isIntersecting) {
+             props.SetCurrentView(view, false);
+          obs.disconnect();
+        }
+      }, { threshold: 0.6 }); // 60% do elemento visível
+      observer.observe(el);
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
@@ -78,9 +97,6 @@ function Header(props: HeaderProps) {
     props.SetCurrentTheme(value);
   }
 
-  function toggleMobileMenu() {
-    setMobileMenuOpen(!mobileMenuOpen);
-  }
 
   function renderSettingsTrigger(toggle: () => void, open: boolean) {
     return (
@@ -90,7 +106,8 @@ function Header(props: HeaderProps) {
         aria-haspopup="true"
         aria-expanded={open}
       >
-        {t('header.settings')} <Icon icon="mdi:chevron-down" width="16" height="16" />
+         <Icon icon={"mdi:settings"} width={24} height={24} />
+       
       </NavButton>
     );
   }
@@ -101,35 +118,29 @@ function Header(props: HeaderProps) {
     };
   }
 
+
   return (
     <>
       <HeaderContainer $isAtTop={isAtTop}>
-        <Avatar src="/public/vite.svg" alt="Portfolio Avatar" />
+        {/* Avatar só aparece em desktop */}
+        {!window.matchMedia('(max-width: 768px)').matches && (
+          <Avatar src="/public/vite.svg" alt="Portfolio Avatar" />
+        )}
 
         {/* Desktop Navigation */}
         <Nav>
           {props.headerButton.map(function renderNavItem(item, key) {
+            
             return (
               <NavButton
                 key={key}
-                active={props.currentView === item.name}
+                active={props.currentView?.name === item.name}
                 onClick={createNavClickHandler(item.name)}
               >
-                {item.name}
+                {isMiniHeader ?  <Icon icon={item.icon} width={24} height={24} /> : item.name}
               </NavButton>
             );
           })}
-        </Nav>
-
-        <Switches>
-          {/* Menu Mobile */}
-          <MenuToggle
-            onClick={toggleMobileMenu}
-            aria-label="Toggle navigation menu"
-            aria-expanded={mobileMenuOpen}
-          >
-            <Icon icon={mobileMenuOpen ? "mdi:close" : "mdi:menu"} width="24" height="24" />
-          </MenuToggle>
 
           {/* Settings Dropdown */}
           <DropdownMenu
@@ -170,23 +181,11 @@ function Header(props: HeaderProps) {
           
           ]}
           />
-        </Switches>
+        </Nav>
+
       </HeaderContainer>
 
-      {/* Mobile Navigation */}
-      <MobileNav isOpen={mobileMenuOpen}>
-        {props.headerButton.map(function renderMobileNavItem(item, key) {
-          return (
-            <MobileNavButton
-              key={key}
-              active={props.currentView === item.name}
-              onClick={createNavClickHandler(item.name)}
-            >
-              {item.name}
-            </MobileNavButton>
-          );
-        })}
-      </MobileNav>
+  
     </>
   );
 }

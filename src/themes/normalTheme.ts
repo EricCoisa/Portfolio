@@ -19,9 +19,27 @@ const normalTheme = {
   glassOverlay: "none",
   hoverHighlight: "rgba(255, 255, 255, 0.2)",
   header: {
-    top: "90px",
-    normal: "60px",
+    isOnTop: {
+      borderRadius: "unset",
+      width: "100%",
+      left: "0",
+      transform: "unset",
+      height: "90px",
+    },
+    isOnScroll: {
+      borderRadius: "unset",
+      width: "100%",
+      left: "0",
+      transform: "unset",
+      height: "90px",
+    }
   },
+  badge: {
+    background: "rgba(255, 255, 255, 0.1)",
+    color: "#FFFFFF",
+    borderRadius: "12px",
+    padding: "4px 8px",
+  }
 } as DefaultTheme;
 
 export default normalTheme;

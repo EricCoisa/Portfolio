@@ -36,7 +36,15 @@ function Projects(_props: HomeProps) {
 
   function handleProjectClick(event: MouseEvent<HTMLButtonElement>) {
     const link = event.currentTarget.dataset.link; // Accesses data-id
-    setProjectModal(link);
+
+    // Check if the user is on a mobile device
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+    if (isMobile && link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    } else {
+      setProjectModal(link);
+    }
   }
 
   function handleCloseModal() {
@@ -48,8 +56,10 @@ function Projects(_props: HomeProps) {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
+
+
   return (
-    <ViewContainer name={t('navigation.projects')} color='rgba(255, 0, 0, 0.2)' background='rgba(251, 255, 0, 0.18)'>
+    <ViewContainer icon='mdi:folder-outline' name={t('navigation.projects')} color='rgba(255, 0, 0, 0.2)' background='rgba(251, 255, 0, 0.18)'>
       <Title>{t('projects.title')}</Title>
       <CardContainer align="center" mode="grid" maxHorizontal={3}>
         {/* Coap / API */}
@@ -74,19 +84,21 @@ function Projects(_props: HomeProps) {
           {t("projects.coap.text")}
           <Line />
 
-          <CardContent align='center' mode="wrap" maxVertical={3} maxHorizontal={3}>
-            <Badge>
-              <IconCircle>
-                <Icon icon="mdi:react" width={32} height={32} />
-              </IconCircle>
-              <div>React</div>
-            </Badge>
+          <CardContent align='center'>
             <Badge>
               <IconCircle>
                 <Icon icon="simple-icons:styledcomponents" width={16} height={16} />
               </IconCircle>
               <div>Styled-Components</div>
             </Badge>
+
+            <Badge >
+              <IconCircle>
+                <Icon icon="mdi:react" width={32} height={32} />
+              </IconCircle>
+              <div>React</div>
+            </Badge>
+
             <Badge>
               <IconCircle>
                 <Icon icon="akar-icons:redux-fill" width={16} height={16} />
@@ -99,17 +111,26 @@ function Projects(_props: HomeProps) {
         {/* CustomDeploy / API */}
         <Card>
           <CardHeader>
-            <Icon icon="mdi:react" width={32} height={32} />
-            <CardTitle>{t("projects.customDeploy.title")}</CardTitle>
+            <CardHeaderMain>
+              <Icon icon="mdi:react" width={32} height={32} />
+              <CardTitle>{t("projects.customDeploy.title")}</CardTitle>
+            </CardHeaderMain>
+            <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button size='md' data-link="https://github.com/EricCoisa/CustomDeploy" onClick={OpenLinkTab}>
+                <Icon icon="mdi:github" width={20} height={20} />
+                {t("projects.repository")}
+              </Button>
+            </CardActions>
           </CardHeader>
+
           {t("projects.customDeploy.text")}
           <Line />
-          <CardContent align='center' mode="wrap" maxVertical={3} maxHorizontal={3}>
+          <CardContent align='center'>
             <Badge>
               <IconCircle>
-                <Icon icon="teenyicons:c-sharp-outline" width={16} height={16} />
+                <Icon icon="simple-icons:styledcomponents" width={16} height={16} />
               </IconCircle>
-              <div>C#</div>
+              <div>Styled-Components</div>
             </Badge>
             <Badge>
               <IconCircle>
@@ -117,6 +138,13 @@ function Projects(_props: HomeProps) {
               </IconCircle>
               <div>.NET Core</div>
             </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="teenyicons:c-sharp-outline" width={16} height={16} />
+              </IconCircle>
+              <div>C#</div>
+            </Badge>
+
 
             <Badge>
               <IconCircle>
@@ -124,12 +152,7 @@ function Projects(_props: HomeProps) {
               </IconCircle>
               <div>React</div>
             </Badge>
-            <Badge>
-              <IconCircle>
-                <Icon icon="simple-icons:styledcomponents" width={16} height={16} />
-              </IconCircle>
-              <div>Styled-Components</div>
-            </Badge>
+
             <Badge>
               <IconCircle>
                 <Icon icon="akar-icons:redux-fill" width={16} height={16} />
@@ -145,13 +168,20 @@ function Projects(_props: HomeProps) {
               <Icon icon="mdi:dot-net" width={32} height={32} />
               <CardTitle>NetCore Api StarterPack</CardTitle>
             </CardHeaderMain>
+            <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button size='md' data-link="https://github.com/EricCoisa/AspNetCoreApiBase" onClick={OpenLinkTab}>
+                <Icon icon="mdi:github" width={20} height={20} />
+                {t("projects.repository")}
+              </Button>
+            </CardActions>
           </CardHeader>
+
           <div style={{ textAlign: 'left' }}>
             {t("projects.netcoreStarter.text").split("\n").map((line, index) => (
               <p key={index}>{line}</p>
             ))}</div>
           <Line />
-          <CardContent align='center' mode="wrap" maxVertical={3} maxHorizontal={3}>
+          <CardContent align='center'>
             <Badge>
               <IconCircle>
                 <Icon icon="mdi:dot-net" width={16} height={16} />

@@ -5,8 +5,8 @@ const IconCircleStyled = styled.span`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.colors.primary || '#3498db'};
-  background: ${({ theme }) => theme.colors.cardBackground || '#222'};
+  border: 2px solid ${({ theme }) => theme.colors.text || '#3498db'};
+  background: ${({ color, theme }) => color || theme.colors.primary};
   width: 32px;
   height: 32px;
   margin-right: 0.5rem;

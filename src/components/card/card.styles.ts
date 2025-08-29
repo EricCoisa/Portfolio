@@ -1,4 +1,3 @@
-
 import styled from 'wrapper-styled-components';
 import { css } from 'styled-components';
 import { motion } from 'framer-motion';
@@ -21,7 +20,7 @@ export const CardsWrapperStyled = styled.div<{
         > * {
           max-width: 100%;
         }
-            ${maxVertical ? `overflow-y: auto;` : ''}
+        ${maxVertical ? `overflow-y: auto;` : ''}
       `;
     }
     if (mode === 'horizontal') {
@@ -31,45 +30,45 @@ export const CardsWrapperStyled = styled.div<{
         > * {
           max-height: 100%;
         }
-            ${maxHorizontal ? `overflow-x: auto;` : ''}
+        ${maxHorizontal ? `overflow-x: auto;` : ''}
       `;
     }
     if (mode === 'grid') {
-        const itemsPerRow = maxHorizontal || 3;
-        const gapSize = 1.5;
-        const cardWidth = `calc((100% - ${gapSize * (itemsPerRow - 1)}rem) / ${itemsPerRow})`;
-        
-        return css`
+      const itemsPerRow = maxHorizontal || 3;
+      const gapSize = 1.5;
+      const cardWidth = `calc((100% - ${gapSize * (itemsPerRow - 1)}rem) / ${itemsPerRow})`;
+
+      return css`
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: ${align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start'};
+        align-items: stretch;
+
+        > * {
+          box-sizing: border-box;
           display: flex;
-          flex-wrap: wrap;
-          gap: 1.5rem;
-          justify-content: ${align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start'};
-          align-items: stretch;
-          
-          > * {
-            box-sizing: border-box;
-            display: flex;
-            min-height: 300px;
-            
-            /* Mobile: 1 coluna */
-            @media (max-width: 767px) {
-              flex: 1 0 100%;
-              min-height: auto;
-            }
-            
-            /* Tablet: 2 colunas */
-            @media (min-width: 768px) and (max-width: 1023px) {
-              flex: 0 0 calc(50% - 0.75rem);
-            }
-            
-            /* Desktop: número especificado de colunas */
-            @media (min-width: 1024px) {
-              flex: 0 0 ${cardWidth};
-            }
+          min-height: 300px;
+
+          /* Mobile: 1 coluna */
+          @media (max-width: 767px) {
+            flex: 1 0 100%;
+            min-height: auto;
           }
-          
-            ${maxVertical ? `overflow-y: auto;` : ''}
-        `;
+
+          /* Tablet: 2 colunas */
+          @media (min-width: 768px) and (max-width: 1023px) {
+            flex: 0 0 calc(50% - 0.75rem);
+          }
+
+          /* Desktop: número especificado de colunas */
+          @media (min-width: 1024px) {
+            flex: 0 0 ${cardWidth};
+          }
+        }
+
+        ${maxVertical ? `overflow-y: auto;` : ''}
+      `;
     }
     if (mode === 'wrap') {
       return css`
@@ -78,31 +77,41 @@ export const CardsWrapperStyled = styled.div<{
         gap: 1.5rem;
         width: 100%;
         justify-content: ${align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start'};
-        
+
         > * {
           flex: 0 0 auto;
           min-width: fit-content;
         }
-        
+
         /* Limita o número máximo de cards por linha */
-        ${maxHorizontal ? `
+        ${maxHorizontal
+          ? `
           &::after {
             content: '';
             flex-basis: 100%;
             height: 0;
             order: ${maxHorizontal};
           }
-          
+
           > *:nth-child(n+${maxHorizontal + 1}) {
             order: ${maxHorizontal + 1};
           }
-        ` : ''}
-        
-            ${maxVertical ? `overflow-y: auto;` : ''}
+        `
+          : ''}
+
+        ${maxVertical ? `overflow-y: auto;` : ''}
       `;
     }
     return '';
   }}
+
+  /* Garantir responsividade para todos os modos */
+  @media (max-width: 767px) {
+    > * {
+      flex: 1 0 100%;
+      min-width: 100%;
+    }
+  }
 `;
 export const CardHeaderStyled = styled.div`
   width: 100%;
@@ -169,7 +178,7 @@ export const CardAnimateStyled = styled(motion.div)<{ size?: 'sm' | 'md' | 'lg' 
   width: 100%;
   height: 100%;
   box-shadow: ${({ theme }) => theme.boxShadow};
-  transition: box-shadow 0.3s, background 0.3s;
+  transition: box-shadow 0.3s, background 0.3s, transform 0.3s, border 0.3s;
   text-align: justify;
   ${({ size }) => {
     switch (size) {
@@ -182,6 +191,10 @@ export const CardAnimateStyled = styled(motion.div)<{ size?: 'sm' | 'md' | 'lg' 
         return `padding: 1.5rem; min-width: 220px; min-height: 120px; font-size: 1rem;`;
     }
   }}
+
+
+
+
 `;
 
 export const CardContainerStyled = styled.div<{ size?: 'sm' | 'md' | 'lg' }>`
@@ -189,79 +202,45 @@ export const CardContainerStyled = styled.div<{ size?: 'sm' | 'md' | 'lg' }>`
 
   display: flex;
   align-items: center;
-  overflow: hidden;
+
   box-sizing: border-box;
   width: 100%;
   flex: 1;
-  
+
   /* Responsivo */
   @media (max-width: 767px) {
     min-height: auto;
   }
-  
+
+  transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+
+  &:hover > div {
+    box-shadow: inset 0 0 0 2px ${({ theme }) => theme.colors.primary};
+  }
+
 `;
 
 
+
+
 export const CardContentContainerStyled = styled.div<{
-  mode?: 'vertical' | 'horizontal' | 'wrap';
-  maxVertical?: number;
-  maxHorizontal?: number;
   align?: 'left' | 'center' | 'right';
 }>`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
   width: 100%;
+
   justify-content: ${({ align }) =>
     align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start'};
-  ${({ mode, maxVertical, maxHorizontal }) => {
-    if (mode === 'vertical') {
-      return css`
-        flex-direction: column;
-        flex-wrap: wrap;
-        > * {
-          max-width: 100%;
-        }
-        ${maxVertical ? `max-height: calc(${maxVertical} * 140px); overflow-y: auto;` : ''}
-      `;
-    }
-    if (mode === 'horizontal') {
-      return css`
-        flex-direction: row;
-        flex-wrap: wrap;
-        > * {
-          max-height: 100%;
-        }
-  ${maxHorizontal ? `overflow-x: auto;` : ''}
-      `;
-    }
-    if (mode === 'wrap') {
-      return css`
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        width: 100%;
-        
-        > * {
-          flex: 0 0 auto;
-          min-width: fit-content;
-        }
-        
-        /* Limita o número máximo de itens por linha */
-        ${maxHorizontal ? `
-          &::after {
-            content: '';
-            flex-basis: 100%;
-            height: 0;
-            order: ${maxHorizontal};
-          }
-          
-          > *:nth-child(n+${maxHorizontal + 1}) {
-            order: ${maxHorizontal + 1};
-          }
-        ` : ''}
-      `;
-    }
-    return '';
-  }}
+
+  > * {
+    flex: 0 1 auto;      /* deixa a badge encolher se faltar espaço */
+      /* largura mínima para manter consistência */
+  }
 `;

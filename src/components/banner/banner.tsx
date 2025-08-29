@@ -52,7 +52,7 @@ export function Banner({ items, children, velocity = 60, itemMinWidth = 200 }: B
   }, [trackWidth, velocity, controls]);
 
   return (
-    <BannerContainer ref={containerRef} style={{ width: '100%', overflow: 'hidden', position: 'relative' }}>
+    <BannerContainer ref={containerRef} style={{ width: '100%',  position: 'relative' }}>
       <motion.div
         ref={trackRef}
         animate={controls}

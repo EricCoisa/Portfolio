@@ -3,7 +3,8 @@
     "title": "Bem-vindo ao meu portfólio"
   },
   "about": {
-    "title": "Sobre mim"
+    "title": "Sobre mim",
+    "text": "Desenvolvedor Full-Stack com experiência desde 2018 em projetos web e mobile, atuando com React, React Native, TypeScript, C# e ASP.NET Core. Especialista em arquiteturas modernas, como monorepos e desenvolvimento orientado a componentes, além de APIs RESTful."
   },
   "projects": {
     "repository": "Repositório",

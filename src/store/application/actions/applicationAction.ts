@@ -34,10 +34,10 @@ export function SetCurrentTheme(theme: DefaultTheme): AppThunk {
 }
 
 
-export function SetCurrentView(currentView: string): AppThunk {
+export function SetCurrentView(name: string, byClick : boolean = false): AppThunk {
     return async function dispatchSetCurrentView(dispatch) {
         dispatch({
-            payload: currentView,
+            payload: {name, byClick},
             type: CURRENTVIEW_SET
         });
     };
