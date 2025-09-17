@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { HeaderContainer, Avatar, Nav, NavButton } from './header.styles';
+import { HeaderContainer, Avatar, Nav, NavButton, Title, TitleContainer } from './header.styles';
 
 import Switch from '../switch/Switch';
 import { connectUtil } from '../../utils/reduxUtil';
@@ -126,8 +126,11 @@ function Header(props: HeaderProps) {
     <>
       <HeaderContainer $isAtTop={isAtTop}>
         {/* Avatar só aparece em desktop */}
-        {!window.matchMedia('(max-width: 768px)').matches && (
-          <Avatar src="/vite.svg" alt="Portfolio Avatar" />
+        {!window.matchMedia('(max-width: 768px)').matches && !isMiniHeader && (
+          <TitleContainer>
+            <Avatar src="/vite.svg" alt="Portfolio Avatar" />
+            <Title>Éric Vitor</Title>
+          </TitleContainer>
         )}
 
         {/* Desktop Navigation */}

@@ -60,6 +60,9 @@ function Projects(props: HomeProps) {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
+  function handleCopyReduxVisualizer() {
+    navigator.clipboard.writeText('npm install redux-visualizer');
+  }
 
 
   return (
@@ -128,6 +131,12 @@ function Projects(props: HomeProps) {
             </CardActions>
           </CardHeader>
           {t("projects.reduxView.text")}
+          <div style={{ width: '100%', marginTop: 8, textAlign: 'center', marginBottom: 8 }}>
+            <Button size='sm' onClick={handleCopyReduxVisualizer}>
+              <Icon icon="mdi:content-copy" width={20} height={20} />
+              npm install redux-visualizer
+            </Button>
+          </div>
           <Line />
           <CardContent align='center'>
             <Badge>

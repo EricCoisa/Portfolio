@@ -2,6 +2,17 @@ import styled from 'wrapper-styled-components';
 import { ColorContainer } from '../global/colorContainer/colorContainer';
 import { mediaQueries } from '../../styles/breakpoints';
 
+
+export const TitleContainer = styled.h1`
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 24px);
+`;
+
+export const Title = styled.h1`
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+`;
+
 export const HeaderContainer = styled(ColorContainer).attrs({ as: "header" })<{$isAtTop?: boolean}>`
   ${styled.themeLayer};
   position: fixed;
