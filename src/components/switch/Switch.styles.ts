@@ -10,6 +10,7 @@ export const SwitchContainer = styled.div`
 export const SwitchButton = styled.button<{ checked: boolean }>`
   width: clamp(36px, 8vw, 44px);
   height: clamp(20px, 4vw, 24px);
+  min-height:unset;
   border-radius: 50px;
   background: ${({ checked, theme }) => checked ? theme.colors.primary : theme.colors.cardBackground};
   border: 2px solid ${({ checked, theme }) => checked ? theme.colors.primary : 'rgba(255,255,255,0.2)'};

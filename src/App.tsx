@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { connectUtil } from './utils/reduxUtil';
 import type { PropsFromRedux } from './utils/reduxUtil';
 import type { RootStateBase } from './store/rootReducer';
-import { SetCurrentTheme, SetCurrentView } from './store/application/actions/applicationAction';
+import { SetCurrentTheme, SetCurrentView, SetReduxVisualizer } from './store/application/actions/applicationAction';
 import Header from './components/header/header.tsx';
 import Footer from './components/footer/footer.tsx';
 import { AppLayout, MainContent } from './components/layout/AppLayout';
@@ -15,14 +15,16 @@ import About from './views/about/about.tsx';
 import Projects from './views/projects/projects.tsx';
 import Skills from './views/skills/skills.tsx';
 import { useEffect, useRef } from 'react';
+import ReduxVisualizer from 'redux-visualizer';
 
 const connector = connectUtil(
   (state: RootStateBase) => ({
     currentTheme: state.ApplicationReducer.currentTheme,
     currentView: state.ApplicationReducer.currentView,
-    view: state.ApplicationReducer.views
+    view: state.ApplicationReducer.views,
+    reduxVisualizer: state.ApplicationReducer.reduxVisualizer,
   }),
-  { SetCurrentTheme, SetCurrentView }
+  { SetCurrentTheme, SetCurrentView, SetReduxVisualizer }
 );
 
 export type AppProps = PropsFromRedux<typeof connector>;
@@ -71,6 +73,9 @@ useEffect(() => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [props.SetCurrentView, props.view]);
 
+  function handleReduxVisualizer(){
+    props.SetReduxVisualizer(false);
+  }
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
@@ -84,6 +89,11 @@ useEffect(() => {
         </MainContent>
         <Footer />
       </AppLayout>
+      <ReduxVisualizer
+        isOpen={props.reduxVisualizer}
+        onClose={handleReduxVisualizer}
+        overlay={false}
+      />
       <Background />
       <GlassNoise />
     </ThemeProvider>

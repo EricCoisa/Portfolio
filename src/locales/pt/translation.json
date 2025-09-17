@@ -1,6 +1,7 @@
 {
   "home": {
-    "title": "Bem-vindo ao meu portfólio"
+    "title": "Éric Vitor",
+    "text": "Desenvolvedor Full-Stack"
   },
   "about": {
     "title": "Sobre mim",
@@ -10,6 +11,10 @@
     "repository": "Repositório",
     "see": "Projeto",
     "title": "Projetos",
+    "reduxView": {
+      "title": "Redux-Visualizer",
+      "text": "Redux Visualizer é um componente React em forma de modal que permite inspecionar, expandir e editar estados do Redux em tempo real. Ele exibe o estado como uma árvore interativa e oferece suporte completo para edição de valores de qualquer tipo, tornando o processo de debug e visualização mais simples e intuitivo.\n\nTecnologias usadas: JavaScript, TypeScript, Redux, Vite, Css, NPM"
+    },
     "coap": {
       "title": "COAP",
       "text": "O Coap é uma ferramenta visual drag-and-drop para criação de conteúdos educacionais, similar ao Canva ou Wix, mas focada especificamente em materiais didáticos. Com uma interface intuitiva, permite que educadores, designers instrucionais e criadores de conteúdo montem rapidamente materiais interativos sem necessidade de conhecimento técnico."
@@ -20,7 +25,11 @@
     },
     "netcoreStarter": {
       "title": "NetCore Api StarterPack",
-      "text": "API em ASP.NET Core 8.0 pensada como ponto de partida para qualquer projeto que precise do “arroz com feijão”:\n✅ Autenticação JWT\n✅ Gerenciamento de Secrets (User Secrets / Docker Secrets)\n✅ Localizer pronto para múltiplos idiomas\n✅ Estrutura de testes completa (unit, integration e contract)\n✅ Docker pronto para produção"
+      "text": "API em ASP.NET Core 8.0 pensada como ponto de partida para qualquer projeto que precise do \u201carroz com feijão\u201d:\n\u2705 Autenticação JWT\n\u2705 Gerenciamento de Secrets (User Secrets / Docker Secrets)\n\u2705 Localizer pronto para múltiplos idiomas\n\u2705 Estrutura de testes completa (unit, integration e contract)\n\u2705 Docker pronto para produção"
+    },
+    "graphQLAPI": {
+      "title": "GraphQLAPI",
+      "text": "API .NET focada exclusivamente em GraphQL, utilizando HotChocolate e EF Core.\n\nTecnologias usadas: C#, GraphQL, EntityFramework, SQL"
     }
   },
   "navigation": {
@@ -40,7 +49,8 @@
   },
   "header": {
     "settings": "Configurações",
-    "reactScan": "React Scan"
+    "reactScan": "React Scan",
+    "reduxVisualizer": "Redux Visualizer"
   },
   "language": {
     "switch": "Alternar idioma"

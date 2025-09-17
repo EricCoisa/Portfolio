@@ -2,7 +2,7 @@
 import type { AppThunk } from "../../../utils/reduxUtil";
 import i18n from '../../../i18n';
 
-import { CURRENTVIEW_SET, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, VIEWS_ADD, VIEWS_UPDATE } from "../../../types/application";
+import { CURRENTVIEW_SET, CURRENTLANGUAGE_SET, CURRENTTHEME_SET, VIEWS_ADD, VIEWS_UPDATE, REDUXVISUALIZER_SET } from "../../../types/application";
 import type { DefaultTheme } from "styled-components";
 import type { ViewsType, ViewsUpdateType } from "../../../types/views";
 
@@ -53,3 +53,11 @@ export function SetCurrentLanguage(language: string): AppThunk {
     };
 }
 
+export function SetReduxVisualizer(isOpen: boolean): AppThunk {
+    return async function dispatchSetReduxVisualizer(dispatch) {
+        dispatch({
+            payload: isOpen,
+            type: REDUXVISUALIZER_SET
+        });
+    };
+}

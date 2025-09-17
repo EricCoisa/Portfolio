@@ -12,6 +12,7 @@ export const THEME_ADD = 'THEME_ADD';
 export const CURRENTVIEW_SET = 'CURRENTVIEW_SET';
 export const CURRENTLANGUAGE_SET = 'CURRENTLANGUAGE_SET';
 
+export const REDUXVISUALIZER_SET = 'REDUXVISUALIZER_SET';
 export interface ApplicationState {
     currentView: {name: string; byClick: boolean} | undefined;
     currentLanguage: string;
@@ -19,6 +20,7 @@ export interface ApplicationState {
     themeList: DefaultTheme[];
     isLowPerformance: boolean;
     views: ViewsType[];
+    reduxVisualizer: boolean;
 }
 
 export interface ApplicationViewsAction {
@@ -56,4 +58,8 @@ export interface ApplicationLanguageAction {
     payload: string;
 }
 
-export type ApplicationTypes = ApplicationAction | ApplicationLanguageAction | ApplicationThemeAction | ApplicationAddThemeAction | ApplicationLowPerformanceAction | ApplicationViewsAction | ApplicationViewsUpdateAction;
+export interface ReduxVisualizerAction {
+    type: typeof REDUXVISUALIZER_SET;
+    payload: boolean;
+}
+export type ApplicationTypes = ReduxVisualizerAction | ApplicationAction | ApplicationLanguageAction | ApplicationThemeAction | ApplicationAddThemeAction | ApplicationLowPerformanceAction | ApplicationViewsAction | ApplicationViewsUpdateAction;

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { DropdownContainer, DropdownList, DropdownItem, DropdownOverlay } from './dropdownMenu.styles';
 import Button from '../button/button';
 import { useTheme } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 export type DropdownItemType = {
   label: string;
@@ -36,6 +37,7 @@ export interface DropdownMenuProps {
 }
 
 function DropdownMenu({ items, trigger }: DropdownMenuProps) {
+    const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const [alignRight, setAlignRight] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -64,7 +66,7 @@ function DropdownMenu({ items, trigger }: DropdownMenuProps) {
       const wouldOverflow = containerRect.left + listRect.width > viewportWidth - 20;
       setAlignRight(wouldOverflow);
     }
-  }, [open, theme]);
+  }, [open, theme, t ]);
 
 
   return (

@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { connectUtil } from '../../utils/reduxUtil';
 import type { PropsFromRedux } from '../../utils/reduxUtil';
 import type { RootStateBase } from '../../store/rootReducer';
-import { SetCurrentView } from '../../store/application/actions/applicationAction';
+import { SetCurrentView, SetReduxVisualizer } from '../../store/application/actions/applicationAction';
 import ViewContainer from '../../components/global/viewContainer/viewContainer';
 import CardContainer from '../../components/card/cardContainer';
 import Card from '../../components/card/card';
@@ -25,12 +25,12 @@ const connector = connectUtil(
   (state: RootStateBase) => ({
     currentView: state.ApplicationReducer.currentView,
   }),
-  { SetCurrentView }
+  { SetCurrentView, SetReduxVisualizer }
 );
 
 export type HomeProps = PropsFromRedux<typeof connector>;
 
-function Projects(_props: HomeProps) {
+function Projects(props: HomeProps) {
   const [projectModal, setProjectModal] = useState<string | undefined>(undefined);
   const { t } = useTranslation();
 
@@ -47,6 +47,10 @@ function Projects(_props: HomeProps) {
     }
   }
 
+  function handleReduxVisualizer() {
+    props.SetReduxVisualizer(true);
+  }
+
   function handleCloseModal() {
     setProjectModal(undefined);
   }
@@ -61,9 +65,11 @@ function Projects(_props: HomeProps) {
   return (
     <ViewContainer icon='mdi:folder-outline' name={t('navigation.projects')} color='rgba(255, 0, 0, 0.2)' background='rgba(251, 255, 0, 0.18)'>
       <Title>{t('projects.title')}</Title>
-      <CardContainer align="center" mode="grid" maxHorizontal={3}>
+
+
+      <CardContainer align="center" mode="grid" chunkSize={3}>
         {/* Coap / API */}
-        <Card>
+        <Card key="coap">
           <CardHeader>
             <CardHeaderMain>
               <Icon icon="mdi:react" width={32} height={32} />
@@ -80,10 +86,8 @@ function Projects(_props: HomeProps) {
               </Button>
             </CardActions>
           </CardHeader>
-
           {t("projects.coap.text")}
           <Line />
-
           <CardContent align='center'>
             <Badge>
               <IconCircle>
@@ -91,14 +95,12 @@ function Projects(_props: HomeProps) {
               </IconCircle>
               <div>Styled-Components</div>
             </Badge>
-
             <Badge >
               <IconCircle>
                 <Icon icon="mdi:react" width={32} height={32} />
               </IconCircle>
               <div>React</div>
             </Badge>
-
             <Badge>
               <IconCircle>
                 <Icon icon="akar-icons:redux-fill" width={16} height={16} />
@@ -107,9 +109,73 @@ function Projects(_props: HomeProps) {
             </Badge>
           </CardContent>
         </Card>
-
+        {/* ReduxView */}
+        <Card key="reduxview">
+          <CardHeader>
+            <CardHeaderMain>
+              <Icon icon="akar-icons:redux-fill" width={32} height={32} />
+              <CardTitle>{t("projects.reduxView.title")}</CardTitle>
+            </CardHeaderMain>
+            <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button size='md' onClick={handleReduxVisualizer}>
+                <Icon icon="mdi:play" width={20} height={20} />
+                {t("projects.see")}
+              </Button>
+              <Button size='md' data-link="https://github.com/EricCoisa/redux-visualizer" onClick={OpenLinkTab}>
+                <Icon icon="mdi:github" width={20} height={20} />
+                {t("projects.repository")}
+              </Button>
+            </CardActions>
+          </CardHeader>
+          {t("projects.reduxView.text")}
+          <Line />
+          <CardContent align='center'>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:language-javascript" width={16} height={16} />
+              </IconCircle>
+              <div>JavaScript</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:language-typescript" width={16} height={16} />
+              </IconCircle>
+              <div>TypeScript</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="akar-icons:redux-fill" width={16} height={16} />
+              </IconCircle>
+              <div>Redux</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:react" width={16} height={16} />
+              </IconCircle>
+              <div>React</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:css3" width={16} height={16} />
+              </IconCircle>
+              <div>CSS</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:npm" width={16} height={16} />
+              </IconCircle>
+              <div>NPM</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:vite" width={16} height={16} />
+              </IconCircle>
+              <div>Vite</div>
+            </Badge>
+          </CardContent>
+        </Card>
         {/* CustomDeploy / API */}
-        <Card>
+        <Card key="customdeploy">
           <CardHeader>
             <CardHeaderMain>
               <Icon icon="mdi:react" width={32} height={32} />
@@ -122,7 +188,6 @@ function Projects(_props: HomeProps) {
               </Button>
             </CardActions>
           </CardHeader>
-
           {t("projects.customDeploy.text")}
           <Line />
           <CardContent align='center'>
@@ -144,15 +209,12 @@ function Projects(_props: HomeProps) {
               </IconCircle>
               <div>C#</div>
             </Badge>
-
-
             <Badge>
               <IconCircle>
                 <Icon icon="mdi:react" width={32} height={32} />
               </IconCircle>
               <div>React</div>
             </Badge>
-
             <Badge>
               <IconCircle>
                 <Icon icon="akar-icons:redux-fill" width={16} height={16} />
@@ -161,8 +223,8 @@ function Projects(_props: HomeProps) {
             </Badge>
           </CardContent>
         </Card>
-
-        <Card>
+        {/* NetCore Api StarterPack */}
+        <Card key="netcore">
           <CardHeader>
             <CardHeaderMain>
               <Icon icon="mdi:dot-net" width={32} height={32} />
@@ -175,11 +237,11 @@ function Projects(_props: HomeProps) {
               </Button>
             </CardActions>
           </CardHeader>
-
           <div style={{ textAlign: 'left' }}>
             {t("projects.netcoreStarter.text").split("\n").map((line, index) => (
               <p key={index}>{line}</p>
-            ))}</div>
+            ))}
+          </div>
           <Line />
           <CardContent align='center'>
             <Badge>
@@ -220,6 +282,51 @@ function Projects(_props: HomeProps) {
             </Badge>
           </CardContent>
         </Card>
+
+        {/* GraphQLAPI */}
+        <Card key="graphqlapi">
+          <CardHeader>
+            <CardHeaderMain>
+              <Icon icon="mdi:graphql" width={32} height={32} />
+              <CardTitle>{t("projects.graphQLAPI.title")}</CardTitle>
+            </CardHeaderMain>
+            <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button size='md' data-link="https://github.com/EricCoisa/GraphQLAPI" onClick={OpenLinkTab}>
+                <Icon icon="mdi:github" width={20} height={20} />
+                {t("projects.repository")}
+              </Button>
+            </CardActions>
+          </CardHeader>
+          {t("projects.graphQLAPI.text")}
+          <Line />
+          <CardContent align='center'>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:language-csharp" width={16} height={16} />
+              </IconCircle>
+              <div>C#</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:graphql" width={16} height={16} />
+              </IconCircle>
+              <div>GraphQL</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:database" width={16} height={16} />
+              </IconCircle>
+              <div>EntityFramework</div>
+            </Badge>
+            <Badge>
+              <IconCircle>
+                <Icon icon="mdi:database" width={16} height={16} />
+              </IconCircle>
+              <div>SQL</div>
+            </Badge>
+          </CardContent>
+        </Card>
+
       </CardContainer>
 
       <Modal size='xg' isOpen={projectModal != undefined} onClose={handleCloseModal}>

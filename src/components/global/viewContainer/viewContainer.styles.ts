@@ -22,12 +22,28 @@ export const ViewContainer = styled(ColorContainer).attrs({ as: "div" })<ViewCon
   overflow: hidden;
 
   ${({ $masksrc }) => $masksrc && `
-    background-image: url(${$masksrc.backgroundImage || $masksrc.src});
-    background-attachment: ${$masksrc.backgroundAttachment || 'fixed'};
-    background-size: ${$masksrc.backgroundSize || 'cover'};
-    background-position: ${$masksrc.backgroundPosition || $masksrc.position || 'center'};
-    background-repeat: ${$masksrc.backgroundRepeat || 'no-repeat'};
-    opacity: ${ $masksrc.opacity || $masksrc.opacity || 1};
+    position: relative;
+    z-index: 0;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(${$masksrc.backgroundImage || $masksrc.src});
+      background-attachment: ${$masksrc.backgroundAttachment || 'fixed'};
+      background-size: ${$masksrc.backgroundSize || 'cover'};
+      background-position: ${$masksrc.backgroundPosition || $masksrc.position || 'center'};
+      background-repeat: ${$masksrc.backgroundRepeat || 'no-repeat'};
+      opacity: ${$masksrc.opacity || 1};
+      z-index: 0;
+      pointer-events: none;
+    }
+    > * {
+      position: relative;
+      z-index: 1;
+    }
   `}
   
   @media (max-width: 768px) {

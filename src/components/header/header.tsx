@@ -5,14 +5,13 @@ import Switch from '../switch/Switch';
 import { connectUtil } from '../../utils/reduxUtil';
 import type { PropsFromRedux } from '../../utils/reduxUtil';
 import type { RootStateBase } from '../../store/rootReducer';
-import { SetCurrentView, SetCurrentLanguage, SetCurrentTheme } from '../../store/application/actions/applicationAction';
+import { SetCurrentView, SetCurrentLanguage, SetCurrentTheme, SetReduxVisualizer } from '../../store/application/actions/applicationAction';
 import { Languages } from '../../types/languages';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import DropdownMenu from '../dropdownMenu/dropdownMenu';
 import Options from '../options/options';
 import { scan } from "react-scan";
-
 
 const connector = connectUtil(
   (state: RootStateBase) => ({
@@ -21,8 +20,9 @@ const connector = connectUtil(
     currentTheme: state.ApplicationReducer.currentTheme,
     themeList: state.ApplicationReducer.themeList,
     headerButton: state.ApplicationReducer.views,
+    reduxVisualizer: state.ApplicationReducer.reduxVisualizer,
   }),
-  { SetCurrentView, SetCurrentLanguage, SetCurrentTheme }
+  { SetCurrentView, SetCurrentLanguage, SetCurrentTheme, SetReduxVisualizer}
 );
 
 export type HeaderProps = PropsFromRedux<typeof connector>;
@@ -31,9 +31,9 @@ function Header(props: HeaderProps) {
   const { t } = useTranslation();
   const [isAtTop, setIsAtTop] = useState(true);
   const [reactScanEnabled, setReactScanEnabled] = useState(false);
-  const isMiniHeader = ( 
+  const isMiniHeader = (
     (isAtTop == true && props.currentTheme.header.isOnTop.width != "100%" ||
-    isAtTop == false && props.currentTheme.header.isOnScroll.width != "100%")
+      isAtTop == false && props.currentTheme.header.isOnScroll.width != "100%")
   )
 
   // Detecta scroll para mudar tamanho do header
@@ -46,7 +46,7 @@ function Header(props: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  
+
   useEffect(() => {
     //remove o foco do elemento ativo
     const activeElement = document.activeElement;
@@ -56,16 +56,16 @@ function Header(props: HeaderProps) {
   }, [props.currentView]);
 
 
-    function handleReactScan() {
-      setReactScanEnabled(!reactScanEnabled);
-    }
+  function handleReactScan() {
+    setReactScanEnabled(!reactScanEnabled);
+  }
 
-    useEffect(() => {
-        scan({
-          enabled: reactScanEnabled,
-          showToolbar: reactScanEnabled
-          });
-    }, [reactScanEnabled]);
+  useEffect(() => {
+    scan({
+      enabled: reactScanEnabled,
+      showToolbar: reactScanEnabled
+    });
+  }, [reactScanEnabled]);
 
   function handleNavClick(view: string) {
     props.SetCurrentView(view, true);
@@ -74,7 +74,7 @@ function Header(props: HeaderProps) {
     if (el) {
       const observer = new window.IntersectionObserver((entries, obs) => {
         if (entries[0].isIntersecting) {
-             props.SetCurrentView(view, false);
+          props.SetCurrentView(view, false);
           obs.disconnect();
         }
       }, { threshold: 0.6 }); // 60% do elemento visível
@@ -86,6 +86,10 @@ function Header(props: HeaderProps) {
   function handleLanguageSwitch() {
     const nextLang = props.currentLanguage === Languages.English ? Languages.Portuguese : Languages.English;
     props.SetCurrentLanguage(nextLang);
+  }
+
+  function handleReduxVisualizer() {
+    props.SetReduxVisualizer(!props.reduxVisualizer);
   }
 
   function handleThemeSwitch(theme: string) {
@@ -105,8 +109,8 @@ function Header(props: HeaderProps) {
         aria-haspopup="true"
         aria-expanded={open}
       >
-         <Icon icon={"mdi:settings"} width={24} height={24} />
-       
+        <Icon icon={"mdi:settings"} width={24} height={24} />
+
       </NavButton>
     );
   }
@@ -129,14 +133,14 @@ function Header(props: HeaderProps) {
         {/* Desktop Navigation */}
         <Nav>
           {props.headerButton.map(function renderNavItem(item, key) {
-            
+
             return (
               <NavButton
                 key={key}
                 active={props.currentView?.name === item.name}
                 onClick={createNavClickHandler(item.name)}
               >
-                {isMiniHeader ?  <Icon icon={item.icon} width={24} height={24} /> : item.name}
+                {isMiniHeader ? <Icon icon={item.icon} width={24} height={24} /> : item.name}
               </NavButton>
             );
           })}
@@ -165,26 +169,36 @@ function Header(props: HeaderProps) {
                   onSelect={handleThemeSwitch}
                 />
               )
-            },{
+            }, {
               label: t(`header.reactScan`),
               action: (
-               <Switch
-                 checked={reactScanEnabled}
-                 onChange={handleReactScan}
-                 label={reactScanEnabled ? "On" : "Off"}
-               />
+                <Switch
+                  checked={reactScanEnabled}
+                  onChange={handleReactScan}
+                  label={reactScanEnabled ? "On" : "Off"}
+                />
+              )
+            },
+            {
+              label: t(`header.reduxVisualizer`),
+              action: (
+                <Switch
+                  checked={props.reduxVisualizer}
+                  onChange={handleReduxVisualizer}
+                  label={props.reduxVisualizer ? "On" : "Off"}
+                />
               )
             }
-          
-          
-          
-          ]}
+
+
+
+            ]}
           />
         </Nav>
 
       </HeaderContainer>
 
-  
+
     </>
   );
 }
