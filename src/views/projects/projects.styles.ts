@@ -1,4 +1,5 @@
 import styled from 'wrapper-styled-components';
+import Button from '../../components/button/button';
 
 const Title = styled.h1`
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -18,38 +19,8 @@ const Title = styled.h1`
   }
 `;
 
-const Button = styled.button`
-  padding: clamp(0.625rem, 2vw, 0.75rem) clamp(1.25rem, 3vw, 1.5rem);
-  font-size: clamp(0.875rem, 2vw, 1rem);
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.text};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  min-height: 48px;
-  min-width: 120px;
+const ButtonProject = styled(Button).attrs({ size: 'sm' })`
   
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary}CC;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  @media (max-width: 768px) {
-    min-width: 140px;
-    font-size: 1rem;
-  }
-  
-  @media (max-width: 480px) {
-    width: 100%;
-    max-width: 280px;
-  }
 `;
 
-export { Title, Button };
+export { Title, ButtonProject };

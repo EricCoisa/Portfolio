@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Title } from './projects.styles';
+import { ButtonProject, Title } from './projects.styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { connectUtil } from '../../utils/reduxUtil';
 import type { PropsFromRedux } from '../../utils/reduxUtil';
@@ -20,7 +20,7 @@ import Modal from '../../components/modal/modal';
 import { useState, type MouseEvent } from 'react';
 import Button from '../../components/button/button';
 import { CardActions } from '../../components/card/cardActions';
-
+import CardFlip from '../../components/card/cardFlip';
 const connector = connectUtil(
   (state: RootStateBase) => ({
     currentView: state.ApplicationReducer.currentView,
@@ -79,17 +79,20 @@ function Projects(props: HomeProps) {
               <CardTitle >{t("projects.coap.title")}</CardTitle>
             </CardHeaderMain>
             <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <Button size='md' data-link="https://coap.ericvitor.com.br/" onClick={handleProjectClick}>
+              <ButtonProject size='md' data-link="https://coap.ericvitor.com.br/" onClick={handleProjectClick}>
                 <Icon icon="mdi:play" width={20} height={20} />
                 {t("projects.see")}
-              </Button>
-              <Button size='md' data-link="https://github.com/EricCoisa/Coap" onClick={OpenLinkTab}>
+              </ButtonProject>
+              <ButtonProject size='md' data-link="https://github.com/EricCoisa/Coap" onClick={OpenLinkTab}>
                 <Icon icon="mdi:github" width={20} height={20} />
                 {t("projects.repository")}
-              </Button>
+              </ButtonProject>
             </CardActions>
           </CardHeader>
-          {t("projects.coap.text")}
+          <CardFlip imageUrl="https://github.com/EricCoisa/Coap/blob/main/.github/images/screenshot.webp?raw=true" imageAlt="Coap Screenshot">
+           {t("projects.coap.text")}
+          </CardFlip>
+  
           <Line />
           <CardContent align='center'>
             <Badge>
@@ -120,14 +123,14 @@ function Projects(props: HomeProps) {
               <CardTitle>{t("projects.reduxView.title")}</CardTitle>
             </CardHeaderMain>
             <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <Button size='md' onClick={handleReduxVisualizer}>
+              <ButtonProject size='md' onClick={handleReduxVisualizer}>
                 <Icon icon="mdi:play" width={20} height={20} />
                 {t("projects.see")}
-              </Button>
-              <Button size='md' data-link="https://github.com/EricCoisa/redux-visualizer" onClick={OpenLinkTab}>
+              </ButtonProject>
+              <ButtonProject size='md' data-link="https://github.com/EricCoisa/redux-visualizer" onClick={OpenLinkTab}>
                 <Icon icon="mdi:github" width={20} height={20} />
                 {t("projects.repository")}
-              </Button>
+              </ButtonProject>
             </CardActions>
           </CardHeader>
           {t("projects.reduxView.text")}
@@ -191,10 +194,10 @@ function Projects(props: HomeProps) {
               <CardTitle>{t("projects.customDeploy.title")}</CardTitle>
             </CardHeaderMain>
             <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <Button size='md' data-link="https://github.com/EricCoisa/CustomDeploy" onClick={OpenLinkTab}>
+              <ButtonProject size='md' data-link="https://github.com/EricCoisa/CustomDeploy" onClick={OpenLinkTab}>
                 <Icon icon="mdi:github" width={20} height={20} />
                 {t("projects.repository")}
-              </Button>
+              </ButtonProject>
             </CardActions>
           </CardHeader>
           {t("projects.customDeploy.text")}
@@ -240,10 +243,10 @@ function Projects(props: HomeProps) {
               <CardTitle>NetCore Api StarterPack</CardTitle>
             </CardHeaderMain>
             <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <Button size='md' data-link="https://github.com/EricCoisa/AspNetCoreApiBase" onClick={OpenLinkTab}>
+              <ButtonProject size='md' data-link="https://github.com/EricCoisa/AspNetCoreApiBase" onClick={OpenLinkTab}>
                 <Icon icon="mdi:github" width={20} height={20} />
                 {t("projects.repository")}
-              </Button>
+              </ButtonProject>
             </CardActions>
           </CardHeader>
           <div style={{ textAlign: 'left' }}>
@@ -300,10 +303,10 @@ function Projects(props: HomeProps) {
               <CardTitle>{t("projects.graphQLAPI.title")}</CardTitle>
             </CardHeaderMain>
             <CardActions style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <Button size='md' data-link="https://github.com/EricCoisa/GraphQLAPI" onClick={OpenLinkTab}>
+              <ButtonProject size='md' data-link="https://github.com/EricCoisa/GraphQLAPI" onClick={OpenLinkTab}>
                 <Icon icon="mdi:github" width={20} height={20} />
                 {t("projects.repository")}
-              </Button>
+              </ButtonProject>
             </CardActions>
           </CardHeader>
           {t("projects.graphQLAPI.text")}
