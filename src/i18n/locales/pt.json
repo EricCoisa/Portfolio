@@ -1,0 +1,214 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "skills": "Habilidades",
+    "contact": "Contato"
+  },
+  "hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Éric Vitor de Resende",
+    "title": "Full-Stack Developer",
+    "description": "Prática constante e aprendizado são a base para transformar boas ideias em produtos excepcionais",
+    "cta": "Baixar CV"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Desenvolvedor Full-Stack com {years} anos de experiência em softwares e aplicativos educacionais e de gestão empresarial. Tenho experiência em reduzir custos de projetos, otimizar processos de desenvolvimento e implementar soluções que aumentam eficiência e qualidade das entregas.",
+    "stack": "Principais Tecnologias",
+    "highlights": [
+      {
+        "title": "Código Limpo",
+        "description": "Código limpo, testável e manutenível"
+      },
+      {
+        "title": "Performance",
+        "description": "Foco em otimização e experiência do usuário"
+      },
+      {
+        "title": "Colaboração",
+        "description": "Trabalho em equipe e comunicação efetiva"
+      }
+    ],
+    "mainTechnologies": [
+      "C#",
+      "JavaScript",
+      "TypeScript",
+      "ASP.NET Core",
+      "Entity Framework",
+      "React",
+      "Redux",
+      "Docker",
+      "IIS"
+    ]
+  },
+  "projects": {
+    "title": "Projetos em Destaque",
+    "viewProject": "Ver Projeto",
+    "viewCode": "Ver Código",
+    "comingSoon": "Em breve",
+    "copyNpm": "Copiar comando NPM",
+    "npmCopied": "Comando NPM copiado!",
+    "list": [
+      {
+        "title": "Coap",
+        "description": "Plataforma visual drag-and-drop para criação de materiais didáticos interativos, similar ao Canva mas focada em educação.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Vite",
+          "Redux Toolkit",
+          "Styled Components"
+        ],
+        "liveUrl": "https://coap.ericvitor.com.br/",
+        "githubUrl": "https://github.com/EricCoisa/Coap",
+        "hasDemo": true,
+        "demoUrl": "https://coap.ericvitor.com.br/"
+      },
+      {
+        "title": "CustomDeploy",
+        "description": "Solução completa para automação de deploys de aplicações web e APIs hospedadas no IIS, com backend .NET 8 e frontend React + TypeScript.",
+        "tags": [
+          ".NET 8",
+          "React",
+          "TypeScript",
+          "Entity Framework",
+          "JWT",
+          "IIS",
+          "Redux Toolkit"
+        ],
+        "liveUrl": "https://github.com/EricCoisa/CustomDeploy",
+        "githubUrl": "https://github.com/EricCoisa/CustomDeploy",
+        "hasDemo": false
+      },
+      {
+        "title": "AspNetCoreApiBase",
+        "description": "Template base para APIs REST em ASP.NET Core 8.0 com autenticação JWT, Docker, Entity Framework e 40+ testes. Estrutura completa pronta para novos projetos.",
+        "tags": [
+          "ASP.NET Core",
+          "Entity Framework",
+          "JWT",
+          "Docker",
+          "AutoMapper",
+          "xUnit",
+          "SQLite",
+          "Swagger"
+        ],
+        "liveUrl": "https://github.com/EricCoisa/AspNetCoreApiBase",
+        "githubUrl": "https://github.com/EricCoisa/AspNetCoreApiBase",
+        "hasDemo": false
+      },
+      {
+        "title": "OwnManager - 🚧",
+        "description": "Sistema para gerenciar projetos pessoais e profissionais com controle de tempo, organização de tarefas, dashboard de produtividade e relatórios de progresso.",
+        "tags": [
+          "Next.js 15",
+          "TypeScript",
+          "Tailwind CSS",
+          "App Router",
+          "ESLint"
+        ],
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "hasDemo": false,
+        "underConstruction": true,
+        "status": "Em desenvolvimento - Em breve"
+      },
+      {
+        "title": "Redux Visualizer",
+        "description": "Componente React modal para inspecionar e editar estados Redux em tempo real. Exibe o estado como árvore interativa com suporte completo à edição de valores.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Redux",
+          "NPM Package",
+          "Vite",
+          "CSS"
+        ],
+        "liveUrl": "https://redux.ericvitor.com.br/",
+        "githubUrl": "https://github.com/EricCoisa/redux-visualizer",
+        "hasDemo": true,
+        "demoUrl": "https://redux.ericvitor.com.br/",
+        "npmPackage": true,
+        "npmCommand": "npm install redux-visualizer"
+      },
+      {
+        "title": "GraphQLAPI",
+        "description": "API moderna e flexível em .NET focada exclusivamente em GraphQL, utilizando HotChocolate e Entity Framework Core. Estrutura modular com SQLite e pronta para produção.",
+        "tags": [
+          ".NET 8",
+          "GraphQL",
+          "HotChocolate",
+          "Entity Framework",
+          "SQLite",
+          "API"
+        ],
+        "liveUrl": "https://github.com/EricCoisa/GraphQLAPI",
+        "githubUrl": "https://github.com/EricCoisa/GraphQLAPI",
+        "hasDemo": false
+      }
+    ]
+  },
+  "skills": {
+    "title": "Habilidades Técnicas",
+    "frontend": "Linguagens",
+    "backend": "Frameworks & Bibliotecas",
+    "tools": "DevOps, Cloud & Integrações",
+    "list": [
+      {
+        "title": "Linguagens",
+        "skills": [
+          "C#",
+          "JavaScript",
+          "TypeScript",
+          "SQL"
+        ]
+      },
+      {
+        "title": "Frameworks & Bibliotecas",
+        "skills": [
+          "ASP.NET Core/MVC",
+          "Entity Framework",
+          "Dapper",
+          "Node.js",
+          "React",
+          "React Native",
+          "Redux",
+          "Vite",
+          "Styled Components",
+          "Storybook"
+        ]
+      },
+      {
+        "title": "DevOps, Cloud & Integrações",
+        "skills": [
+          "Docker",
+          "Azure DevOps",
+          "GitHub Actions",
+          "IIS",
+          "Git",
+          "CI/CD",
+          "Hangfire",
+          "GraphQL",
+          "n8n",
+          "WebSockets",
+          "Firebase",
+          "Notifee",
+          "Electron",
+          "Unity"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "description": "Estou atualmente procurando novas oportunidades. Se você tem alguma pergunta ou só quer dizer oi, farei o meu melhor para responder!",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados"
+  }
+}

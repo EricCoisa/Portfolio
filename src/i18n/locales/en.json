@@ -1,0 +1,140 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+  "greeting": "Hi, I'm",
+  "name": "Éric Vitor de Resende",
+  "title": "Full-Stack Developer",
+  "description": "Consistent practice and learning are the foundation to turning good ideas into exceptional products",
+  "cta": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Full-Stack Developer with {years} years of experience in educational and business management software and apps. Experienced in reducing project costs, optimizing development processes, and implementing solutions that increase efficiency and quality of deliveries.",
+    "stack": "Main Technologies",
+    "highlights": [
+      {
+        "title": "Clean Code",
+        "description": "Clean, testable and maintainable code"
+      },
+      {
+        "title": "Performance",
+        "description": "Focus on optimization and user experience"
+      },
+      {
+        "title": "Collaboration",
+        "description": "Teamwork and effective communication"
+      }
+    ],
+    "mainTechnologies": [
+      "C#",
+      "JavaScript",
+      "TypeScript",
+      "ASP.NET Core",
+      "Entity Framework",
+      "React",
+      "Redux",
+      "Docker",
+      "IIS"
+    ]
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "comingSoon": "Coming Soon",
+    "copyNpm": "Copy NPM command",
+    "npmCopied": "NPM command copied!",
+    "list": [
+      {
+        "title": "Coap",
+        "description": "Visual drag-and-drop platform for creating interactive educational materials, similar to Canva but focused on education.",
+        "tags": ["React", "TypeScript", "Vite", "Redux Toolkit", "Styled Components"],
+        "liveUrl": "https://coap.ericvitor.com.br/",
+        "githubUrl": "https://github.com/EricCoisa/Coap",
+        "hasDemo": true,
+        "demoUrl": "https://coap.ericvitor.com.br/"
+      },
+      {
+        "title": "CustomDeploy",
+        "description": "Complete solution for automating deployments of web applications and APIs hosted on IIS, with .NET 8 backend and React + TypeScript frontend.",
+        "tags": [".NET 8", "React", "TypeScript", "Entity Framework", "JWT", "IIS", "Redux Toolkit"],
+        "liveUrl": "https://github.com/EricCoisa/CustomDeploy",
+        "githubUrl": "https://github.com/EricCoisa/CustomDeploy",
+        "hasDemo": false
+      },
+      {
+        "title": "AspNetCoreApiBase",
+        "description": "Starter template for REST APIs in ASP.NET Core 8.0 with JWT authentication, Docker, Entity Framework and 40+ tests. Complete structure ready for new projects.",
+        "tags": ["ASP.NET Core", "Entity Framework", "JWT", "Docker", "AutoMapper", "xUnit", "SQLite", "Swagger"],
+        "liveUrl": "https://github.com/EricCoisa/AspNetCoreApiBase",
+        "githubUrl": "https://github.com/EricCoisa/AspNetCoreApiBase",
+        "hasDemo": false
+      },
+      {
+        "title": "OwnManager - 🚧",
+        "description": "System for managing personal and professional projects with time tracking, task organization, productivity dashboard and progress reports.",
+        "tags": ["Next.js 15", "TypeScript", "Tailwind CSS", "App Router", "ESLint"],
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "hasDemo": false,
+        "underConstruction": true,
+        "status": "Under development - Coming soon"
+      },
+      {
+        "title": "Redux Visualizer",
+        "description": "React modal component to inspect and edit Redux states in real-time. Displays state as interactive tree with complete support for editing values of any type.",
+        "tags": ["React", "TypeScript", "Redux", "NPM Package", "Vite", "CSS"],
+        "liveUrl": "https://redux.ericvitor.com.br/",
+        "githubUrl": "https://github.com/EricCoisa/redux-visualizer",
+        "hasDemo": true,
+        "demoUrl": "https://redux.ericvitor.com.br/",
+        "npmPackage": true,
+        "npmCommand": "npm install redux-visualizer"
+      },
+      {
+        "title": "GraphQLAPI",
+        "description": "Modern and flexible .NET API focused exclusively on GraphQL, using HotChocolate and Entity Framework Core. Modular structure with SQLite and production-ready.",
+        "tags": [".NET 8", "GraphQL", "HotChocolate", "Entity Framework", "SQLite", "API"],
+        "liveUrl": "https://github.com/EricCoisa/GraphQLAPI",
+        "githubUrl": "https://github.com/EricCoisa/GraphQLAPI",
+        "hasDemo": false
+      }
+    ]
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "frontend": "Languages",
+    "backend": "Frameworks & Libraries",
+    "tools": "DevOps, Cloud & Integrations",
+    "list": [
+      {
+        "title": "Languages",
+        "skills": ["C#", "JavaScript", "TypeScript", "SQL"]
+      },
+      {
+        "title": "Frameworks & Libraries",
+        "skills": ["ASP.NET Core/MVC", "Entity Framework", "Dapper", "Node.js", "React", "React Native", "Redux", "Vite", "Styled Components", "Storybook"]
+      },
+      {
+        "title": "DevOps, Cloud & Integrations",
+        "skills": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "Git", "CI/CD", "Hangfire", "GraphQL", "n8n", "WebSockets", "Firebase", "Notifee", "Electron", "Unity"]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you!",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  }
+}

@@ -1,99 +1,103 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
-  /* CSS responsividade */
-  --header-height: 60px;
-  --mobile-header-height: 56px;
-  --container-padding: 2rem;
-  --mobile-container-padding: 1rem;
-  
-  --mobile-breakpoint: 768px;
-  --tablet-breakpoint: 1024px;
-  --desktop-breakpoint: 1280px;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-h1 {
-  font-size: clamp(1.875rem, 4vw, 3.2rem);
-  line-height: 1.1;
-  margin: 0;
-  text-align: center;
-  
-  @media (max-width: 768px) {
-    font-size: clamp(1.5rem, 6vw, 2.5rem);
-  }
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: clamp(0.875rem, 2vw, 1rem);
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-button:hover {
-  border-color: #646cff;
-  transform: translateY(-1px);
-}
-button:focus,
-button:focus-visible {
-  outline: 2px solid #646cff;
-  outline-offset: 2px;
-}
-button:active {
-  transform: translateY(0);
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --background: 0 0% 98%;
+    --foreground: 240 3% 6%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 3% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 6%;
+
+    --primary: 174 62% 57%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 3% 6%;
+
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 3% 46%;
+
+    --accent: 174 62% 57%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 174 62% 57%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 3% 26%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 240 6% 91%;
+    --sidebar-ring: 174 62% 57%;
   }
-  a:hover {
-    color: #747bff;
+
+  .dark {
+    --background: 240 3% 6%;
+    --foreground: 0 0% 100%;
+
+    --card: 240 3% 8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 240 3% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 174 62% 57%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 3% 12%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 3% 12%;
+    --muted-foreground: 240 3% 65%;
+
+    --accent: 174 62% 57%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 3% 15%;
+    --input: 240 3% 15%;
+    --ring: 174 62% 57%;
+    
+    --sidebar-background: 240 3% 6%;
+    --sidebar-foreground: 240 5% 96%;
+    --sidebar-primary: 174 62% 57%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 16%;
+    --sidebar-accent-foreground: 240 5% 96%;
+    --sidebar-border: 240 4% 16%;
+    --sidebar-ring: 174 62% 57%;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
