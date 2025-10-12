@@ -32,8 +32,8 @@ lucid-lair/
 │   └── robots.txt
 ├── src/
 │   ├── assets/                 # Imagens e recursos estáticos
-│   │   ├── hero-bg.jpg
-│   │   └── projects-bg.jpg
+│   │   ├── hero-bg.webp
+│   │   └── projects-bg.webp
 │   ├── components/             # Componentes reutilizáveis
 │   │   ├── ui/                 # Componentes shadcn/ui
 │   │   ├── Footer.tsx

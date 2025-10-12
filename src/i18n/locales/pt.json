@@ -4,7 +4,10 @@
     "about": "Sobre",
     "projects": "Projetos",
     "skills": "Habilidades",
-    "contact": "Contato"
+    "contact": "Contato",
+    "reactScan": "ReactScan",
+    "reactScanEnabled": "ReactScan Ativado",
+    "reactScanDisabled": "ReactScan Desativado"
   },
   "hero": {
     "greeting": "Olá, eu sou",

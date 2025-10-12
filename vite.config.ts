@@ -66,6 +66,10 @@ export function getBuildConfig(mode: string) {
               return 'i18n';
             }
 
+            if (packageName === 'react-scan') {
+              return 'dev-tools';
+            }
+
             // Dynamic chunking for other packages
             if (currentSize + estimatedSize > chunkSizeLimit) {
               const chunkIndex = Object.keys(sizeMap).length;

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Github, Play, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 import ProjectModal from '@/components/ProjectModal';
-import projectsBg from '@/assets/projects-bg.jpg';
+import projectsBg from '@/assets/projects-bg.webp';
 
 const Projects = () => {
   const { t } = useTranslation();
@@ -54,7 +54,7 @@ const Projects = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      <div className="absolute inset-0 bg-background/95 backdrop-blur-sm" />
+      <div className="absolute inset-0  backdrop-blur-sm" />
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,7 +62,7 @@ const Projects = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-white">
             {t('projects.title')}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

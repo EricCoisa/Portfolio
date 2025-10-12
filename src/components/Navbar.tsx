@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Menu, X, Globe, Check } from 'lucide-react';
+import { Moon, Sun, Menu, X, Globe, Check, Activity } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,12 +10,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { scan } from 'react-scan';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [reactScanEnabled, setReactScanEnabled] = useState(false);
+  
+  // Check if we're in development environment
+  const isDevelopment = typeof window !== 'undefined' && 
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -32,6 +38,17 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  function handleReactScan() {
+    setReactScanEnabled(!reactScanEnabled);
+  }
+
+    useEffect(() => {
+    scan({
+      enabled: reactScanEnabled,
+      showToolbar: reactScanEnabled
+    });
+  }, [reactScanEnabled]);
 
   return (
     <motion.nav
@@ -64,6 +81,8 @@ const Navbar = () => {
               </a>
             ))}
           </div>
+          
+
 
           {/* Actions */}
           <div className="flex items-center gap-2">
@@ -75,6 +94,27 @@ const Navbar = () => {
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
 
+
+          {/* ReactScan Toggle - only in development */}
+            {isDevelopment && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleReactScan}
+                className={`relative ${reactScanEnabled ? 'text-green-500 hover:text-green-600' : 'text-muted-foreground hover:text-foreground'}`}
+                title={t(`nav.${reactScanEnabled ? 'reactScanEnabled' : 'reactScanDisabled'}`)}
+              >
+                <Activity className="h-5 w-5" />
+                {reactScanEnabled && (
+                  <motion.div
+                    className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                )}
+              </Button>
+            )}
+            
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
