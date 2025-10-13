@@ -20,6 +20,8 @@ const LoadingSpinner = () => (
 );
 
 const App = () => (
+
+  
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />

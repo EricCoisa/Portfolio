@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { getPortfolioData, loadPortfolioData } from '../utils/data';
 
 // Tipos para as traduções do currículo
 export interface CurriculumTranslations {
@@ -82,22 +83,56 @@ export const useCurriculumTranslations = () => {
   const { i18n } = useTranslation();
   const [curriculumData, setCurriculumData] = useState<CurriculumTranslations | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadCurriculumTranslations = async () => {
       setIsLoading(true);
+      setError(null);
+      
       try {
+        // Carrega os dados do portfolio para obter as URLs
+        const portfolioData = await loadPortfolioData();
         const language = i18n.language || 'pt';
-        const module = await import(`../i18n/locales/curriculum/${language}.json`);
-        setCurriculumData(module.default);
+        
+        // Seleciona a URL correta baseada no idioma
+        const curriculumUrl = language === 'en' 
+          ? portfolioData.curriculum.urlEn 
+          : portfolioData.curriculum.urlPt;
+        
+        // Adiciona cache bust para garantir dados atualizados
+        const cacheBust = `?cacheBust=${Date.now()}`;
+        const response = await fetch(`${curriculumUrl}${cacheBust}`);
+        
+        if (!response.ok) {
+          throw new Error(`Erro ao buscar traduções do currículo: ${response.status} ${response.statusText}`);
+        }
+        
+        const translations = await response.json();
+        setCurriculumData(translations);
+        
       } catch (error) {
         console.error('Erro ao carregar traduções do currículo:', error);
-        // Fallback para português se o idioma não for encontrado
-        try {
-          const fallbackModule = await import('../i18n/locales/curriculum/pt.json');
-          setCurriculumData(fallbackModule.default);
-        } catch (fallbackError) {
-          console.error('Erro ao carregar traduções de fallback:', fallbackError);
+        setError(error instanceof Error ? error.message : 'Erro desconhecido');
+        
+        // Fallback: tenta carregar dados já em cache ou usar portfolio data
+        const cachedPortfolioData = getPortfolioData();
+        if (cachedPortfolioData) {
+          try {
+            const language = i18n.language || 'pt';
+            const fallbackUrl = language === 'en' 
+              ? cachedPortfolioData.curriculum.urlEn 
+              : cachedPortfolioData.curriculum.urlPt;
+            
+            const fallbackResponse = await fetch(fallbackUrl);
+            if (fallbackResponse.ok) {
+              const fallbackTranslations = await fallbackResponse.json();
+              setCurriculumData(fallbackTranslations);
+              setError(null);
+            }
+          } catch (fallbackError) {
+            console.error('Erro no fallback das traduções do currículo:', fallbackError);
+          }
         }
       } finally {
         setIsLoading(false);
@@ -107,5 +142,5 @@ export const useCurriculumTranslations = () => {
     loadCurriculumTranslations();
   }, [i18n.language]);
 
-  return { curriculumData, isLoading };
+  return { curriculumData, isLoading, error };
 };
