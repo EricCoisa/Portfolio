@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer, Check } from 'lucide-react';
+import { Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer, Check, Home } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
@@ -41,13 +41,31 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      {/* Print helper styles to force 2-column grids and avoid breaking cards */}
+      <style>{`@media print {
+          .print-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+          .print-grid-card { break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; box-sizing: border-box; }
+          /* Right border for cards in print, except the last column item */
+          .print-grid-card { border-right: 1px solid rgba(0,0,0,0.12); padding-right: 0.5rem; }
+          /* For a 2-column print grid, remove the right border from every even item (last in the row) */
+          .print-grid-card:nth-child(2n) { border-right: none; padding-right: 0; }
+          /* Ensure cards don't expand full width in print */
+          .print-grid-card > * { box-decoration-break: clone; }
+
+          /* Remove border-radius in print for elements using Tailwind rounded classes */
+          .rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-t-xl, .rounded-tl-lg, .rounded-tr-lg, .rounded-none {
+            border-radius: 0 !important;
+          }
+          /* Also ensure any element with overflow-hidden doesn't crop when radius removed */
+          .overflow-hidden { overflow: visible !important; }
+        }`}</style>
       {/* Header - No print */}
       <div className="print:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           {!hideBackButton ? (
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-                <ArrowLeft className="h-4 w-4" />
+                <Home className="h-4 w-4" />
                 {curriculumData.actions.back}
               </Button>
             </Link>
@@ -214,9 +232,9 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
               <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 sm:mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.education.title}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print-grid">
                 {curriculumData.sections.education.courses.map((course, index) => (
-                  <Card key={index} className="border-l-4 border-l-green-500 print:border-l-0 print:shadow-none print:border-0">
+                  <Card key={index} className="border-l-4 border-l-green-500 print:border-l-0 print:shadow-none print:border-0 print-grid-card">
                     <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6 pb-3 sm:pb-6 print:p-0">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div className="min-w-0">
@@ -283,9 +301,9 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
               <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.certifications.title}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print-grid">
                 {curriculumData.sections.certifications.list.map((cert, index) => (
-                  <Card key={index} className="border-l-4 border-l-orange-500 print:border-l-0 print:shadow-none print:border-0">
+                  <Card key={index} className="border-l-4 border-l-orange-500 print:border-l-0 print:shadow-none print:border-0 print-grid-card">
                     <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                         <div className="min-w-0">
@@ -307,9 +325,9 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
               <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.languages.title}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print-grid">
                 {curriculumData.sections.languages.list.map((lang, index) => (
-                  <Card key={index} className="border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0">
+                  <Card key={index} className="border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0 print-grid-card">
                     <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
                       <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{lang.language}</h3>
                       <p className="text-teal-600 text-sm">{lang.level}</p>

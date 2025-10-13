@@ -199,7 +199,6 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           <Card>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
               <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
                 {presentationData.whyChooseMe.title}
               </CardTitle>
             </CardHeader>
