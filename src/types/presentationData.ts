@@ -17,6 +17,10 @@ export interface PresentationData {
     title: string;
     greeting: string;
     paragraphs: string[];
+    companySpecific: {
+      title: string;
+      content: string;
+    };
   };
   skills: {
     title: string;
@@ -37,11 +41,29 @@ export interface PresentationData {
   contact: {
     title: string;
     subtitle: string;
+    nextSteps: {
+      title: string;
+      defaultMessage: string;
+      companySpecificMessage: string;
+    };
+    responseGuarantee: string;
     actions: Array<{
       type: 'email' | 'linkedin' | 'github' | 'curriculum';
       label: string;
       url?: string;
     }>;
+  };
+  closing: {
+    greeting: string;
+    signature: {
+      name: string;
+      title: string;
+      description: string;
+    };
+    companySpecific: {
+      label: string;
+      text: string;
+    };
   };
   actions: {
     back: string;

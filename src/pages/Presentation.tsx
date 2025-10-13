@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, Linkedin, Github, MapPin, Calendar, Briefcase, FileText, X } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, Linkedin, Github, MapPin, Calendar, Briefcase, FileText, X, Home } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
@@ -57,7 +57,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
             <div className="flex items-center justify-between">
               <Link to="/">
                 <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-                  <ArrowLeft className="h-4 w-4" />
+                  <Home className="h-4 w-4" />
                   {presentationData.actions.back}
                 </Button>
               </Link>
@@ -73,13 +73,16 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
               </Button>
             </div>
             
-            <h1 className="text-base font-semibold text-center px-2 leading-tight">
-              {presentationData.introduction.title}
-              {companyName !== 'default' && (
-                <span className="block text-xs font-normal text-muted-foreground mt-1">
-                  {companyName}
-                </span>
-              )}
+            <h1 className="text-base font-semibold text-center px-2 leading-tight flex items-center justify-center gap-2">
+              <Briefcase className="h-4 w-4" />
+              <span>
+                {companyName !== 'default' ? `Carta de Apresentação` : 'Apresentação Profissional'}
+                {companyName !== 'default' && (
+                  <span className="block text-xs font-normal text-muted-foreground mt-1">
+                    {companyName}
+                  </span>
+                )}
+              </span>
             </h1>
           </div>
 
@@ -87,18 +90,14 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           <div className="hidden sm:flex items-center justify-between">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-                <ArrowLeft className="h-4 w-4" />
+                <Home className="h-4 w-4" />
                 {presentationData.actions.back}
               </Button>
             </Link>
             
-            <h1 className="text-xl font-semibold">
-              {presentationData.introduction.title}
-              {companyName !== 'default' && (
-                <span className="text-sm font-normal text-muted-foreground ml-2">
-                  - {companyName}
-                </span>
-              )}
+            <h1 className="text-xl font-semibold flex items-center gap-2">
+              <Briefcase className="h-4 w-4 sm:h-5 sm:w-5" />
+              {companyName !== 'default' ? `Carta de Apresentação - ${companyName}` : 'Apresentação Profissional'}
             </h1>
             
             <Button 
@@ -122,52 +121,33 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           transition={{ duration: 0.5 }}
           className="space-y-6 sm:space-y-8"
         >
-          {/* Header Card */}
-          <Card className="bg-primary text-primary-foreground border-0">
-            <CardHeader className="pb-4 px-3 sm:px-6 pt-3 sm:pt-6">
-              <div className="flex flex-col gap-3 sm:gap-4">
-                <div className="text-center sm:text-left">
-                  <CardTitle className="text-xl sm:text-2xl mb-2">{presentationData.header.name}</CardTitle>
-                  <p className="text-base sm:text-lg opacity-90">{presentationData.header.title}</p>
-                </div>
-                
-                {/* Mobile: Vertical stack, Desktop: Grid layout */}
-                <div className="flex flex-col gap-2 text-xs sm:text-sm sm:flex-row sm:gap-6 sm:justify-center md:justify-end">
-                  <div className="flex items-center gap-2 justify-center sm:justify-start">
-                    <Mail className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                    <span className="break-all sm:break-normal">{presentationData.header.contact.email}</span>
-                  </div>
-                  <div className="flex items-center gap-2 justify-center sm:justify-start">
-                    <Phone className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                    <span>{presentationData.header.contact.phone}</span>
-                  </div>
-                  <div className="flex items-center gap-2 justify-center sm:justify-start">
-                    <MapPin className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                    <span>{presentationData.header.contact.location}</span>
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
-          </Card>
+        
 
           {/* Introduction */}
           <Card>
-            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                <Briefcase className="h-4 w-4 sm:h-5 sm:w-5" />
-                Apresentação Profissional
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
-              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-                {presentationData.introduction.greeting}
-              </p>
+            <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
+                <p className="text-primary font-medium text-sm sm:text-base mb-2">
+                  {presentationData.introduction.greeting}
+                </p>
+              </div>
               
               {presentationData.introduction.paragraphs.map((paragraph, index) => (
                 <p key={index} className="leading-relaxed text-sm sm:text-base">
                   {paragraph}
                 </p>
               ))}
+
+              {companyName !== 'default' && (
+                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 sm:p-4">
+                  <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">
+                    {presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}
+                  </h4>
+                  <p className="text-sm sm:text-base leading-relaxed">
+                    {presentationData.introduction.companySpecific.content.replace('{companyName}', companyName)}
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -195,24 +175,33 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           {/* Experience Highlights */}
           <Card>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="text-base sm:text-lg">{presentationData.highlights.title}</CardTitle>
+              <CardTitle className="text-base sm:text-lg">
+                {companyName !== 'default' 
+                  ? `Como posso agregar valor à ${companyName}`
+                  : presentationData.highlights.title
+                }
+              </CardTitle>
             </CardHeader>
             <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-              <ul className="space-y-2 sm:space-y-3">
+              <div className="grid gap-3 sm:gap-4">
                 {presentationData.highlights.items.map((highlight, index) => (
-                  <li key={index} className="flex items-start gap-2 sm:gap-3">
-                    <span className="text-primary mt-0.5 sm:mt-1 flex-shrink-0">•</span>
-                    <span className="text-sm sm:text-base leading-tight sm:leading-relaxed">{highlight}</span>
-                  </li>
+                  <div key={index} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-gradient-to-r from-primary/5 to-transparent border-l-3 border-primary rounded-r-lg">
+                    <span className="text-primary mt-0.5 sm:mt-1 flex-shrink-0 font-bold">✓</span>
+                    <span className="text-sm sm:text-base leading-tight sm:leading-relaxed font-medium">{highlight}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
+            
             </CardContent>
           </Card>
 
           {/* Why Choose Me */}
           <Card>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="text-base sm:text-lg">{presentationData.whyChooseMe.title}</CardTitle>
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <span className="text-2xl">🎯</span>
+                {presentationData.whyChooseMe.title}
+              </CardTitle>
             </CardHeader>
             <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
               {presentationData.whyChooseMe.paragraphs.map((paragraph, index) => (
@@ -221,16 +210,19 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                 </p>
               ))}
               
+           
               <Separator />
               
-              <p className="leading-relaxed font-medium text-sm sm:text-base">
-                {presentationData.whyChooseMe.closingStatement}
-              </p>
+              <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-3 sm:p-4 rounded-lg border border-primary/20">
+                <p className="leading-relaxed font-medium text-sm sm:text-base text-primary">
+                  {presentationData.whyChooseMe.closingStatement}
+                </p>
+              </div>
             </CardContent>
           </Card>
 
           {/* Contact CTA */}
-          <Card className="bg-primary/5 dark:bg-primary/10 border-primary/20">
+          <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/30 shadow-lg">
             <CardContent className="px-3 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-6">
               <div className="text-center space-y-3 sm:space-y-4">
                 <h3 className="text-base sm:text-lg font-semibold">{presentationData.contact.title}</h3>
@@ -258,13 +250,17 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                       }
                     };
 
+                    const isPrimary = action.type === 'email' || action.type === 'curriculum';
+
                     return (
                       <Button 
                         key={index}
                         onClick={handleClick}
-                        variant={action.type === 'curriculum' ? 'default' : 'outline'}
+                        variant={isPrimary ? 'default' : 'outline'}
                         size="sm" 
-                        className="gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+                        className={`gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-2 ${
+                          isPrimary ? 'shadow-md hover:shadow-lg' : ''
+                        }`}
                       >
                         {getIcon()}
                         <span className="hidden xs:inline sm:inline">{action.label}</span>
@@ -280,18 +276,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
 
       {/* Modal do Currículo */}
       <Dialog open={isCurriculumModalOpen} onOpenChange={setIsCurriculumModalOpen}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 overflow-hidden">
-          <DialogHeader className="absolute top-4 right-4 z-50">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsCurriculumModalOpen(false)}
-              className="bg-white/90 hover:bg-white text-slate-800 rounded-full p-2"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </DialogHeader>
-          
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0">
           <div className="w-full h-full overflow-auto">
             <Curriculum hideBackButton={true} />
           </div>

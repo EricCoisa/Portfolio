@@ -135,7 +135,6 @@ export interface CurriculumTranslations {
     };
   };
   actions: {
-    download: string;
     print: string;
     back: string;
   };

@@ -27,10 +27,6 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
   // Aplica tema light temporariamente, restaurando o original ao sair
   useTemporaryTheme('light');
 
-  const handleDownload = () => {
-    window.open('https://drive.google.com/file/d/1rIDMk3DUay16XtNpHPUM0ufaFYV2obRY/view?usp=drive_link', '_blank');
-  };
-
   const handlePrint = () => {
     window.print();
   };
@@ -60,13 +56,9 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
           )}
 
           <div className="flex gap-2">
-            <Button onClick={handlePrint} variant="outline" size="sm" className="gap-2 hidden sm:flex">
-              <Printer className="h-4 w-4" />
-              {curriculumData.actions.print}
-            </Button>
-            <Button onClick={handleDownload} size="sm" className="gap-2">
+            <Button onClick={handlePrint} size="sm" className="gap-2">
               <Download className="h-4 w-4" />
-              {curriculumData.actions.download}
+              {curriculumData.actions.print}
             </Button>
 
             <DropdownMenu>
@@ -108,8 +100,8 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
           <div className="py-3 px-3 sm:py-2 sm:px-4 print:p-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-black print:text-white print:rounded-none">
             <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2 print:gap-2">
               <div className="text-center sm:text-left">
-                <h1 className="text-xl sm:text-2xl font-bold print:text-white">{curriculumData.header.name}</h1>
-                <p className="text-base sm:text-lg opacity-90 -mt-1 print:text-white print:opacity-100">{curriculumData.header.title}</p>
+                <h1 className="text-xl sm:text-2xl font-bold print:text-white print:font-bold">{curriculumData.header.name}</h1>
+                <p className="text-base sm:text-lg opacity-90 -mt-1 print:text-white print:opacity-100 print:font-semibold">{curriculumData.header.title}</p>
               </div>
 
               {/* Mobile: 2x2 Grid, Desktop: Original Grid layout */}
@@ -117,23 +109,23 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
                 {/* Linha 1 - Email e Telefone */}
                 <div className="flex items-center gap-1 sm:contents">
                   <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-1 sm:col-start-1 print:text-white" />
-                  <span className="sm:row-start-1 sm:col-start-2 truncate text-xs print:text-white">{curriculumData.header.email}</span>
+                  <span className="sm:row-start-1 sm:col-start-2 truncate text-xs print:text-white print:font-semibold">{curriculumData.header.email}</span>
                 </div>
 
                 <div className="flex items-center gap-1 sm:contents">
                   <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-1 sm:col-start-4 print:text-white" />
-                  <span className="sm:row-start-1 sm:col-start-5 text-xs print:text-white">{curriculumData.header.phone}</span>
+                  <span className="sm:row-start-1 sm:col-start-5 text-xs print:text-white print:font-semibold">{curriculumData.header.phone}</span>
                 </div>
 
                 {/* Linha 2 - Site e LinkedIn */}
                 <div className="flex items-center gap-1 sm:contents">
                   <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-2 sm:col-start-1 print:text-white" />
-                  <span className="sm:row-start-2 sm:col-start-2 truncate text-xs print:text-white">{curriculumData.header.website}</span>
+                  <span className="sm:row-start-2 sm:col-start-2 truncate text-xs print:text-white print:font-semibold">{curriculumData.header.website}</span>
                 </div>
            
                 <div className="flex items-center gap-1 sm:contents">
                   <Linkedin className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-2 sm:col-start-4 print:text-white" />
-                  <span className="sm:row-start-2 sm:col-start-5 truncate text-xs print:text-white">{curriculumData.header.linkedin}</span>
+                  <span className="sm:row-start-2 sm:col-start-5 truncate text-xs print:text-white print:font-semibold">{curriculumData.header.linkedin}</span>
                 </div>
               </div>
 
