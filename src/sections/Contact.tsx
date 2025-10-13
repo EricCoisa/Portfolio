@@ -55,10 +55,10 @@ const Contact = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="pt-6">
+                  <CardContent className="pt-2">
                     <Button
                       variant="ghost"
-                      className="w-full h-auto flex flex-col items-center gap-3 py-6 hover:bg-primary/100 group"
+                      className="w-full h-auto flex flex-col items-center gap-3 py-2 hover:bg-primary/100 group"
                       asChild
                     >
                       <a href={link.href} target="_blank" rel="noopener noreferrer">

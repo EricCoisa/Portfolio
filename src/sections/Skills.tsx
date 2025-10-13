@@ -24,7 +24,7 @@ const Skills = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
             {t('skills.title')}
           </h2>
-          <div className="grid auto-rows-min grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" style={{ gridAutoFlow: 'row dense' }}>
+          <div className="grid auto-rows-min grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" style={{ gridAutoFlow: 'row dense' }}>
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.title}
