@@ -31,7 +31,7 @@ export async function loadPortfolioData(force?: boolean): Promise<PortData> {
 
   // Inicia o carregamento
   isLoading = true;
-  loadPromise = fetchPortfolioData(force)
+  loadPromise = fetchPortfolioData()
     .then((data) => {
       portfolioData = data;
       isLoading = false;
@@ -74,7 +74,7 @@ export async function reloadPortfolioData(force = true): Promise<PortData> {
   
   // Inicia o carregamento com force
   isLoading = true;
-  loadPromise = fetchPortfolioData(force)
+  loadPromise = fetchPortfolioData()
     .then((data) => {
       portfolioData = data;
       isLoading = false;

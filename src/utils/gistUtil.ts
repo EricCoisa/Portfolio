@@ -65,8 +65,8 @@ export async function fetchMultipleGistFiles(gistId: string, fileNames: string[]
  * Busca dados do portfolio do Gist específico e retorna tipado como PortData
  * @param force - Força o recarregamento ignorando o cache do browser
  */
-export async function fetchPortfolioData(force?: boolean): Promise<PortData> {
-  const data = await fetchGistFile('4bed75913f2665bcfe62c46279bf73ff', 'portData.json', undefined, force);
+export async function fetchPortfolioData(): Promise<PortData> {
+  const data = await fetchGistFile('4bed75913f2665bcfe62c46279bf73ff', 'portData.json', undefined, true);
   // Garante que o dado é do tipo PortData
   if (typeof data === 'string') {
     // Se vier como texto, tenta converter para JSON

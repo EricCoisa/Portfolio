@@ -22,7 +22,7 @@ const detectBrowserLanguage = (): string => {
  */
 async function loadRemoteTranslations(): Promise<{ en: Record<string, unknown>; pt: Record<string, unknown> }> {
   try {
-    const portfolioData = await loadPortfolioData(true);
+    const portfolioData = await loadPortfolioData();
     
     // Busca as traduções em paralelo com cache bust
     const cacheBust = `?cacheBust=${Date.now()}`;
