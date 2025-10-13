@@ -1,5 +1,4 @@
 import { Suspense, lazy } from 'react';
-import { ThemeProvider } from 'next-themes';
 import Navbar from '@/components/Navbar';
 
 // Lazy load sections for better performance
@@ -26,31 +25,29 @@ const SectionLoader = () => (
 
 const Index = () => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      <div className="min-h-screen">
-        <Navbar />
-        <main>
-          <Suspense fallback={<SectionLoader />}>
-            <Hero />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Skills />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Contact />
-          </Suspense>
-        </main>
-        <Suspense fallback={<div className="h-20 bg-gray-100 dark:bg-gray-900"></div>}>
-          <Footer />
+    <div className="min-h-screen">
+      <Navbar />
+      <main>
+        <Suspense fallback={<SectionLoader />}>
+          <Hero />
         </Suspense>
-      </div>
-    </ThemeProvider>
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Contact />
+        </Suspense>
+      </main>
+      <Suspense fallback={<div className="h-20 bg-gray-100 dark:bg-gray-900"></div>}>
+        <Footer />
+      </Suspense>
+    </div>
   );
 };
 

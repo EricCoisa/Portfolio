@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -6,9 +6,9 @@ import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
 import { Badge } from '../components/ui/badge';
 import { useCurriculumTranslations } from '../hooks/use-curriculum-translations';
+import { useTemporaryTheme } from '../hooks/use-temporary-theme';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,13 +22,10 @@ interface CurriculumProps {
 
 export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }) => {
   const { i18n } = useTranslation();
-  const { setTheme } = useTheme();
   const { curriculumData, isLoading } = useCurriculumTranslations();
-
-  // Define o tema como light ao carregar a página
-  useEffect(() => {
-    setTheme('light');
-  }, [setTheme]);
+  
+  // Aplica tema light temporariamente, restaurando o original ao sair
+  useTemporaryTheme('light');
 
   const handleDownload = () => {
     window.open('https://drive.google.com/file/d/1rIDMk3DUay16XtNpHPUM0ufaFYV2obRY/view?usp=drive_link', '_blank');
@@ -63,7 +60,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
           )}
 
           <div className="flex gap-2">
-            <Button onClick={handlePrint} variant="outline" size="sm" className="gap-2">
+            <Button onClick={handlePrint} variant="outline" size="sm" className="gap-2 hidden sm:flex">
               <Printer className="h-4 w-4" />
               {curriculumData.actions.print}
             </Button>
@@ -100,7 +97,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-8 max-w-7xl print:max-w-none print:p-0">
+      <div className="container mx-auto px-3 sm:px-6 py-4 sm:py-8 max-w-7xl print:max-w-none print:p-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,31 +105,42 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
           className="bg-white dark:bg-slate-800 rounded-xl shadow-lg print:shadow-none print:bg-white print:rounded-none"
         >
           {/* Header Section */}
-          <div className="py-2 px-4 print:p-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-slate-900 print:rounded-none">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 print:gap-2">
-              <div>
-                <h1 className="text-2xl font-bold">{curriculumData.header.name}</h1>
-                <p className="text-lg opacity-90 -mt-1">{curriculumData.header.title}</p>
+          <div className="py-3 px-3 sm:py-2 sm:px-4 print:p-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-black print:text-white print:rounded-none">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2 print:gap-2">
+              <div className="text-center sm:text-left">
+                <h1 className="text-xl sm:text-2xl font-bold print:text-white">{curriculumData.header.name}</h1>
+                <p className="text-base sm:text-lg opacity-90 -mt-1 print:text-white print:opacity-100">{curriculumData.header.title}</p>
               </div>
 
-              <div className="grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 text-sm sm:text-left items-center gap-x-2 gap-y-0.5 whitespace-nowrap sm:justify-end">
-                <Mail className="h-3.5 w-3.5 row-start-1 col-start-1" />
-                <span className="row-start-1 col-start-2">{curriculumData.header.email}</span>
+              {/* Mobile: 2x2 Grid, Desktop: Original Grid layout */}
+              <div className="grid grid-cols-2 gap-x-0 gap-y-1 text-xs sm:text-sm sm:grid-cols-[auto_auto_auto_auto_auto] sm:grid-rows-2 sm:items-center sm:gap-x-2 sm:gap-y-0.5 sm:justify-end">
+                {/* Linha 1 - Email e Telefone */}
+                <div className="flex items-center gap-1 sm:contents">
+                  <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-1 sm:col-start-1 print:text-white" />
+                  <span className="sm:row-start-1 sm:col-start-2 truncate text-xs print:text-white">{curriculumData.header.email}</span>
+                </div>
 
-                <Phone className="h-3.5 w-3.5 row-start-1 col-start-4" />
-                <span className="row-start-1 col-start-5">{curriculumData.header.phone}</span>
+                <div className="flex items-center gap-1 sm:contents">
+                  <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-1 sm:col-start-4 print:text-white" />
+                  <span className="sm:row-start-1 sm:col-start-5 text-xs print:text-white">{curriculumData.header.phone}</span>
+                </div>
 
-                <Globe className="h-3.5 w-3.5 row-start-2 col-start-1" />
-                <span className="row-start-2 col-start-2">{curriculumData.header.website}</span>
+                {/* Linha 2 - Site e LinkedIn */}
+                <div className="flex items-center gap-1 sm:contents">
+                  <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-2 sm:col-start-1 print:text-white" />
+                  <span className="sm:row-start-2 sm:col-start-2 truncate text-xs print:text-white">{curriculumData.header.website}</span>
+                </div>
            
-                <Linkedin className="h-3.5 w-3.5 row-start-2 col-start-4" />
-                <span className="row-start-2 col-start-5">{curriculumData.header.linkedin}</span>
+                <div className="flex items-center gap-1 sm:contents">
+                  <Linkedin className="h-3 w-3 sm:h-3.5 sm:w-3.5 sm:row-start-2 sm:col-start-4 print:text-white" />
+                  <span className="sm:row-start-2 sm:col-start-5 truncate text-xs print:text-white">{curriculumData.header.linkedin}</span>
+                </div>
               </div>
 
             </div>
           </div>
 
-          <div className="p-8 print:p-0 space-y-8 print:space-y-2">
+          <div className="p-4 sm:p-8 print:p-0 space-y-6 sm:space-y-8 print:space-y-2">
             {/* Summary */}
             <section>
               <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
@@ -145,20 +153,20 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Skills */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-3 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-3 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.skills.title}
               </h2>
-              <div className="space-y-2 print:space-y-1">
+              <div className="space-y-3 sm:space-y-2 print:space-y-1">
                 {curriculumData.sections.skills.categories.map((category, index) => (
                   <div key={index} className="space-y-1 print:space-y-0">
-                    <div className="flex gap-2 items-baseline">
-                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 min-w-[180px] print:min-w-[150px] print:text-xs">{category.name}:</h3>
-                      <div className="flex flex-wrap gap-1.5 print:gap-0">
+                    <div className="flex flex-col sm:flex-row sm:gap-2 sm:items-baseline">
+                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1 sm:mb-0 sm:min-w-[120px] md:min-w-[180px] print:min-w-[150px] print:text-xs">{category.name}:</h3>
+                      <div className="flex flex-wrap gap-1 sm:gap-1.5 print:gap-0">
                         {category.items.map((skill, skillIndex) => (
                           <Badge
                             key={skillIndex}
                             variant="secondary"
-                            className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-xs print:p-0 print:after:content-[','] print:after:ml-0.5 last:print:after:content-none"
+                            className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-xs px-2 py-0.5 print:p-0 print:after:content-[','] print:after:ml-0.5 last:print:after:content-none"
                           >
                             {skill}
                           </Badge>
@@ -172,33 +180,34 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Experience */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 sm:mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.experience.title}
               </h2>
-              <div className="space-y-6 print:space-y-2">
+              <div className="space-y-4 sm:space-y-6 print:space-y-2">
                 {curriculumData.sections.experience.jobs.map((job, index) => (
                   <Card key={index} className="border-l-4 border-l-blue-600 print:border-l-0 print:shadow-none print:border-0">
-                    <CardHeader className="pb-3 print:p-0">
-                      <div className="flex flex-row items-center justify-between gap-2 flex-wrap">
+                    <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6 print:p-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                         <div className="min-w-0 flex-1">
-                          <CardTitle className="text-lg print:text-base text-slate-800 dark:text-slate-200 truncate">
-                            {job.position} <span className="text-blue-600 font-semibold">- {job.company}</span>
+                          <CardTitle className="text-base sm:text-lg print:text-base text-slate-800 dark:text-slate-200 leading-tight">
+                            <span className="block sm:inline">{job.position}</span>
+                            <span className="text-blue-600 font-semibold block sm:inline"> - {job.company}</span>
                           </CardTitle>
                         </div>
-                        <div className="text-sm text-slate-500 dark:text-slate-400 flex gap-2 items-center shrink-0">
+                        <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row gap-1 sm:gap-2 sm:items-center shrink-0">
                           <span>{job.period}</span>
-                          <span>•</span>
+                          <span className="hidden sm:inline">•</span>
                           <span>{job.location}</span>
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="print:p-0">
-                      <p className="text-slate-600 dark:text-slate-300 mb-3 print:mb-1 print:text-sm">{job.description}</p>
+                    <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 print:p-0">
+                      <p className="text-slate-600 dark:text-slate-300 mb-2 sm:mb-3 text-sm print:mb-1 print:text-sm">{job.description}</p>
                       <ul className="space-y-1 print:space-y-0">
                         {job.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex} className="text-slate-600 dark:text-slate-300 text-sm print:text-xs flex items-start gap-2 print:gap-1">
-                            <span className="text-blue-600 mt-1 print:mt-0.5">•</span>
-                            <span>{achievement}</span>
+                          <li key={achievementIndex} className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm print:text-xs flex items-start gap-2 print:gap-1">
+                            <span className="text-blue-600 mt-0.5 print:mt-0.5">•</span>
+                            <span className="leading-tight">{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -210,19 +219,19 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Education */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 sm:mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.education.title}
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {curriculumData.sections.education.courses.map((course, index) => (
-                  <Card key={index} className="border-l-4 border-l-green-500 flex-1 min-w-[300px] print:border-l-0 print:shadow-none print:border-0">
-                    <CardContent className="pt-6 print:p-0">
-                      <div className="flex flex-row items-center justify-between gap-2">
-                        <div>
-                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{course.degree}</h3>
-                          <p className="text-green-600 font-medium">{course.institution}</p>
+                  <Card key={index} className="border-l-4 border-l-green-500 print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6 pb-3 sm:pb-6 print:p-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="min-w-0">
+                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm leading-tight">{course.degree}</h3>
+                          <p className="text-green-600 font-medium text-sm">{course.institution}</p>
                         </div>
-                        <div className="text-sm text-slate-500 dark:text-slate-400">
+                        <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 sm:text-right shrink-0">
                           <div>{course.period}</div>
                           <div className="text-green-600 font-medium">{course.status}</div>
                         </div>
@@ -237,16 +246,14 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Projects */}
             <section className="print:hidden">
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 sm:mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.projects.title}
               </h2>
               <div className="grid md:grid-cols-2 xl:grid-cols-3 print:grid-cols-2 gap-6 print:gap-4">
                 {curriculumData.sections.projects.list.map((project, index) => (
                   <Card key={index} className="border-l-4 border-l-purple-500 print:border-l-0 print:shadow-none print:border-0">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg text-slate-800 dark:text-slate-200">{project.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
+                      <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm leading-tight mb-2">{project.name}</h3>
                       <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">{project.description}</p>
 
                       <div className="mb-3">
@@ -281,19 +288,19 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Certifications */}
             <section>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.certifications.title}
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {curriculumData.sections.certifications.list.map((cert, index) => (
-                  <Card key={index} className="flex-1 min-w-[200px] border-l-4 border-l-orange-500 print:border-l-0 print:shadow-none print:border-0">
-                    <CardContent className="pt-4 print:p-0">
-                      <div className="flex flex-row items-center justify-between gap-2">
-                        <div>
-                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{cert.name}</h3>
+                  <Card key={index} className="border-l-4 border-l-orange-500 print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+                        <div className="min-w-0">
+                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm leading-tight">{cert.name}</h3>
                           <p className="text-orange-600 text-sm">{cert.issuer}</p>
                         </div>
-                        <div className="text-sm text-slate-500 dark:text-slate-400">
+                        <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 sm:text-right shrink-0">
                           <div>{cert.year}</div>
                         </div>
                       </div>
@@ -305,13 +312,13 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
 
             {/* Languages */}
             <section>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.languages.title}
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {curriculumData.sections.languages.list.map((lang, index) => (
-                  <Card key={index} className="flex-1 min-w-[200px] border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0">
-                    <CardContent className="pt-4 print:p-0">
+                  <Card key={index} className="border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
                       <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{lang.language}</h3>
                       <p className="text-teal-600 text-sm">{lang.level}</p>
                     </CardContent>
