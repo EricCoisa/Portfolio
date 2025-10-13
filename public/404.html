@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Not Found - Redirecting...</title>
+    <!--
+      GitHub Pages serves a static 404 for unknown routes. For single-page apps
+      that use the History API (BrowserRouter), we need the server to return
+      the app's index.html so the client router can handle the route. Placing
+      this file in `public/` ensures Vite copies it to the build output root
+      (dist/404.html). When GitHub Pages returns this 404 page, the script
+      below fetches the actual index.html and injects it into the document so
+      the SPA can boot while preserving the requested path (location.pathname).
+
+      This avoids switching to HashRouter and doesn't require changes in
+      application code or routes.
+    -->
+    <script>
+      (function () {
+        // Try to load the real index.html and overwrite the current document
+        // so the SPA boots with the original pathname preserved.
+        var indexUrl = '/index.html';
+        try {
+          fetch(indexUrl, { cache: 'no-store' })
+            .then(function (resp) { return resp.text(); })
+            .then(function (html) {
+              // Replace the document with the fetched index.html so React can boot
+              // with the original URL (location.pathname still points to the
+              // originally requested route).
+              document.open();
+              document.write(html);
+              document.close();
+            })
+            .catch(function (err) {
+              console.error('Failed to fetch index.html for SPA fallback:', err);
+            });
+        } catch (e) {
+          console.error('SPA fallback error:', e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
