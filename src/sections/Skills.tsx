@@ -13,7 +13,7 @@ const Skills = () => {
 
   const mainTechnologies = t('about.mainTechnologies', { returnObjects: true }) as string[];
   return (
-    <section id="skills" className="py-20 px-4">
+  <section id="skills" className="py-20 px-4 scroll-mt-20 md:scroll-mt-24">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

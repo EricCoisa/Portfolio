@@ -46,7 +46,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-20 px-4 relative"
+      className="py-20 px-4 relative scroll-mt-20 md:scroll-mt-24"
       style={{
         backgroundImage: `url(${projectsBg})`,
         backgroundSize: 'cover',
