@@ -1,3 +1,8 @@
+export interface PresentationCompany {
+    name: string;
+    urlData: string;
+}
+
 export interface PortData {
     language:{
         urlPt: string;
@@ -6,5 +11,6 @@ export interface PortData {
     curriculum:{
         urlPt: string;
         urlEn: string;
-    }
+    },
+    presentation?: PresentationCompany[];
 }

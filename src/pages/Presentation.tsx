@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Mail, Phone, Linkedin, Github, MapPin, Calendar, Briefcase, FileText, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -8,11 +8,47 @@ import { Separator } from '../components/ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'next-themes';
+import { usePresentation } from '../hooks/use-presentation';
 import Curriculum from './Curriculum';
 
-export const Presentation: React.FC = () => {
+interface PresentationProps {
+  companyName?: string;
+}
+
+export const Presentation: React.FC<PresentationProps> = ({ companyName = 'default' }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setTheme } = useTheme();
+  const { presentationData, isLoading, error } = usePresentation(companyName);
   const [isCurriculumModalOpen, setIsCurriculumModalOpen] = useState(false);
+
+  // Define o tema como light ao carregar a página
+  useEffect(() => {
+    setTheme('light');
+  }, [setTheme]);
+
+  // Redireciona para NotFound se houver erro ou dados não encontrados
+  useEffect(() => {
+    if (!isLoading && (error || !presentationData)) {
+      console.log('Redirecionando para NotFound - Empresa não encontrada:', companyName);
+      navigate('/404', { replace: true });
+    }
+  }, [isLoading, error, presentationData, navigate, companyName]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+        <div className="text-lg">Carregando apresentação para {companyName}...</div>
+      </div>
+    );
+  }
+
+  // Se há erro ou dados não encontrados, o useEffect já redireciona para NotFound
+  // Este bloco só aparece temporariamente antes do redirecionamento
+  if (error || !presentationData) {
+    return null; // Retorna null enquanto redireciona
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -22,11 +58,18 @@ export const Presentation: React.FC = () => {
           <Link to="/">
             <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
               <ArrowLeft className="h-4 w-4" />
-              Voltar
+              {presentationData.actions.back}
             </Button>
           </Link>
           
-          <h1 className="text-xl font-semibold">Carta de Apresentação</h1>
+          <h1 className="text-xl font-semibold">
+            {presentationData.introduction.title}
+            {companyName !== 'default' && (
+              <span className="text-sm font-normal text-muted-foreground ml-2">
+                - {companyName}
+              </span>
+            )}
+          </h1>
           
           <Button 
             onClick={() => setIsCurriculumModalOpen(true)}
@@ -35,7 +78,7 @@ export const Presentation: React.FC = () => {
             className="gap-2"
           >
             <FileText className="h-4 w-4" />
-            Ver Currículo
+            {presentationData.actions.viewCurriculum}
           </Button>
         </div>
       </div>
@@ -53,22 +96,22 @@ export const Presentation: React.FC = () => {
             <CardHeader className="pb-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <CardTitle className="text-2xl mb-2">Eric Vinícius da Silva</CardTitle>
-                  <p className="text-lg opacity-90">Desenvolvedor Full Stack</p>
+                  <CardTitle className="text-2xl mb-2">{presentationData.header.name}</CardTitle>
+                  <p className="text-lg opacity-90">{presentationData.header.title}</p>
                 </div>
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4" />
-                    <span>eric.contact@exemplo.com</span>
+                    <span>{presentationData.header.contact.email}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
-                    <span>+55 (11) 99999-9999</span>
+                    <span>{presentationData.header.contact.phone}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
-                    <span>São Paulo, SP</span>
+                    <span>{presentationData.header.contact.location}</span>
                   </div>
                 </div>
               </div>
@@ -85,47 +128,34 @@ export const Presentation: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                Prezados recrutadores,
+                {presentationData.introduction.greeting}
               </p>
               
-              <p className="leading-relaxed">
-                É com grande interesse que me dirijo a vocês para expressar meu entusiasmo em fazer parte da equipe de desenvolvimento da empresa. 
-                Como desenvolvedor full stack com mais de 7 anos de experiência, tenho me dedicado a criar soluções tecnológicas inovadoras e eficientes.
-              </p>
-              
-              <p className="leading-relaxed">
-                Durante minha carreira, desenvolvi expertise em tecnologias modernas como React, Node.js, TypeScript e cloud computing, 
-                sempre focando na entrega de produtos de alta qualidade e na experiência do usuário.
-              </p>
+              {presentationData.introduction.paragraphs.map((paragraph, index) => (
+                <p key={index} className="leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </CardContent>
           </Card>
 
           {/* Key Skills */}
           <Card>
             <CardHeader>
-              <CardTitle>Principais Competências</CardTitle>
+              <CardTitle>{presentationData.skills.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Frontend</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">React</Badge>
-                    <Badge variant="secondary">TypeScript</Badge>
-                    <Badge variant="secondary">Next.js</Badge>
-                    <Badge variant="secondary">Tailwind CSS</Badge>
+                {presentationData.skills.categories.map((category, index) => (
+                  <div key={index}>
+                    <h4 className="font-semibold mb-3">{category.name}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {category.items.map((skill, skillIndex) => (
+                        <Badge key={skillIndex} variant="secondary">{skill}</Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-3">Backend</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">Node.js</Badge>
-                    <Badge variant="secondary">Python</Badge>
-                    <Badge variant="secondary">PostgreSQL</Badge>
-                    <Badge variant="secondary">MongoDB</Badge>
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -133,26 +163,16 @@ export const Presentation: React.FC = () => {
           {/* Experience Highlights */}
           <Card>
             <CardHeader>
-              <CardTitle>Destaques Profissionais</CardTitle>
+              <CardTitle>{presentationData.highlights.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 mt-1">•</span>
-                  <span>Liderei o desenvolvimento de aplicações web que atendem mais de 100.000 usuários mensais</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 mt-1">•</span>
-                  <span>Implementei arquiteturas escaláveis que reduziram os tempos de resposta em 40%</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 mt-1">•</span>
-                  <span>Experiência em metodologias ágeis e trabalho colaborativo em equipes multidisciplinares</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 mt-1">•</span>
-                  <span>Especialista em integração de APIs e desenvolvimento de microsserviços</span>
-                </li>
+                {presentationData.highlights.items.map((highlight, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="text-blue-600 mt-1">•</span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
               </ul>
             </CardContent>
           </Card>
@@ -160,23 +180,19 @@ export const Presentation: React.FC = () => {
           {/* Why Choose Me */}
           <Card>
             <CardHeader>
-              <CardTitle>Por que me escolher?</CardTitle>
+              <CardTitle>{presentationData.whyChooseMe.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="leading-relaxed">
-                Acredito que minha combinação de habilidades técnicas sólidas, experiência prática e paixão por inovação 
-                me tornam um candidato ideal para contribuir com os objetivos da empresa.
-              </p>
-              
-              <p className="leading-relaxed">
-                Estou sempre em busca de novos desafios e oportunidades de aprendizado, mantendo-me atualizado com as 
-                últimas tendências e melhores práticas do desenvolvimento de software.
-              </p>
+              {presentationData.whyChooseMe.paragraphs.map((paragraph, index) => (
+                <p key={index} className="leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
               
               <Separator />
               
               <p className="leading-relaxed font-medium">
-                Estou disponível para uma conversa e seria um prazer discutir como posso contribuir para o sucesso da equipe.
+                {presentationData.whyChooseMe.closingStatement}
               </p>
             </CardContent>
           </Card>
@@ -185,32 +201,44 @@ export const Presentation: React.FC = () => {
           <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
             <CardContent className="pt-6">
               <div className="text-center space-y-4">
-                <h3 className="text-lg font-semibold">Vamos conversar?</h3>
+                <h3 className="text-lg font-semibold">{presentationData.contact.title}</h3>
                 <p className="text-muted-foreground">
-                  Entre em contato comigo através dos canais abaixo
+                  {presentationData.contact.subtitle}
                 </p>
                 
                 <div className="flex justify-center gap-4 flex-wrap">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Mail className="h-4 w-4" />
-                    Email
-                  </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Linkedin className="h-4 w-4" />
-                    LinkedIn
-                  </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Github className="h-4 w-4" />
-                    GitHub
-                  </Button>
-                  <Button 
-                    onClick={() => setIsCurriculumModalOpen(true)}
-                    size="sm" 
-                    className="gap-2"
-                  >
-                    <FileText className="h-4 w-4" />
-                    Ver Currículo Completo
-                  </Button>
+                  {presentationData.contact.actions.map((action, index) => {
+                    const getIcon = () => {
+                      switch (action.type) {
+                        case 'email': return <Mail className="h-4 w-4" />;
+                        case 'linkedin': return <Linkedin className="h-4 w-4" />;
+                        case 'github': return <Github className="h-4 w-4" />;
+                        case 'curriculum': return <FileText className="h-4 w-4" />;
+                        default: return null;
+                      }
+                    };
+
+                    const handleClick = () => {
+                      if (action.type === 'curriculum') {
+                        setIsCurriculumModalOpen(true);
+                      } else if (action.url) {
+                        window.open(action.url, '_blank');
+                      }
+                    };
+
+                    return (
+                      <Button 
+                        key={index}
+                        onClick={handleClick}
+                        variant={action.type === 'curriculum' ? 'default' : 'outline'}
+                        size="sm" 
+                        className="gap-2"
+                      >
+                        {getIcon()}
+                        {action.label}
+                      </Button>
+                    );
+                  })}
                 </div>
               </div>
             </CardContent>

@@ -132,6 +132,6 @@
   "actions": {
     "download": "Download CV",
     "print": "Print",
-    "back": "Back to Portfolio"
+    "back": "Portfolio"
   }
 }

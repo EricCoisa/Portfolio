@@ -31,7 +31,6 @@ const Navbar = () => {
     { key: 'projects', href: '#projects' },
     { key: 'skills', href: '#skills' },
     { key: 'contact', href: '#contact' },
-    { key: 'curriculum', href: '/curriculum', external: true },
   ];
 
   useEffect(() => {
@@ -106,25 +105,14 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              item.external ? (
-                <Link
-                  key={item.key}
-                  to={item.href}
-                  className="text-foreground/80 hover:text-primary transition-colors relative group"
-                >
-                  {t(`nav.${item.key}`)}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-                </Link>
-              ) : (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  className="text-foreground/80 hover:text-primary transition-colors relative group"
-                >
-                  {t(`nav.${item.key}`)}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-                </a>
-              )
+              <a
+                key={item.key}
+                href={item.href}
+                className="text-foreground/80 hover:text-primary transition-colors relative group"
+              >
+                {t(`nav.${item.key}`)}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              </a>
             ))}
           </div>
 
@@ -208,25 +196,14 @@ const Navbar = () => {
             >
               <div className="flex flex-col gap-4">
                 {navItems.map((item) => (
-                  item.external ? (
-                    <Link
-                      key={item.key}
-                      to={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-foreground/80 hover:text-primary transition-colors"
-                    >
-                      {t(`nav.${item.key}`)}
-                    </Link>
-                  ) : (
-                    <a
-                      key={item.key}
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-foreground/80 hover:text-primary transition-colors"
-                    >
-                      {t(`nav.${item.key}`)}
-                    </a>
-                  )
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {t(`nav.${item.key}`)}
+                  </a>
                 ))}
               </div>
             </motion.div>

@@ -1,15 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroBg from '@/assets/hero-bg.webp';
 
 const Hero = () => {
   const { t } = useTranslation();
-
-  const downloadCv = () => {
-    window.open(t('hero.link'), '_blank', 'noopener,noreferrer');
-  };
 
   return (
     <section
@@ -50,9 +47,11 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <Button onClick={downloadCv} size="lg" className="gap-2">
-              <Download className="h-5 w-5" />
-              {t('hero.cta')}
+            <Button asChild size="lg" className="gap-2">
+              <Link to="/resume">
+                <FileText className="h-5 w-5" />
+                {t('hero.cta')}
+              </Link>
             </Button>
             <div className="flex gap-2">
               <Button variant="outline" size="icon" asChild>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -8,6 +8,7 @@ import { Badge } from '../components/ui/badge';
 import { useCurriculumTranslations } from '../hooks/use-curriculum-translations';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +22,13 @@ interface CurriculumProps {
 
 export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }) => {
   const { i18n } = useTranslation();
+  const { setTheme } = useTheme();
   const { curriculumData, isLoading } = useCurriculumTranslations();
+
+  // Define o tema como light ao carregar a página
+  useEffect(() => {
+    setTheme('light');
+  }, [setTheme]);
 
   const handleDownload = () => {
     window.open('https://drive.google.com/file/d/1rIDMk3DUay16XtNpHPUM0ufaFYV2obRY/view?usp=drive_link', '_blank');
