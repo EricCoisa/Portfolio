@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Lazy load components
 const Index = lazy(() => import("./pages/Index"));
 const Curriculum = lazy(() => import("./pages/Curriculum"));
+const Presentation = lazy(() => import("./pages/Presentation"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/curriculum" element={<Curriculum />} />
+            <Route path="/presentation" element={<Presentation />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

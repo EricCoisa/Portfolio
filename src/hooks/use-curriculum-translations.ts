@@ -2,6 +2,68 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { getPortfolioData, loadPortfolioData } from '../utils/data';
 
+// Cache global para as traduções do currículo
+const curriculumCache: Record<string, CurriculumTranslations> = {};
+const loadingPromises: Record<string, Promise<CurriculumTranslations>> = {};
+
+/**
+ * Carrega traduções do currículo com cache em memória
+ * Só faz fetch se não existir no cache
+ */
+async function loadCurriculumFromCache(language: string): Promise<CurriculumTranslations> {
+  // Se já está no cache, retorna imediatamente
+  if (curriculumCache[language]) {
+    console.log(`Traduções do currículo (${language}) carregadas do cache`);
+    return curriculumCache[language];
+  }
+
+  // Se já está carregando, retorna a promise existente
+  if (loadingPromises[language]) {
+    console.log(`Aguardando carregamento em andamento (${language})`);
+    return loadingPromises[language];
+  }
+
+  // Inicia o carregamento
+  console.log(`Carregando traduções do currículo (${language}) do servidor...`);
+  
+  loadingPromises[language] = (async () => {
+    try {
+      // Carrega os dados do portfolio para obter as URLs
+      const portfolioData = await loadPortfolioData();
+      
+      // Seleciona a URL correta baseada no idioma
+      const curriculumUrl = language === 'en' 
+        ? portfolioData.curriculum.urlEn 
+        : portfolioData.curriculum.urlPt;
+      
+      // Adiciona cache bust para garantir dados atualizados
+      const cacheBust = `?cacheBust=${Date.now()}`;
+      const response = await fetch(`${curriculumUrl}${cacheBust}`);
+      
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar traduções do currículo: ${response.status} ${response.statusText}`);
+      }
+      
+      const translations = await response.json() as CurriculumTranslations;
+      
+      // Armazena no cache
+      curriculumCache[language] = translations;
+      console.log(`Traduções do currículo (${language}) carregadas e armazenadas no cache`);
+      
+      return translations;
+      
+    } catch (error) {
+      console.error(`Erro ao carregar traduções do currículo (${language}):`, error);
+      throw error;
+    } finally {
+      // Remove da lista de promises em andamento
+      delete loadingPromises[language];
+    }
+  })();
+
+  return loadingPromises[language];
+}
+
 // Tipos para as traduções do currículo
 export interface CurriculumTranslations {
   header: {
@@ -86,61 +148,49 @@ export const useCurriculumTranslations = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadCurriculumTranslations = async () => {
+    const loadTranslations = async () => {
+      const language = i18n.language || 'pt';
+      
+      // Se já está no cache, usa imediatamente
+      if (curriculumCache[language]) {
+        setCurriculumData(curriculumCache[language]);
+        setIsLoading(false);
+        setError(null);
+        return;
+      }
+
       setIsLoading(true);
       setError(null);
       
       try {
-        // Carrega os dados do portfolio para obter as URLs
-        const portfolioData = await loadPortfolioData();
-        const language = i18n.language || 'pt';
-        
-        // Seleciona a URL correta baseada no idioma
-        const curriculumUrl = language === 'en' 
-          ? portfolioData.curriculum.urlEn 
-          : portfolioData.curriculum.urlPt;
-        
-        // Adiciona cache bust para garantir dados atualizados
-        const cacheBust = `?cacheBust=${Date.now()}`;
-        const response = await fetch(`${curriculumUrl}${cacheBust}`);
-        
-        if (!response.ok) {
-          throw new Error(`Erro ao buscar traduções do currículo: ${response.status} ${response.statusText}`);
-        }
-        
-        const translations = await response.json();
+        const translations = await loadCurriculumFromCache(language);
         setCurriculumData(translations);
-        
       } catch (error) {
         console.error('Erro ao carregar traduções do currículo:', error);
         setError(error instanceof Error ? error.message : 'Erro desconhecido');
-        
-        // Fallback: tenta carregar dados já em cache ou usar portfolio data
-        const cachedPortfolioData = getPortfolioData();
-        if (cachedPortfolioData) {
-          try {
-            const language = i18n.language || 'pt';
-            const fallbackUrl = language === 'en' 
-              ? cachedPortfolioData.curriculum.urlEn 
-              : cachedPortfolioData.curriculum.urlPt;
-            
-            const fallbackResponse = await fetch(fallbackUrl);
-            if (fallbackResponse.ok) {
-              const fallbackTranslations = await fallbackResponse.json();
-              setCurriculumData(fallbackTranslations);
-              setError(null);
-            }
-          } catch (fallbackError) {
-            console.error('Erro no fallback das traduções do currículo:', fallbackError);
-          }
-        }
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadCurriculumTranslations();
+    loadTranslations();
   }, [i18n.language]);
 
   return { curriculumData, isLoading, error };
+};
+
+/**
+ * Limpa o cache das traduções do currículo
+ * Útil para forçar o recarregamento
+ */
+export const clearCurriculumCache = (language?: string) => {
+  if (language) {
+    delete curriculumCache[language];
+    delete loadingPromises[language];
+    console.log(`Cache do currículo limpo para o idioma: ${language}`);
+  } else {
+    Object.keys(curriculumCache).forEach(key => delete curriculumCache[key]);
+    Object.keys(loadingPromises).forEach(key => delete loadingPromises[key]);
+    console.log('Cache completo do currículo limpo');
+  }
 };

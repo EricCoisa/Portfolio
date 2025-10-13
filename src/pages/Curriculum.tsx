@@ -15,7 +15,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export const Curriculum: React.FC = () => {
+interface CurriculumProps {
+  hideBackButton?: boolean;
+}
+
+export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }) => {
   const { i18n } = useTranslation();
   const { curriculumData, isLoading } = useCurriculumTranslations();
 
@@ -40,12 +44,16 @@ export const Curriculum: React.FC = () => {
       {/* Header - No print */}
       <div className="print:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/">
-            <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-              <ArrowLeft className="h-4 w-4" />
-              {curriculumData.actions.back}
-            </Button>
-          </Link>
+          {!hideBackButton ? (
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="gap-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                <ArrowLeft className="h-4 w-4" />
+                {curriculumData.actions.back}
+              </Button>
+            </Link>
+          ) : (
+            <div></div> // Espaço vazio para manter o layout
+          )}
 
           <div className="flex gap-2">
             <Button onClick={handlePrint} variant="outline" size="sm" className="gap-2">
