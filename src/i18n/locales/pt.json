@@ -5,6 +5,7 @@
     "projects": "Projetos",
     "skills": "Habilidades",
     "contact": "Contato",
+    "curriculum": "Currículo",
     "reactScan": "ReactScan",
     "reactScanEnabled": "ReactScan Ativado",
     "reactScanDisabled": "ReactScan Desativado"
@@ -13,12 +14,13 @@
     "greeting": "Olá, eu sou",
     "name": "Éric Vitor de Resende",
     "title": "Full-Stack Developer",
-    "description": "Prática constante e aprendizado são a base para transformar boas ideias em produtos excepcionais",
-    "cta": "Baixar CV"
+    "description": "Transformar boas ideias em experiências excepcionais por meio de prática constante e aprendizado contínuo.",
+    "cta": "Baixar CV",
+    "link": "https://drive.google.com/file/d/1rIDMk3DUay16XtNpHPUM0ufaFYV2obRY/view?usp=drive_link"
   },
   "about": {
     "title": "Sobre Mim",
-    "description": "Desenvolvedor Full-Stack com {years} anos de experiência em softwares e aplicativos educacionais e de gestão empresarial. Tenho experiência em reduzir custos de projetos, otimizar processos de desenvolvimento e implementar soluções que aumentam eficiência e qualidade das entregas.",
+    "description": "Sou Desenvolvedor Full-Stack com {years} anos de experiência em softwares e aplicativos voltados para educação e gestão empresarial. Atuo reduzindo custos de projetos, otimizando processos de desenvolvimento e implementando soluções que elevam a eficiência e a qualidade das entregas.",
     "stack": "Principais Tecnologias",
     "highlights": [
       {
@@ -27,11 +29,11 @@
       },
       {
         "title": "Performance",
-        "description": "Foco em otimização e experiência do usuário"
+        "description": "Foco em performance e experiência do usuário"
       },
       {
         "title": "Colaboração",
-        "description": "Trabalho em equipe e comunicação efetiva"
+        "description": "Colaboração ativa e comunicação clara"
       }
     ],
     "mainTechnologies": [
@@ -56,7 +58,7 @@
     "list": [
       {
         "title": "Coap",
-        "description": "Plataforma visual drag-and-drop para criação de materiais didáticos interativos, similar ao Canva mas focada em educação.",
+        "description": "Plataforma visual drag-and-drop para criação de materiais didáticos interativos. Inspirada no Canva, mas desenvolvida especialmente para o universo educacional.",
         "tags": [
           "React",
           "TypeScript",
@@ -71,7 +73,7 @@
       },
       {
         "title": "CustomDeploy",
-        "description": "Solução completa para automação de deploys de aplicações web e APIs hospedadas no IIS, com backend .NET 8 e frontend React + TypeScript.",
+        "description": "Solução completa para automatizar deploys de aplicações web e APIs em IIS, unindo backend em .NET 8 e frontend em React + TypeScript.",
         "tags": [
           ".NET 8",
           "React",
@@ -87,7 +89,7 @@
       },
       {
         "title": "AspNetCoreApiBase",
-        "description": "Template base para APIs REST em ASP.NET Core 8.0 com autenticação JWT, Docker, Entity Framework e 40+ testes. Estrutura completa pronta para novos projetos.",
+        "description": "Template base para APIs REST em ASP.NET Core 8.0 com autenticação JWT, Docker, Entity Framework e mais de 40 testes automatizados. Pronto para acelerar novos projetos.",
         "tags": [
           "ASP.NET Core",
           "Entity Framework",
@@ -104,7 +106,7 @@
       },
       {
         "title": "OwnManager - 🚧",
-        "description": "Sistema para gerenciar projetos pessoais e profissionais com controle de tempo, organização de tarefas, dashboard de produtividade e relatórios de progresso.",
+        "description": "Sistema para organizar projetos pessoais e profissionais, com controle de tempo, tarefas, produtividade e relatórios de progresso.",
         "tags": [
           "Next.js 15",
           "TypeScript",
@@ -120,7 +122,7 @@
       },
       {
         "title": "Redux Visualizer",
-        "description": "Componente React modal para inspecionar e editar estados Redux em tempo real. Exibe o estado como árvore interativa com suporte completo à edição de valores.",
+        "description": "Componente React para inspecionar e editar estados Redux em tempo real. Exibe a store como árvore interativa com edição completa de valores.",
         "tags": [
           "React",
           "TypeScript",
@@ -138,7 +140,7 @@
       },
       {
         "title": "GraphQLAPI",
-        "description": "API moderna e flexível em .NET focada exclusivamente em GraphQL, utilizando HotChocolate e Entity Framework Core. Estrutura modular com SQLite e pronta para produção.",
+        "description": "API moderna e flexível em .NET focada em GraphQL, com HotChocolate e Entity Framework Core. Estrutura modular com SQLite pronta para produção.",
         "tags": [
           ".NET 8",
           "GraphQL",
@@ -206,12 +208,12 @@
   },
   "contact": {
     "title": "Entre em Contato",
-    "description": "Estou atualmente procurando novas oportunidades. Se você tem alguma pergunta ou só quer dizer oi, farei o meu melhor para responder!",
+    "description": "Estou aberto a novas oportunidades. Se quiser conversar ou tirar dúvidas, será um prazer responder!",
     "email": "Email",
     "github": "GitHub",
     "linkedin": "LinkedIn"
   },
   "footer": {
-    "rights": "Todos os direitos reservados"
+    "rights": "© 2025 Éric Vitor — Todos os direitos reservados"
   }
 }

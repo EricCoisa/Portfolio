@@ -1,0 +1,154 @@
+{
+  "header": {
+    "name": "Éric Vitor de Resende",
+    "title": "Full-Stack Developer",
+    "location": "Brasília, DF - Brazil",
+    "phone": "+55 (61) 98765-4321",
+    "email": "eric@ericvitor.com.br",
+    "linkedin": "linkedin.com/in/ericvitor",
+    "github": "github.com/EricCoisa",
+    "website": "ericvitor.com.br"
+  },
+  "sections": {
+    "summary": {
+      "title": "Professional Summary",
+      "content": "Full-Stack Developer with 4+ years of experience in software development and applications focused on education and business management. Specialized in reducing project costs, optimizing development processes, and implementing solutions that enhance efficiency and delivery quality. Strong experience in C#, JavaScript/TypeScript, React, and ASP.NET Core."
+    },
+    "experience": {
+      "title": "Professional Experience",
+      "jobs": [
+        {
+          "company": "Freelancer",
+          "position": "Full-Stack Developer",
+          "period": "2020 - Present",
+          "location": "Remote",
+          "description": "Development of complete solutions for diverse clients, from web applications to business management systems.",
+          "achievements": [
+            "Developed educational drag-and-drop platform (Coap) with React and TypeScript",
+            "Created automated deployment system for IIS with .NET 8 and React",
+            "Implemented REST and GraphQL APIs with ASP.NET Core",
+            "Reduced development time by 40% through reusable templates",
+            "Implemented CI/CD with Azure DevOps and GitHub Actions"
+          ]
+        },
+        {
+          "company": "Academic Projects",
+          "position": "Developer",
+          "period": "2018 - 2020",
+          "location": "Brasília, DF",
+          "description": "Development of academic and personal projects to improve technical skills.",
+          "achievements": [
+            "Developed applications with Unity and C#",
+            "Created APIs with Entity Framework and SQL Server",
+            "Implemented JWT authentication and application security",
+            "Studies in React Native and mobile development"
+          ]
+        }
+      ]
+    },
+    "education": {
+      "title": "Education",
+      "courses": [
+        {
+          "institution": "Centro Universitário IESB",
+          "degree": "Systems Analysis and Development",
+          "period": "2018 - 2020",
+          "location": "Brasília, DF",
+          "status": "Completed"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Technical Skills",
+      "categories": [
+        {
+          "name": "Programming Languages",
+          "items": ["C#", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+        },
+        {
+          "name": "Frameworks & Libraries",
+          "items": ["ASP.NET Core", "Entity Framework", "React", "Redux", "Node.js", "React Native", "Vite", "Styled Components"]
+        },
+        {
+          "name": "Databases",
+          "items": ["SQL Server", "SQLite", "MySQL", "Firebase"]
+        },
+        {
+          "name": "DevOps & Tools",
+          "items": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "Git", "CI/CD", "Visual Studio", "VS Code"]
+        },
+        {
+          "name": "Cloud & Integrations",
+          "items": ["Azure", "Firebase", "GraphQL", "WebSockets", "REST APIs", "JWT"]
+        }
+      ]
+    },
+    "projects": {
+      "title": "Featured Projects",
+      "list": [
+        {
+          "name": "Coap",
+          "description": "Visual drag-and-drop platform for creating interactive learning materials",
+          "technologies": ["React", "TypeScript", "Redux Toolkit", "Styled Components"],
+          "highlights": ["Intuitive Canva-like interface", "Reusable component system", "Multi-format export"]
+        },
+        {
+          "name": "CustomDeploy",
+          "description": "Complete system for automating IIS deployments",
+          "technologies": [".NET 8", "React", "Entity Framework", "JWT"],
+          "highlights": ["Automated deployment", "Web management interface", "CI/CD pipeline integration"]
+        },
+        {
+          "name": "AspNetCoreApiBase",
+          "description": "Base template for REST APIs with 40+ automated tests",
+          "technologies": ["ASP.NET Core", "Entity Framework", "Docker", "xUnit"],
+          "highlights": ["Clean architecture", "Test coverage > 90%", "Docker configuration included"]
+        },
+        {
+          "name": "Redux Visualizer",
+          "description": "React component for real-time Redux state inspection and editing",
+          "technologies": ["React", "TypeScript", "NPM Package"],
+          "highlights": ["Published on NPM", "Interactive tree interface", "Real-time editing"]
+        }
+      ]
+    },
+    "certifications": {
+      "title": "Certifications & Courses",
+      "list": [
+        {
+          "name": "Microsoft Certified: Azure Fundamentals",
+          "issuer": "Microsoft",
+          "year": "2023"
+        },
+        {
+          "name": "React - The Complete Guide",
+          "issuer": "Udemy",
+          "year": "2022"
+        },
+        {
+          "name": "Clean Code",
+          "issuer": "Various courses and bibliography",
+          "year": "2021-2024"
+        }
+      ]
+    },
+    "languages": {
+      "title": "Languages",
+      "list": [
+        {
+          "language": "Portuguese",
+          "level": "Native"
+        },
+        {
+          "language": "English",
+          "level": "Intermediate"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "download": "Download CV",
+    "print": "Print",
+    "back": "Back to Portfolio"
+  }
+}

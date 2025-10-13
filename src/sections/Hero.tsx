@@ -7,6 +7,10 @@ import heroBg from '@/assets/hero-bg.webp';
 const Hero = () => {
   const { t } = useTranslation();
 
+  const downloadCv = () => {
+    window.open(t('hero.link'), '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section
       id="home"
@@ -46,7 +50,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <Button size="lg" className="gap-2">
+            <Button onClick={downloadCv} size="lg" className="gap-2">
               <Download className="h-5 w-5" />
               {t('hero.cta')}
             </Button>
