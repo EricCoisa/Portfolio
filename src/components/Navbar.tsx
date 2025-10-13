@@ -30,6 +30,16 @@ const Navbar = () => {
     { key: 'contact', href: '#contact' },
   ];
 
+  const scrollToSection = (hash: string) => {
+    const id = hash.replace('#', '');
+    const el = document.getElementById(id);
+    if (!el) return;
+    const nav = document.querySelector('nav');
+    const navHeight = nav ? (nav as HTMLElement).offsetHeight : 80;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   useEffect(() => {
 
     const handleScroll = () => {
@@ -105,6 +115,10 @@ const Navbar = () => {
               <a
                 key={item.key}
                 href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.href);
+                }}
                 className="text-foreground/80 hover:text-primary transition-colors relative group"
               >
                 {t(`nav.${item.key}`)}
@@ -196,7 +210,12 @@ const Navbar = () => {
                   <a
                     key={item.key}
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      // Wait a moment for the menu to close so the scroll target is visible
+                      setTimeout(() => scrollToSection(item.href), 120);
+                    }}
                     className="text-foreground/80 hover:text-primary transition-colors"
                   >
                     {t(`nav.${item.key}`)}
