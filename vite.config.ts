@@ -4,92 +4,45 @@ import path from "path";
 import fs from "fs";
 
 // Dynamic chunk configuration function
+// Função para configuração de chunks do build Vite
 export function getBuildConfig(mode: string) {
-  // Chunk size mapping for better size estimation
-  const packageSizeMap: Record<string, number> = {
-    'react': 45 * 1024,
-    'react-dom': 130 * 1024,
-    'framer-motion': 120 * 1024,
-    '@radix-ui': 80 * 1024,
-    'recharts': 200 * 1024,
-    '@tanstack/react-query': 100 * 1024,
-    'i18next': 60 * 1024,
-    'lucide-react': 150 * 1024,
-    // Default size for unknown packages
-    'default': 50 * 1024
+  // Mapeamento de bibliotecas pesadas para chunks dedicados
+  const manualChunkLibs: Record<string, string> = {
+    '@radix-ui': 'radix-ui',
+    'framer-motion': 'animation',
+    'recharts': 'charts',
+    '@tanstack/react-query': 'react-query',
+    'i18next': 'i18n',
+    'lucide-react': 'icons',
   };
 
-  const config = {
+  return {
     sourcemap: mode === 'development',
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
+        /**
+         * Define chunks manuais apenas para libs pesadas.
+         * React e ReactDOM ficam juntos, gerenciados pelo Vite.
+         */
         manualChunks(id: string) {
-          if (id.includes('node_modules')) {
-            const sizeMap: Record<string, string[]> = {};
-            const chunkSizeLimit = 400 * 1024; // 400 KB per chunk
-            let currentChunk = 'vendor-0';
-            let currentSize = 0;
+          if (!id.includes('node_modules')) return;
 
-            const packageName = id
-              .toString()
-              .split('node_modules/')[1]
-              .split('/')[0]
-              .toString();
+          // Extrai o nome do pacote
+          const parts = id.split('node_modules/');
+          if (parts.length < 2) return;
+          const pkg = parts[1].split('/')[0];
 
-            // Get estimated size for the package
-            let estimatedSize = packageSizeMap[packageName] || packageSizeMap['default'];
-            
-            // Special handling for scoped packages like @radix-ui
-            if (packageName.startsWith('@')) {
-              const scopedName = packageName.split('/')[0];
-              estimatedSize = packageSizeMap[scopedName] || packageSizeMap['default'];
-            }
-
-            // Priority chunks for core libraries
-            if (packageName === 'react' || packageName === 'react-dom') {
-              return 'react-core';
-            }
-            
-            if (packageName.startsWith('@radix-ui')) {
-              return 'radix-ui';
-            }
-            
-            if (packageName === 'framer-motion') {
-              return 'animation';
-            }
-            
-            if (packageName === 'recharts') {
-              return 'charts';
-            }
-            
-            if (packageName.includes('i18n')) {
-              return 'i18n';
-            }
-
-            if (packageName === 'react-scan') {
-              return 'dev-tools';
-            }
-
-            // Dynamic chunking for other packages
-            if (currentSize + estimatedSize > chunkSizeLimit) {
-              const chunkIndex = Object.keys(sizeMap).length;
-              currentChunk = `vendor-${chunkIndex}`;
-              currentSize = 0;
-            }
-
-            if (!sizeMap[currentChunk]) sizeMap[currentChunk] = [];
-            sizeMap[currentChunk].push(packageName);
-            currentSize += estimatedSize;
-
-            return currentChunk;
+          // Chunks dedicados para libs pesadas
+          if (manualChunkLibs[pkg]) {
+            return manualChunkLibs[pkg];
           }
+
+          // Demais dependências: Vite/Rollup decide
         },
       },
     },
   };
-
-  return config;
 }
 
 export default defineConfig(({ mode }) => {
