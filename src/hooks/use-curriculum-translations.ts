@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { getPortfolioData, loadPortfolioData } from '../utils/data';
+import { fetchData } from '@/utils/fetchData';
 
 // Cache global para as traduções do currículo
 const curriculumCache: Record<string, CurriculumTranslations> = {};
@@ -38,7 +39,7 @@ async function loadCurriculumFromCache(language: string): Promise<CurriculumTran
       
       // Adiciona cache bust para garantir dados atualizados
       const cacheBust = `?cacheBust=${Date.now()}`;
-      const response = await fetch(`${curriculumUrl}${cacheBust}`);
+  const response = await fetchData(`${curriculumUrl}${cacheBust}`);
       
       if (!response.ok) {
         throw new Error(`Erro ao buscar traduções do currículo: ${response.status} ${response.statusText}`);

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getPortfolioData, loadPortfolioData } from '../utils/data';
 import type { PresentationData } from '../types/presentationData';
 import type { PresentationCompany } from '../types/portData';
+import { fetchData } from '@/utils/fetchData';
 
 // Cache global para as apresentações das empresas
 const presentationCache: Record<string, PresentationData> = {};
@@ -50,7 +51,7 @@ async function loadPresentationFromCache(companyName: string): Promise<Presentat
       
       // Adiciona cache bust para garantir dados atualizados
       const cacheBust = `?cacheBust=${Date.now()}`;
-      const response = await fetch(`${company.urlData}${cacheBust}`);
+  const response = await fetchData(`${company.urlData}${cacheBust}`);
       
       if (!response.ok) {
         throw new Error(`Erro ao buscar dados da apresentação: ${response.status} ${response.statusText}`);

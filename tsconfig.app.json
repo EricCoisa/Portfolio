@@ -23,7 +23,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/utils/fetchData": ["./src/utils/fetch.prod.ts"]
     }
   },
   "include": ["src"]

@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { scan } from 'react-scan';
+import { isDevelopment } from '@/utils/util';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -20,10 +21,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [reactScanEnabled, setReactScanEnabled] = useState(false);
   const [forceHover, setForceHover] = useState(true);
-
-  // Check if we're in development environment
-  const isDevelopment = typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -130,7 +127,7 @@ const Navbar = () => {
 
 
             {/* ReactScan Toggle - only in development */}
-            {isDevelopment && (
+            {isDevelopment() && (
               <Button
                 variant="ghost"
                 size="icon"

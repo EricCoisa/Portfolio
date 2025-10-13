@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import fs from "fs";
 
 // Dynamic chunk configuration function
 export function getBuildConfig(mode: string) {
@@ -91,17 +92,27 @@ export function getBuildConfig(mode: string) {
   return config;
 }
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode }) => {
+  const devFilePath = path.resolve(__dirname, "./src/utils/fetch.dev.ts");
+  const prodFilePath = path.resolve(__dirname, "./src/utils/fetch.prod.ts");
+
+  // se o fetch.dev.ts não existir, fallback automático para prod
+  const fetchDataAlias = fs.existsSync(devFilePath) ? devFilePath : prodFilePath;
+
+  console.log(`📦 Alias fetchData => ${fetchDataAlias}`);
+
+  return {
+    server: {
+      host: "::",
+      port: 8080,
     },
-  },
-  build: getBuildConfig(mode)
-}));
+    plugins: [react()],
+    resolve: {
+      alias: [
+        { find: "@", replacement: path.resolve(__dirname, "./src") },
+        { find: "@/utils/fetchData", replacement: fetchDataAlias },
+      ],
+    },
+    build: getBuildConfig(mode),
+  };
+});

@@ -47,7 +47,7 @@ const About = () => {
           </h2>
 
           <div className="mb-12">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-justify max-w-3xl mx-auto">
               {description}
             </p>
           </div>

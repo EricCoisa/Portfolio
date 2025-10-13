@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getPortfolioData, loadPortfolioData } from '../utils/data';
+import { fetchData } from '@/utils/fetchData';
 
 const detectBrowserLanguage = (): string => {
   const savedLang = localStorage.getItem('i18nextLng');
@@ -27,8 +28,8 @@ async function loadRemoteTranslations(): Promise<{ en: Record<string, unknown>; 
     // Busca as traduções em paralelo com cache bust
     const cacheBust = `?cacheBust=${Date.now()}`;
     const [enResponse, ptResponse] = await Promise.all([
-      fetch(`${portfolioData.language.urlEn}${cacheBust}`),
-      fetch(`${portfolioData.language.urlPt}${cacheBust}`)
+  fetchData(`${portfolioData.language.urlEn}${cacheBust}`),
+  fetchData(`${portfolioData.language.urlPt}${cacheBust}`)
     ]);
 
     if (!enResponse.ok || !ptResponse.ok) {

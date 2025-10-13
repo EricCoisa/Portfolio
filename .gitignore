@@ -26,3 +26,4 @@ dist-ssr
 .vscode
 context
 src/i18n/locales/
+src/utils/fetch.dev.ts

@@ -1,4 +1,5 @@
 import type { PortData } from '../types/portData';
+import { fetchData } from '@/utils/fetchData';
 
 /**
  * Busca um arquivo específico de um Gist do GitHub
@@ -19,7 +20,7 @@ export async function fetchGistFile(gistId: string, fileName: string, commitHash
       url += `?cacheBust=${Date.now()}`;
     }
     
-    const response = await fetch(url);
+  const response = await fetchData(url);
     
     if (!response.ok) {
       throw new Error(`Erro ao buscar arquivo do Gist: ${response.status} ${response.statusText}`);
