@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { usePresentation } from '../hooks/use-presentation';
 import { useTemporaryTheme } from '../hooks/use-temporary-theme';
 import Curriculum from './Curriculum';
+import { LoadingSpinner } from '@/components/ui/loadingSpinner';
 
 interface PresentationProps {
   companyName?: string;
@@ -28,17 +29,12 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
   // Redireciona para NotFound se houver erro ou dados não encontrados
   useEffect(() => {
     if (!isLoading && (error || !presentationData)) {
-      console.log('Redirecionando para NotFound - Empresa não encontrada:', companyName);
       navigate('/404', { replace: true });
     }
   }, [isLoading, error, presentationData, navigate, companyName]);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
-        <div className="text-lg">Carregando apresentação para {companyName}...</div>
-      </div>
-    );
+     return <LoadingSpinner />;
   }
 
   // Se há erro ou dados não encontrados, o useEffect já redireciona para NotFound

@@ -18,19 +18,13 @@ async function loadPresentationFromCache(companyName: string): Promise<Presentat
   
   // Se já está no cache, retorna imediatamente
   if (presentationCache[normalizedCompanyName]) {
-    console.log(`Dados da apresentação para ${companyName} carregados do cache`);
     return presentationCache[normalizedCompanyName];
   }
 
   // Se já está carregando, retorna a promise existente
   if (loadingPromises[normalizedCompanyName]) {
-    console.log(`Aguardando carregamento da apresentação em andamento (${companyName})`);
     return loadingPromises[normalizedCompanyName];
   }
-
-  // Inicia o carregamento
-  console.log(`Carregando dados da apresentação (${companyName}) do servidor...`);
-  
   loadingPromises[normalizedCompanyName] = (async () => {
     try {
       // Carrega os dados do portfolio para obter o array de empresas
@@ -58,10 +52,9 @@ async function loadPresentationFromCache(companyName: string): Promise<Presentat
       }
       
       const presentationData = await response.json() as PresentationData;
-      console.log(`Dados da apresentação para ${companyName} carregados do servidor:`, presentationData);
+      
       // Armazena no cache
       presentationCache[normalizedCompanyName] = presentationData;
-      console.log(`Dados da apresentação (${companyName}) carregados e armazenados no cache`);
       
       return presentationData;
       
@@ -128,11 +121,9 @@ export const clearPresentationCache = (companyName?: string) => {
     const normalizedCompanyName = companyName.toLowerCase();
     delete presentationCache[normalizedCompanyName];
     delete loadingPromises[normalizedCompanyName];
-    console.log(`Cache da apresentação limpo para a empresa: ${companyName}`);
   } else {
     Object.keys(presentationCache).forEach(key => delete presentationCache[key]);
     Object.keys(loadingPromises).forEach(key => delete loadingPromises[key]);
-    console.log('Cache completo da apresentação limpo');
   }
 };
 

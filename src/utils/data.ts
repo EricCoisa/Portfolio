@@ -35,13 +35,11 @@ export async function loadPortfolioData(force?: boolean): Promise<PortData> {
     .then((data) => {
       portfolioData = data;
       isLoading = false;
-      console.log('Dados do portfolio carregados com sucesso:', data);
       return data;
     })
     .catch((error) => {
       isLoading = false;
       loadPromise = null; // Permite tentar novamente em caso de erro
-      console.error('Erro ao carregar dados do portfolio:', error);
       throw error;
     });
 
@@ -78,13 +76,11 @@ export async function reloadPortfolioData(force = true): Promise<PortData> {
     .then((data) => {
       portfolioData = data;
       isLoading = false;
-      console.log('Dados do portfolio recarregados com sucesso:', data);
       return data;
     })
     .catch((error) => {
       isLoading = false;
       loadPromise = null;
-      console.error('Erro ao recarregar dados do portfolio:', error);
       throw error;
     });
 

@@ -14,18 +14,13 @@ const loadingPromises: Record<string, Promise<CurriculumTranslations>> = {};
 async function loadCurriculumFromCache(language: string): Promise<CurriculumTranslations> {
   // Se já está no cache, retorna imediatamente
   if (curriculumCache[language]) {
-    console.log(`Traduções do currículo (${language}) carregadas do cache`);
     return curriculumCache[language];
   }
 
   // Se já está carregando, retorna a promise existente
   if (loadingPromises[language]) {
-    console.log(`Aguardando carregamento em andamento (${language})`);
     return loadingPromises[language];
   }
-
-  // Inicia o carregamento
-  console.log(`Carregando traduções do currículo (${language}) do servidor...`);
   
   loadingPromises[language] = (async () => {
     try {
@@ -49,8 +44,7 @@ async function loadCurriculumFromCache(language: string): Promise<CurriculumTran
       
       // Armazena no cache
       curriculumCache[language] = translations;
-      console.log(`Traduções do currículo (${language}) carregadas e armazenadas no cache`);
-      
+
       return translations;
       
     } catch (error) {
@@ -187,10 +181,8 @@ export const clearCurriculumCache = (language?: string) => {
   if (language) {
     delete curriculumCache[language];
     delete loadingPromises[language];
-    console.log(`Cache do currículo limpo para o idioma: ${language}`);
   } else {
     Object.keys(curriculumCache).forEach(key => delete curriculumCache[key]);
     Object.keys(loadingPromises).forEach(key => delete loadingPromises[key]);
-    console.log('Cache completo do currículo limpo');
   }
 };

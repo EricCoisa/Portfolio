@@ -6,6 +6,7 @@ import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from "react-router-dom";
 import { getAvailableCompanies } from "./hooks/use-presentation";
+import { LoadingSpinner } from "./components/ui/loadingSpinner";
 
 // Lazy load components
 const Index = lazy(() => import("./pages/Index"));
@@ -15,12 +16,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
-// Loading component
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-  </div>
-);
 
 // Wrapper component to capture URL params for Presentation
 const PresentationWrapper = () => {
@@ -48,7 +43,6 @@ const CompanyChecker = () => {
       }
 
       try {
-        console.log('Verificando se o path é uma empresa:', pathName);
         const companies = await getAvailableCompanies();
         
         // Check if company exists (case-insensitive)
@@ -57,11 +51,8 @@ const CompanyChecker = () => {
         );
 
         if (foundCompany) {
-          console.log('Empresa encontrada, redirecionando para presentation:', foundCompany.name);
           setCompanyName(foundCompany.name);
           setCompanyExists(true);
-        } else {
-          console.log('Empresa não encontrada, indo para NotFound');
         }
       } catch (error) {
         console.error('Erro ao verificar empresas:', error);

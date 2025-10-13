@@ -18,12 +18,10 @@ export const useTemporaryTheme = (temporaryTheme: string) => {
     // Salva o tema original apenas na primeira vez
     if (originalThemeRef.current === undefined) {
       originalThemeRef.current = theme;
-      console.log(`Salvando tema original: ${theme}`);
     }
 
     // Aplica o tema temporário apenas se ainda não foi aplicado e é diferente
     if (!hasSetTemporaryTheme.current && theme !== temporaryTheme) {
-      console.log(`Aplicando tema temporário: ${temporaryTheme}`);
       setTheme(temporaryTheme);
       hasSetTemporaryTheme.current = true;
     }
@@ -33,7 +31,7 @@ export const useTemporaryTheme = (temporaryTheme: string) => {
   useEffect(() => {
     return () => {
       if (originalThemeRef.current && originalThemeRef.current !== temporaryTheme && hasSetTemporaryTheme.current) {
-        console.log(`Restaurando tema original: ${originalThemeRef.current}`);
+    
         // Pequeno delay para evitar conflitos durante navegação
         setTimeout(() => {
           setTheme(originalThemeRef.current!);

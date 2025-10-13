@@ -40,10 +40,8 @@ async function loadRemoteTranslations(): Promise<{ en: Record<string, unknown>; 
       enResponse.json(),
       ptResponse.json()
     ]);
-    console.log('Traduções carregadas:');
     return { en: enTranslations, pt: ptTranslations };
   } catch (error) {
-    console.error('Erro ao carregar traduções remotas:', error);
     // Fallback para traduções vazias em caso de erro
     return { en: {}, pt: {} };
   }
@@ -54,7 +52,6 @@ async function loadRemoteTranslations(): Promise<{ en: Record<string, unknown>; 
  */
 async function initializeI18n(): Promise<void> {
   const translations = await loadRemoteTranslations();
-  console.log('Traduções carregadas:', translations);
   await i18n
     .use(initReactI18next)
     .init({

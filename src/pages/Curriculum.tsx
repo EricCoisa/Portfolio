@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { LoadingSpinner } from '@/components/ui/loadingSpinner';
 
 interface CurriculumProps {
   hideBackButton?: boolean;
@@ -34,7 +35,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
   if (isLoading || !curriculumData) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
-        <div className="text-lg">Carregando...</div>
+        <LoadingSpinner />
       </div>
     );
   }
