@@ -2,7 +2,6 @@
   "header": {
     "name": "Éric Vitor de Resende",
     "title": "Full-Stack Developer",
-    "location": "Brasília, DF - Brazil",
     "phone": "+55 (61) 98765-4321",
     "email": "eric@ericvitor.com.br",
     "linkedin": "linkedin.com/in/ericvitor",
@@ -17,20 +16,6 @@
     "experience": {
       "title": "Professional Experience",
       "jobs": [
-        {
-          "company": "Freelancer",
-          "position": "Full-Stack Developer",
-          "period": "2020 - Present",
-          "location": "Remote",
-          "description": "Development of complete solutions for diverse clients, from web applications to business management systems.",
-          "achievements": [
-            "Developed educational drag-and-drop platform (Coap) with React and TypeScript",
-            "Created automated deployment system for IIS with .NET 8 and React",
-            "Implemented REST and GraphQL APIs with ASP.NET Core",
-            "Reduced development time by 40% through reusable templates",
-            "Implemented CI/CD with Azure DevOps and GitHub Actions"
-          ]
-        },
         {
           "company": "Academic Projects",
           "position": "Developer",
@@ -62,29 +47,27 @@
       "title": "Technical Skills",
       "categories": [
         {
-          "name": "Programming Languages",
-          "items": ["C#", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+          "name": "Languages",
+          "items": ["C#", "JavaScript", "TypeScript", "SQL"]
         },
         {
           "name": "Frameworks & Libraries",
-          "items": ["ASP.NET Core", "Entity Framework", "React", "Redux", "Node.js", "React Native", "Vite", "Styled Components"]
+          "items": ["ASP.NET Core/MVC", "Entity Framework", "Dapper", "React", "React Native", "Node.js", "Redux", "Vite", "Styled Components", "Storybook"]
         },
         {
-          "name": "Databases",
-          "items": ["SQL Server", "SQLite", "MySQL", "Firebase"]
+          "name": "Platforms & Mobile",
+          "items": ["Firebase", "Notifee", "Electron", "Unity"]
         },
         {
-          "name": "DevOps & Tools",
-          "items": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "Git", "CI/CD", "Visual Studio", "VS Code"]
-        },
-        {
-          "name": "Cloud & Integrations",
-          "items": ["Azure", "Firebase", "GraphQL", "WebSockets", "REST APIs", "JWT"]
+          "name": "DevOps, Cloud & Integrations",
+          "items": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "CI/CD", "Git", "Hangfire", "GraphQL", "n8n", "WebSockets"]
         }
       ]
     },
     "projects": {
       "title": "Featured Projects",
+      "technologies": "Technologies",
+      "highlights": "Highlights",
       "list": [
         {
           "name": "Coap",

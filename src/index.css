@@ -100,4 +100,21 @@ All colors MUST be HSL.
   html {
     scroll-behavior: smooth;
   }
+
+  @media print {
+    @page {
+      margin: 0.5cm;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 0;
+      margin: 0;
+    }
+  }
 }

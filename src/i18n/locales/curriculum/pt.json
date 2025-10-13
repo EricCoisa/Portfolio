@@ -2,46 +2,56 @@
   "header": {
     "name": "Éric Vitor de Resende",
     "title": "Desenvolvedor Full-Stack",
-    "location": "Brasília, DF - Brasil",
-    "phone": "+55 (61) 98765-4321",
-    "email": "eric@ericvitor.com.br",
-    "linkedin": "linkedin.com/in/ericvitor",
+    "phone": "+55 (34) 99201-6008",
+    "email": "ericvitor96@gmail.com",
+    "linkedin": "linkedin.com/in/eric-vitor",
     "github": "github.com/EricCoisa",
     "website": "ericvitor.com.br"
   },
   "sections": {
     "summary": {
       "title": "Resumo Profissional",
-      "content": "Desenvolvedor Full-Stack com 4+ anos de experiência em desenvolvimento de software e aplicações voltadas para educação e gestão empresarial. Especializado em reduzir custos de projetos, otimizar processos de desenvolvimento e implementar soluções que elevam a eficiência e qualidade das entregas. Experiência sólida em C#, JavaScript/TypeScript, React e ASP.NET Core."
+      "content": "Desenvolvedor Full-Stack com 8 anos de experiência em softwares e aplicativos educacionais e de gestão empresarial. Atuo em todo o ciclo de desenvolvimento, da concepção à entrega, com tecnologias como C#, ASP.NET Core/MVC, React, React Native e TypeScript. Tenho experiência em reduzir custos de projetos, otimizar processos de desenvolvimento e implementar soluções que aumentam a eficiência e qualidade das entregas."
     },
     "experience": {
       "title": "Experiência Profissional",
       "jobs": [
         {
-          "company": "Freelancer",
+          "company": "Gruppy",
           "position": "Desenvolvedor Full-Stack",
-          "period": "2020 - Presente",
+          "period": "Nov 2023 - Out 2025",
           "location": "Remoto",
-          "description": "Desenvolvimento de soluções completas para clientes diversos, desde aplicações web até sistemas de gestão empresarial.",
+          "description": "Desenvolvimento de soluções gamificadas para software de gestão empresarial.",
           "achievements": [
-            "Desenvolvimento de plataforma educacional drag-and-drop (Coap) com React e TypeScript",
-            "Criação de sistema de deploy automatizado para IIS com .NET 8 e React",
-            "Implementação de APIs REST e GraphQL com ASP.NET Core",
-            "Redução de 40% no tempo de desenvolvimento através de templates reutilizáveis",
-            "Implementação de CI/CD com Azure DevOps e GitHub Actions"
+            "Criação de uma solução gamificada de metas para empresas",
+            "Desenvolvimento de carteira financeira com integração Asaas e StarkBank",
+            "Estruturação de monorepo com Lerna para padronização e reaproveitamento de componentes",
+            "Plataforma de notificações push com Firebase e Hangfire"
           ]
         },
         {
-          "company": "Projetos Acadêmicos",
-          "position": "Desenvolvedor",
-          "period": "2018 - 2020",
-          "location": "Brasília, DF",
-          "description": "Desenvolvimento de projetos acadêmicos e pessoais para aprimoramento de habilidades técnicas.",
+          "company": "Uniaraxá",
+          "position": "Desenvolvedor Full-Stack",
+          "period": "Jul 2020 - Jul 2025",
+          "location": "Araxá - MG",
+          "description": "Desenvolvimento e manutenção de plataformas educacionais.",
           "achievements": [
-            "Desenvolvimento de aplicações com Unity e C#",
-            "Criação de APIs com Entity Framework e SQL Server",
-            "Implementação de autenticação JWT e segurança de aplicações",
-            "Estudos em React Native e desenvolvimento mobile"
+            "Criação de plataforma interativa e gamificada para conteúdos educacionais",
+            "Migração do AVA de ASP.NET MVC para React",
+            "Desenvolvimento da versão mobile em React Native",
+            "Aumento da performance e melhorias na experiência do usuário"
+          ]
+        },
+        {
+          "company": "Uniaraxá",
+          "position": "Game Designer",
+          "period": "Jul 2018 - Jul 2020",
+          "location": "Araxá - MG",
+          "description": "Desenvolvimento de soluções em VR e AR para experiências educacionais.",
+          "achievements": [
+            "Criação de laboratório de Realidade Virtual para Engenharia",
+            "Desenvolvimento de app mobile com Realidade Aumentada",
+            "Cenários de aprendizado interativos configuráveis remotamente"
           ]
         }
       ]
@@ -50,10 +60,15 @@
       "title": "Formação Acadêmica",
       "courses": [
         {
-          "institution": "Centro Universitário IESB",
+          "institution": "Unopar",
           "degree": "Análise e Desenvolvimento de Sistemas",
-          "period": "2018 - 2020",
-          "location": "Brasília, DF",
+          "period": "2019",
+          "status": "Concluído"
+        },
+        {
+          "institution": "People",
+          "degree": "Técnico em Informática",
+          "period": "2016",
           "status": "Concluído"
         }
       ]
@@ -62,29 +77,27 @@
       "title": "Competências Técnicas",
       "categories": [
         {
-          "name": "Linguagens de Programação",
-          "items": ["C#", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+          "name": "Linguagens",
+          "items": ["C#", "JavaScript", "TypeScript", "SQL"]
         },
         {
           "name": "Frameworks & Bibliotecas",
-          "items": ["ASP.NET Core", "Entity Framework", "React", "Redux", "Node.js", "React Native", "Vite", "Styled Components"]
+          "items": ["ASP.NET Core/MVC", "Entity Framework", "Dapper", "React", "React Native", "Node.js", "Redux", "Vite", "Styled Components", "Storybook"]
         },
         {
-          "name": "Bancos de Dados",
-          "items": ["SQL Server", "SQLite", "MySQL", "Firebase"]
+          "name": "Plataformas & Mobile",
+          "items": ["Firebase", "Notifee", "Electron", "Unity"]
         },
         {
-          "name": "DevOps & Ferramentas",
-          "items": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "Git", "CI/CD", "Visual Studio", "VS Code"]
-        },
-        {
-          "name": "Cloud & Integrações",
-          "items": ["Azure", "Firebase", "GraphQL", "WebSockets", "REST APIs", "JWT"]
+          "name": "DevOps, Cloud & Integrações",
+          "items": ["Docker", "Azure DevOps", "GitHub Actions", "IIS", "CI/CD", "Git", "Hangfire", "GraphQL", "n8n", "WebSockets"]
         }
       ]
     },
     "projects": {
       "title": "Projetos em Destaque",
+      "technologies": "Tecnologias",
+      "highlights": "Destaques",
       "list": [
         {
           "name": "Coap",
@@ -116,19 +129,14 @@
       "title": "Certificações & Cursos",
       "list": [
         {
-          "name": "Microsoft Certified: Azure Fundamentals",
-          "issuer": "Microsoft",
-          "year": "2023"
-        },
-        {
-          "name": "React - The Complete Guide",
+          "name": "Teoria e na prática os fundamentos das redes neurais",
           "issuer": "Udemy",
-          "year": "2022"
+          "year": "2020"
         },
         {
-          "name": "Clean Code",
-          "issuer": "Diversos cursos e bibliografia",
-          "year": "2021-2024"
+          "name": "Desenvolvimento de Apps Comerciais com Python e Kivy",
+          "issuer": "Udemy",
+          "year": "2020"
         }
       ]
     },

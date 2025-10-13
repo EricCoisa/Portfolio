@@ -1,14 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer } from 'lucide-react';
+import { ArrowLeft, Download, Mail, Github, Linkedin, Phone, MapPin, Globe, Printer, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
 import { Badge } from '../components/ui/badge';
 import { useCurriculumTranslations } from '../hooks/use-curriculum-translations';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const Curriculum: React.FC = () => {
+  const { i18n } = useTranslation();
   const { curriculumData, isLoading } = useCurriculumTranslations();
 
   const handleDownload = () => {
@@ -38,7 +46,7 @@ export const Curriculum: React.FC = () => {
               {curriculumData.actions.back}
             </Button>
           </Link>
-          
+
           <div className="flex gap-2">
             <Button onClick={handlePrint} variant="outline" size="sm" className="gap-2">
               <Printer className="h-4 w-4" />
@@ -48,92 +56,133 @@ export const Curriculum: React.FC = () => {
               <Download className="h-4 w-4" />
               {curriculumData.actions.download}
             </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <Globe className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="space-y-1">
+                <DropdownMenuItem
+                  onClick={() => i18n.changeLanguage('en')}
+                  className={`flex items-center justify-between ${i18n.language === 'en' ? 'bg-accent' : ''}`}
+                >
+                  <span>English</span>
+                  {i18n.language === 'en' && <Check className="h-4 w-4 text-primary" />}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => i18n.changeLanguage('pt')}
+                  className={`flex items-center justify-between ${i18n.language === 'pt' ? 'bg-accent' : ''}`}
+                >
+                  <span>Português</span>
+                  {i18n.language === 'pt' && <Check className="h-4 w-4 text-primary" />}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-8 max-w-5xl">
+      <div className="container mx-auto px-6 py-8 max-w-7xl print:max-w-none print:p-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-slate-800 rounded-xl shadow-lg print:shadow-none print:bg-white"
+          className="bg-white dark:bg-slate-800 rounded-xl shadow-lg print:shadow-none print:bg-white print:rounded-none"
         >
           {/* Header Section */}
-          <div className="p-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-gray-800">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="py-2 px-4 print:p-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-slate-900 print:rounded-none">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 print:gap-2">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">{curriculumData.header.name}</h1>
-                <p className="text-xl opacity-90 mb-4">{curriculumData.header.title}</p>
-                <div className="flex items-center gap-2 text-sm opacity-80">
-                  <MapPin className="h-4 w-4" />
-                  {curriculumData.header.location}
-                </div>
+                <h1 className="text-2xl font-bold">{curriculumData.header.name}</h1>
+                <p className="text-lg opacity-90 -mt-1">{curriculumData.header.title}</p>
               </div>
-              
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" />
-                  <span>{curriculumData.header.phone}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" />
-                  <span>{curriculumData.header.email}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe className="h-4 w-4" />
-                  <span>{curriculumData.header.website}</span>
-                </div>
-                <div className="flex gap-4 mt-3">
-                  <a href={`https://${curriculumData.header.linkedin}`} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                  <a href={`https://${curriculumData.header.github}`} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
-                    <Github className="h-5 w-5" />
-                  </a>
-                </div>
+
+              <div className="grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 text-sm sm:text-left items-center gap-x-2 gap-y-0.5 whitespace-nowrap sm:justify-end">
+                <Mail className="h-3.5 w-3.5 row-start-1 col-start-1" />
+                <span className="row-start-1 col-start-2">{curriculumData.header.email}</span>
+
+                <Phone className="h-3.5 w-3.5 row-start-1 col-start-4" />
+                <span className="row-start-1 col-start-5">{curriculumData.header.phone}</span>
+
+                <Globe className="h-3.5 w-3.5 row-start-2 col-start-1" />
+                <span className="row-start-2 col-start-2">{curriculumData.header.website}</span>
+           
+                <Linkedin className="h-3.5 w-3.5 row-start-2 col-start-4" />
+                <span className="row-start-2 col-start-5">{curriculumData.header.linkedin}</span>
               </div>
+
             </div>
           </div>
 
-          <div className="p-8 space-y-8">
+          <div className="p-8 print:p-0 space-y-8 print:space-y-2">
             {/* Summary */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.summary.title}
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed print:leading-snug">
                 {curriculumData.sections.summary.content}
               </p>
             </section>
 
+            {/* Skills */}
+            <section>
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-3 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+                {curriculumData.sections.skills.title}
+              </h2>
+              <div className="space-y-2 print:space-y-1">
+                {curriculumData.sections.skills.categories.map((category, index) => (
+                  <div key={index} className="space-y-1 print:space-y-0">
+                    <div className="flex gap-2 items-baseline">
+                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 min-w-[180px] print:min-w-[150px] print:text-xs">{category.name}:</h3>
+                      <div className="flex flex-wrap gap-1.5 print:gap-0">
+                        {category.items.map((skill, skillIndex) => (
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-xs print:p-0 print:after:content-[','] print:after:ml-0.5 last:print:after:content-none"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* Experience */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.experience.title}
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-6 print:space-y-2">
                 {curriculumData.sections.experience.jobs.map((job, index) => (
-                  <Card key={index} className="border-l-4 border-l-blue-600">
-                    <CardHeader className="pb-3">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                        <div>
-                          <CardTitle className="text-lg text-slate-800 dark:text-slate-200">{job.position}</CardTitle>
-                          <p className="text-blue-600 font-semibold">{job.company}</p>
+                  <Card key={index} className="border-l-4 border-l-blue-600 print:border-l-0 print:shadow-none print:border-0">
+                    <CardHeader className="pb-3 print:p-0">
+                      <div className="flex flex-row items-center justify-between gap-2 flex-wrap">
+                        <div className="min-w-0 flex-1">
+                          <CardTitle className="text-lg print:text-base text-slate-800 dark:text-slate-200 truncate">
+                            {job.position} <span className="text-blue-600 font-semibold">- {job.company}</span>
+                          </CardTitle>
                         </div>
-                        <div className="text-sm text-slate-500 dark:text-slate-400">
-                          <div>{job.period}</div>
-                          <div>{job.location}</div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400 flex gap-2 items-center shrink-0">
+                          <span>{job.period}</span>
+                          <span>•</span>
+                          <span>{job.location}</span>
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-slate-600 dark:text-slate-300 mb-3">{job.description}</p>
-                      <ul className="space-y-1">
+                    <CardContent className="print:p-0">
+                      <p className="text-slate-600 dark:text-slate-300 mb-3 print:mb-1 print:text-sm">{job.description}</p>
+                      <ul className="space-y-1 print:space-y-0">
                         {job.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex} className="text-slate-600 dark:text-slate-300 text-sm flex items-start gap-2">
-                            <span className="text-blue-600 mt-1">•</span>
+                          <li key={achievementIndex} className="text-slate-600 dark:text-slate-300 text-sm print:text-xs flex items-start gap-2 print:gap-1">
+                            <span className="text-blue-600 mt-1 print:mt-0.5">•</span>
                             <span>{achievement}</span>
                           </li>
                         ))}
@@ -146,18 +195,17 @@ export const Curriculum: React.FC = () => {
 
             {/* Education */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.education.title}
               </h2>
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-3">
                 {curriculumData.sections.education.courses.map((course, index) => (
-                  <Card key={index} className="border-l-4 border-l-green-500">
-                    <CardContent className="pt-6">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                  <Card key={index} className="border-l-4 border-l-green-500 flex-1 min-w-[300px] print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-6 print:p-0">
+                      <div className="flex flex-row items-center justify-between gap-2">
                         <div>
-                          <h3 className="font-semibold text-slate-800 dark:text-slate-200">{course.degree}</h3>
+                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{course.degree}</h3>
                           <p className="text-green-600 font-medium">{course.institution}</p>
-                          <p className="text-sm text-slate-500 dark:text-slate-400">{course.location}</p>
                         </div>
                         <div className="text-sm text-slate-500 dark:text-slate-400">
                           <div>{course.period}</div>
@@ -170,47 +218,24 @@ export const Curriculum: React.FC = () => {
               </div>
             </section>
 
-            {/* Skills */}
-            <section>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2">
-                {curriculumData.sections.skills.title}
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {curriculumData.sections.skills.categories.map((category, index) => (
-                  <Card key={index}>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg text-slate-800 dark:text-slate-200">{category.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2">
-                        {category.items.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
+
 
             {/* Projects */}
-            <section>
+            <section className="print:hidden">
               <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 border-b-2 border-blue-600 pb-2">
                 {curriculumData.sections.projects.title}
               </h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 print:grid-cols-2 gap-6 print:gap-4">
                 {curriculumData.sections.projects.list.map((project, index) => (
-                  <Card key={index} className="border-l-4 border-l-purple-500">
+                  <Card key={index} className="border-l-4 border-l-purple-500 print:border-l-0 print:shadow-none print:border-0">
                     <CardHeader className="pb-3">
                       <CardTitle className="text-lg text-slate-800 dark:text-slate-200">{project.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">{project.description}</p>
-                      
+
                       <div className="mb-3">
-                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Tecnologias:</h4>
+                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{curriculumData.sections.projects.technologies}:</h4>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((tech, techIndex) => (
                             <Badge key={techIndex} variant="outline" className="text-xs">
@@ -219,9 +244,9 @@ export const Curriculum: React.FC = () => {
                           ))}
                         </div>
                       </div>
-                      
+
                       <div>
-                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Destaques:</h4>
+                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{curriculumData.sections.projects.highlights}:</h4>
                         <ul className="space-y-1">
                           {project.highlights.map((highlight, highlightIndex) => (
                             <li key={highlightIndex} className="text-slate-600 dark:text-slate-300 text-xs flex items-start gap-2">
@@ -238,46 +263,48 @@ export const Curriculum: React.FC = () => {
             </section>
 
             {/* Grid layout for remaining sections */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Certifications */}
-              <section>
-                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2">
-                  {curriculumData.sections.certifications.title}
-                </h2>
-                <div className="space-y-3">
-                  {curriculumData.sections.certifications.list.map((cert, index) => (
-                    <Card key={index}>
-                      <CardContent className="pt-4">
-                        <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{cert.name}</h3>
-                        <p className="text-orange-600 text-sm">{cert.issuer}</p>
-                        <p className="text-slate-500 dark:text-slate-400 text-xs">{cert.year}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </section>
 
-              {/* Languages */}
-              <section>
-                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2">
-                  {curriculumData.sections.languages.title}
-                </h2>
-                <div className="space-y-3">
-                  {curriculumData.sections.languages.list.map((lang, index) => (
-                    <Card key={index}>
-                      <CardContent className="pt-4">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-semibold text-slate-800 dark:text-slate-200">{lang.language}</h3>
-                          <Badge variant="secondary" className="bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
-                            {lang.level}
-                          </Badge>
+            {/* Certifications */}
+            <section>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+                {curriculumData.sections.certifications.title}
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {curriculumData.sections.certifications.list.map((cert, index) => (
+                  <Card key={index} className="flex-1 min-w-[200px] border-l-4 border-l-orange-500 print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-4 print:p-0">
+                      <div className="flex flex-row items-center justify-between gap-2">
+                        <div>
+                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{cert.name}</h3>
+                          <p className="text-orange-600 text-sm">{cert.issuer}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </section>
-            </div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400">
+                          <div>{cert.year}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
+            {/* Languages */}
+            <section>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
+                {curriculumData.sections.languages.title}
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {curriculumData.sections.languages.list.map((lang, index) => (
+                  <Card key={index} className="flex-1 min-w-[200px] border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0">
+                    <CardContent className="pt-4 print:p-0">
+                      <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{lang.language}</h3>
+                      <p className="text-teal-600 text-sm">{lang.level}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
           </div>
         </motion.div>
       </div>

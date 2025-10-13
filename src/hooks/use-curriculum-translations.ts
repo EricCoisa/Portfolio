@@ -6,7 +6,6 @@ export interface CurriculumTranslations {
   header: {
     name: string;
     title: string;
-    location: string;
     phone: string;
     email: string;
     linkedin: string;
@@ -35,7 +34,6 @@ export interface CurriculumTranslations {
         institution: string;
         degree: string;
         period: string;
-        location: string;
         status: string;
       }>;
     };
@@ -48,6 +46,8 @@ export interface CurriculumTranslations {
     };
     projects: {
       title: string;
+      technologies: string;
+      highlights: string;
       list: Array<{
         name: string;
         description: string;
