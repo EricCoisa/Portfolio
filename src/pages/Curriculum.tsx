@@ -170,7 +170,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
               <div className="space-y-3 sm:space-y-2 print:space-y-1">
                 {curriculumData.sections.skills.categories.map((category, index) => (
                   <div key={index} className="space-y-1 print:space-y-0">
-                    <div className="flex flex-col sm:flex-row sm:gap-2 sm:items-baseline">
+                    <div className="flex flex-col sm:flex-row sm:gap-2 sm:items-center">
                       <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1 sm:mb-0 sm:min-w-[120px] md:min-w-[180px] print:min-w-[150px] print:text-xs">{category.name}:</h3>
                       <div className="flex flex-wrap gap-1 sm:gap-1.5 print:gap-0">
                         {category.items.map((skill, skillIndex) => (

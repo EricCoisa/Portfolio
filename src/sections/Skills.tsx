@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { InfiniteCarousel } from '@/components/ui/infiniteCarousel';
+import TechCard from '@/components/ui/TechCard';
 
 const Skills = () => {
   const { t } = useTranslation();
@@ -73,16 +74,6 @@ const Skills = () => {
           </div>
         </motion.div>
       </div>
-
-      <InfiniteCarousel itemWidth={200} speed={1}>
-        {mainTechnologies.map((tech, index) => (
-          <div
-            key={tech}
-          >
-            {tech}
-          </div>
-        ))}
-      </InfiniteCarousel>
     </section>
   );
 };
