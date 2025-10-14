@@ -22,7 +22,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
   const navigate = useNavigate();
   const { presentationData, isLoading, error } = usePresentation(companyName);
   const [isCurriculumModalOpen, setIsCurriculumModalOpen] = useState(false);
-  
+
   // Aplica tema light temporariamente, restaurando o original ao sair
   useTemporaryTheme('light');
 
@@ -34,7 +34,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
   }, [isLoading, error, presentationData, navigate, companyName]);
 
   if (isLoading) {
-     return <LoadingSpinner />;
+    return <LoadingSpinner />;
   }
 
   // Se há erro ou dados não encontrados, o useEffect já redireciona para NotFound
@@ -57,18 +57,18 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                   {presentationData.actions.back}
                 </Button>
               </Link>
-              
-              <Button 
+
+              <Button
                 onClick={() => setIsCurriculumModalOpen(true)}
-                variant="outline" 
-                size="sm" 
+                variant="outline"
+                size="sm"
                 className="gap-1 px-3"
               >
                 <FileText className="h-4 w-4" />
                 <span className="text-xs">{presentationData.actions.viewCurriculum}</span>
               </Button>
             </div>
-            
+
             <h1 className="text-base font-semibold text-center px-2 leading-tight flex items-center justify-center gap-2">
               <Briefcase className="h-4 w-4" />
               <span>
@@ -90,16 +90,16 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                 {presentationData.actions.back}
               </Button>
             </Link>
-            
+
             <h1 className="text-xl font-semibold flex items-center gap-2">
               <Briefcase className="h-4 w-4 sm:h-5 sm:w-5" />
               {companyName !== 'default' ? `Carta de Apresentação - ${companyName}` : 'Apresentação Profissional'}
             </h1>
-            
-            <Button 
+
+            <Button
               onClick={() => setIsCurriculumModalOpen(true)}
-              variant="outline" 
-              size="sm" 
+              variant="outline"
+              size="sm"
               className="gap-2"
             >
               <FileText className="h-4 w-4" />
@@ -117,35 +117,33 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           transition={{ duration: 0.5 }}
           className="space-y-6 sm:space-y-8"
         >
-        
+
 
           {/* Introduction */}
           <Card>
             <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
-              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
-                <p className="text-primary font-medium text-sm sm:text-base mb-2">
-                  {presentationData.introduction.greeting}
-                </p>
-              </div>
-              
+
+              <CardTitle className="text-base sm:text-lg font-semibold mb-2 ">    {presentationData.introduction.greeting}</CardTitle>
               {presentationData.introduction.paragraphs.map((paragraph, index) => (
                 <p key={index} className="leading-relaxed text-sm sm:text-base">
                   {paragraph}
                 </p>
               ))}
-
-              {companyName !== 'default' && (
-                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 sm:p-4">
-                  <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">
-                    {presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}
-                  </h4>
-                  <p className="text-sm sm:text-base leading-relaxed">
-                    {presentationData.introduction.companySpecific.content.replace('{companyName}', companyName)}
-                  </p>
-                </div>
-              )}
             </CardContent>
           </Card>
+
+          {companyName !== 'default' && (
+            <Card>
+              <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6">
+                <CardTitle className="text-base sm:text-lg font-semibold mb-2 ">{presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}</CardTitle>
+
+                <p className="text-sm sm:text-base leading-relaxed">
+                  {presentationData.introduction.companySpecific.content.replace('{companyName}', companyName)}
+                </p>
+
+              </CardContent>
+            </Card>
+          )}
 
           {/* Key Skills */}
           <Card>
@@ -159,7 +157,15 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                     <h4 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">{category.name}</h4>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {category.items.map((skill, skillIndex) => (
-                        <Badge key={skillIndex} variant="secondary" className="text-xs sm:text-sm">{skill}</Badge>
+                        <Badge
+                          key={skillIndex}
+                          variant="accent"
+                          className="text-xs sm:text-sm transform transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg"
+                          title={String(skill)}
+                          role="listitem"
+                        >
+                          {skill}
+                        </Badge>
                       ))}
                     </div>
                   </div>
@@ -172,7 +178,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           <Card>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
               <CardTitle className="text-base sm:text-lg">
-                {companyName !== 'default' 
+                {companyName !== 'default'
                   ? `Como posso agregar valor à ${companyName}`
                   : presentationData.highlights.title
                 }
@@ -187,7 +193,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                   </div>
                 ))}
               </div>
-            
+
             </CardContent>
           </Card>
 
@@ -204,11 +210,11 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                   {paragraph}
                 </p>
               ))}
-              
-           
+
+
               <Separator />
-              
-              <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-3 sm:p-4 rounded-lg border border-primary/20">
+
+              <div className="bg-primary/5 dark:bg-primary/10 p-3 sm:p-4 rounded-lg border border-primary/20">
                 <p className="leading-relaxed font-medium text-sm sm:text-base text-primary">
                   {presentationData.whyChooseMe.closingStatement}
                 </p>
@@ -224,7 +230,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                 <p className="text-muted-foreground text-sm sm:text-base">
                   {presentationData.contact.subtitle}
                 </p>
-                
+
                 <div className="flex justify-center gap-2 sm:gap-4 flex-wrap">
                   {presentationData.contact.actions.map((action, index) => {
                     const getIcon = () => {
@@ -248,17 +254,19 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                     const isPrimary = action.type === 'email' || action.type === 'curriculum';
 
                     return (
-                      <Button 
+                      <Button
                         key={index}
                         onClick={handleClick}
                         variant={isPrimary ? 'default' : 'outline'}
-                        size="sm" 
-                        className={`gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-2 ${
-                          isPrimary ? 'shadow-md hover:shadow-lg' : ''
-                        }`}
+                        size="sm"
+                        className={`gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-2 transform transition-all duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 rounded-md ${isPrimary ? 'shadow-sm hover:shadow-md hover:-translate-y-0.5 bg-primary/90 dark:bg-primary' : 'hover:bg-slate-100 dark:hover:bg-slate-800'
+                          }`}
+                        aria-label={action.label}
                       >
-                        {getIcon()}
-                        <span className="hidden xs:inline sm:inline">{action.label}</span>
+                        <span className="flex items-center gap-2">
+                          {getIcon()}
+                          <span className="hidden xs:inline sm:inline">{action.label}</span>
+                        </span>
                       </Button>
                     );
                   })}
