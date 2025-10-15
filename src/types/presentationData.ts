@@ -46,7 +46,6 @@ export interface PresentationData {
       defaultMessage: string;
       companySpecificMessage: string;
     };
-    responseGuarantee: string;
     actions: Array<{
       type: 'email' | 'linkedin' | 'github' | 'curriculum';
       label: string;
