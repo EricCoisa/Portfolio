@@ -70,7 +70,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
             </div>
 
             <h1 className="text-base font-semibold text-center px-2 leading-tight flex items-center justify-center gap-2">
-              <Briefcase className="h-4 w-4" />
+              <FileText className="h-4 w-4" />
               <span>
                 {companyName !== 'default' ? `Carta de Apresentação` : 'Apresentação Profissional'}
                 {companyName !== 'default' && (
@@ -92,8 +92,8 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
             </Link>
 
             <h1 className="text-xl font-semibold flex items-center gap-2">
-              <Briefcase className="h-4 w-4 sm:h-5 sm:w-5" />
-              {companyName !== 'default' ? `Carta de Apresentação - ${companyName}` : 'Apresentação Profissional'}
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
+              {presentationData.introduction.title}
             </h1>
 
             <Button
@@ -118,12 +118,14 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           className="space-y-6 sm:space-y-8"
         >
 
-
           {/* Introduction */}
-          <Card>
+          <Card className="border-l-4" style={{ borderLeftColor: '#00C86A' }}>
             <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
-
-              <CardTitle className="text-base sm:text-lg font-semibold mb-2 ">    {presentationData.introduction.greeting}</CardTitle>
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00C86A]">
+                {/* Stone icon: use Lucide 'Gem' as placeholder */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#00C86A"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 3h12l4 6-10 13L2 9l4-6z" /></svg>
+                {presentationData.introduction.greeting}
+              </CardTitle>
               {presentationData.introduction.paragraphs.map((paragraph, index) => (
                 <p key={index} className="leading-relaxed text-sm sm:text-base">
                   {paragraph}
@@ -133,9 +135,11 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {companyName !== 'default' && (
-            <Card>
+            <Card className="border-l-4" style={{ borderLeftColor: '#00b87b' }}>
               <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6">
-                <CardTitle className="text-base sm:text-lg font-semibold mb-2 ">{presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}</CardTitle>
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00b87b]">
+                  {presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}
+                </CardTitle>
 
                 <p className="text-sm sm:text-base leading-relaxed">
                   {presentationData.introduction.companySpecific.content.replace('{companyName}', companyName)}
@@ -146,9 +150,11 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           )}
 
           {/* Key Skills */}
-          <Card>
+          <Card className="border-l-4" style={{ borderLeftColor: '#00a6a6' }}>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="text-base sm:text-lg">{presentationData.skills.title}</CardTitle>
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00a6a6]">
+                {presentationData.skills.title}
+              </CardTitle>
             </CardHeader>
             <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -159,8 +165,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                       {category.items.map((skill, skillIndex) => (
                         <Badge
                           key={skillIndex}
-                          variant="accent"
-                          className="text-xs sm:text-sm transform transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg"
+                          className="text-xs sm:text-sm transform transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg bg-[#00a6a6] text-white border-[#00a6a6] hover:bg-[#009090]"
                           title={String(skill)}
                           role="listitem"
                         >
@@ -175,9 +180,9 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {/* Experience Highlights */}
-          <Card>
+          <Card className="border-l-4" style={{ borderLeftColor: '#0096c7' }}>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="text-base sm:text-lg">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#0096c7]">
                 {companyName !== 'default'
                   ? `Como posso agregar valor à ${companyName}`
                   : presentationData.highlights.title
@@ -187,8 +192,8 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
             <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
               <div className="grid gap-3 sm:gap-4">
                 {presentationData.highlights.items.map((highlight, index) => (
-                  <div key={index} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-gradient-to-r from-primary/5 to-transparent border-l-3 border-primary rounded-r-lg">
-                    <span className="text-primary mt-0.5 sm:mt-1 flex-shrink-0 font-bold">✓</span>
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3">
+                    <span className="flex-shrink-0 font-bold" style={{ color: '#0096c7' }}>✓</span>
                     <span className="text-sm sm:text-base leading-tight sm:leading-relaxed font-medium">{highlight}</span>
                   </div>
                 ))}
@@ -198,9 +203,9 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {/* Why Choose Me */}
-          <Card>
+          <Card className="border-l-4" style={{ borderLeftColor: '#00c0ca' }}>
             <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00c0ca]">
                 {presentationData.whyChooseMe.title}
               </CardTitle>
             </CardHeader>
@@ -215,7 +220,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
               <Separator />
 
               <div className="bg-primary/5 dark:bg-primary/10 p-3 sm:p-4 rounded-lg border border-primary/20">
-                <p className="leading-relaxed font-medium text-sm sm:text-base text-primary">
+                <p className="leading-relaxed font-medium text-sm sm:text-base text-green-800 dark:text-gray-200">
                   {presentationData.whyChooseMe.closingStatement}
                 </p>
               </div>
