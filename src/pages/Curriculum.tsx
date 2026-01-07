@@ -41,7 +41,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 print:bg-white print:bg-none">
       {/* Print helper styles to force 2-column grids and avoid breaking cards */}
       <style>{`@media print {
           .print-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
@@ -117,8 +117,8 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
         >
           {/* Header Section */}
           <div className="py-3 px-3 sm:py-2 sm:px-4 print:p-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl print:bg-black print:text-white print:rounded-none">
-            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2 print:gap-2">
-              <div className="text-center sm:text-left">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2 print:gap-2 print:pl-2 print:pr-2">
+              <div className="text-center sm:text-left ">
                 <h1 className="text-xl sm:text-2xl font-bold print:text-white print:font-bold">{curriculumData.header.name}</h1>
                 <p className="text-base sm:text-lg opacity-90 -mt-1 print:text-white print:opacity-100 print:font-semibold">{curriculumData.header.title}</p>
               </div>
@@ -298,7 +298,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
             {/* Grid layout for remaining sections */}
 
             {/* Certifications */}
-            <section>
+            <section className="print:hidden">
               <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 border-b-2 border-blue-600 pb-2 print:text-base print:mb-1 print:border-b print:border-slate-400 print:pb-0.5">
                 {curriculumData.sections.certifications.title}
               </h2>
@@ -328,10 +328,10 @@ export const Curriculum: React.FC<CurriculumProps> = ({ hideBackButton = false }
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print-grid">
                 {curriculumData.sections.languages.list.map((lang, index) => (
-                  <Card key={index} className="border-l-4 border-l-teal-500 print:border-l-0 print:shadow-none print:border-0 print-grid-card">
+                  <Card key={index} className="border-l-4 border-l-blue-600 print:border-l-0 print:shadow-none print:border-0 print-grid-card">
                     <CardContent className="pt-3 sm:pt-4 px-3 sm:px-6 pb-3 sm:pb-4 print:p-0">
                       <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{lang.language}</h3>
-                      <p className="text-teal-600 text-sm">{lang.level}</p>
+                      <p className="text-blue-600 text-sm">{lang.level}</p>
                     </CardContent>
                   </Card>
                 ))}

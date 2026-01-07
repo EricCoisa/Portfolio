@@ -7,7 +7,7 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
+   :root {
     --background: 0 0% 98%;
     --foreground: 240 3% 6%;
 
@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 3% 6%;
 
-    --primary: 174 62% 57%;
+    --primary: 174 62% 27%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 240 5% 96%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 240 5% 96%;
     --muted-foreground: 240 3% 46%;
 
-    --accent: 174 62% 57%;
+    --accent: 174 62% 27%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -34,7 +34,7 @@ All colors MUST be HSL.
 
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 174 62% 57%;
+    --ring: 174 62% 27%;
 
     --radius: 0.75rem;
 
@@ -45,7 +45,7 @@ All colors MUST be HSL.
     --sidebar-accent: 240 5% 96%;
     --sidebar-accent-foreground: 240 6% 10%;
     --sidebar-border: 240 6% 91%;
-    --sidebar-ring: 174 62% 57%;
+    --sidebar-ring: 174 62% 27%;
   }
 
   .dark {
