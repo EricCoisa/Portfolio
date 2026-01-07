@@ -26,6 +26,10 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
   // Aplica tema light temporariamente, restaurando o original ao sair
   useTemporaryTheme('light');
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   // Redireciona para NotFound se houver erro ou dados não encontrados
   useEffect(() => {
     if (!isLoading && (error || !presentationData)) {
@@ -44,9 +48,25 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 print:bg-white print:bg-none">
+      {/* Print helper styles */}
+      <style>{`@media print {
+          /* Remove border-radius in print */
+          .rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-t-xl {
+            border-radius: 0 !important;
+          }
+          /* Ensure proper page breaks */
+          .print-avoid-break {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+          /* Remove shadows */
+          .shadow-lg, .shadow-md, .shadow-sm {
+            box-shadow: none !important;
+          }
+        }`}</style>
       {/* Header */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b sticky top-0 z-50">
+      <div className="print:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-3 sm:px-6 py-3 sm:py-4">
           {/* Mobile: Stacked layout */}
           <div className="flex flex-col gap-2 sm:hidden">
@@ -58,15 +78,26 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                 </Button>
               </Link>
 
-              <Button
-                onClick={() => setIsCurriculumModalOpen(true)}
-                variant="outline"
-                size="sm"
-                className="gap-1 px-3"
-              >
-                <FileText className="h-4 w-4" />
-                <span className="text-xs">{presentationData.actions.viewCurriculum}</span>
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  onClick={handlePrint}
+                  variant="outline"
+                  size="sm"
+                  className="gap-1 px-3"
+                >
+                  <FileText className="h-4 w-4" />
+                  <span className="text-xs">Imprimir</span>
+                </Button>
+                <Button
+                  onClick={() => setIsCurriculumModalOpen(true)}
+                  variant="outline"
+                  size="sm"
+                  className="gap-1 px-3"
+                >
+                  <FileText className="h-4 w-4" />
+                  <span className="text-xs">{presentationData.actions.viewCurriculum}</span>
+                </Button>
+              </div>
             </div>
 
             <h1 className="text-base font-semibold text-center px-2 leading-tight flex items-center justify-center gap-2">
@@ -96,31 +127,42 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
               {presentationData.introduction.title}
             </h1>
 
-            <Button
-              onClick={() => setIsCurriculumModalOpen(true)}
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <FileText className="h-4 w-4" />
-              {presentationData.actions.viewCurriculum}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={handlePrint}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                Imprimir
+              </Button>
+              <Button
+                onClick={() => setIsCurriculumModalOpen(true)}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                {presentationData.actions.viewCurriculum}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-3 sm:px-6 py-4 sm:py-8 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-6 py-4 sm:py-8 max-w-4xl print:max-w-none print:p-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-6 sm:space-y-8"
+          className="space-y-6 sm:space-y-8 print:space-y-3"
         >
 
           {/* Introduction */}
-          <Card className="border-l-4" style={{ borderLeftColor: '#00C86A' }}>
-            <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
+          <Card className="border-l-4 print:border-l-0 print:shadow-none print:border-0 print-avoid-break" style={{ borderLeftColor: '#00C86A' }}>
+            <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4 print:p-0 print:space-y-2">
               <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00C86A]">
                 {/* Stone icon: use Lucide 'Gem' as placeholder */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#00C86A"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 3h12l4 6-10 13L2 9l4-6z" /></svg>
@@ -135,8 +177,8 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {companyName !== 'default' && (
-            <Card className="border-l-4" style={{ borderLeftColor: '#00b87b' }}>
-              <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6">
+            <Card className="border-l-4 print:border-l-0 print:shadow-none print:border-0 print-avoid-break" style={{ borderLeftColor: '#00b87b' }}>
+              <CardContent className="px-3 sm:px-6 pt-3 sm:pt-6 pb-3 sm:pb-6 print:p-0">
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00b87b]">
                   {presentationData.introduction.companySpecific.title.replace('{companyName}', companyName)}
                 </CardTitle>
@@ -150,14 +192,14 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           )}
 
           {/* Key Skills */}
-          <Card className="border-l-4" style={{ borderLeftColor: '#00a6a6' }}>
-            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
+          <Card className="border-l-4 print:border-l-0 print:shadow-none print:border-0 print-avoid-break" style={{ borderLeftColor: '#00a6a6' }}>
+            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3 print:p-0">
               <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00a6a6]">
                 {presentationData.skills.title}
               </CardTitle>
             </CardHeader>
-            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 print:p-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 print:gap-3">
                 {presentationData.skills.categories.map((category, index) => (
                   <div key={index}>
                     <h4 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">{category.name}</h4>
@@ -180,8 +222,8 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {/* Experience Highlights */}
-          <Card className="border-l-4" style={{ borderLeftColor: '#0096c7' }}>
-            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
+          <Card className="border-l-4 print:border-l-0 print:shadow-none print:border-0 print-avoid-break" style={{ borderLeftColor: '#0096c7' }}>
+            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3 print:p-0">
               <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#0096c7]">
                 {companyName !== 'default'
                   ? `Como posso agregar valor à ${companyName}`
@@ -189,8 +231,8 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
                 }
               </CardTitle>
             </CardHeader>
-            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-              <div className="grid gap-3 sm:gap-4">
+            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 print:p-0">
+              <div className="grid gap-3 sm:gap-4 print:gap-2">
                 {presentationData.highlights.items.map((highlight, index) => (
                   <div key={index} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3">
                     <span className="flex-shrink-0 font-bold" style={{ color: '#0096c7' }}>✓</span>
@@ -203,13 +245,13 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {/* Why Choose Me */}
-          <Card className="border-l-4" style={{ borderLeftColor: '#00c0ca' }}>
-            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3">
+          <Card className="border-l-4 print:border-l-0 print:shadow-none print:border-0 print-avoid-break" style={{ borderLeftColor: '#00c0ca' }}>
+            <CardHeader className="px-3 sm:px-6 pt-3 sm:pt-6 pb-2 sm:pb-3 print:p-0">
               <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold mb-2 text-[#00c0ca]">
                 {presentationData.whyChooseMe.title}
               </CardTitle>
             </CardHeader>
-            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4">
+            <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 space-y-3 sm:space-y-4 print:p-0 print:space-y-2">
               {presentationData.whyChooseMe.paragraphs.map((paragraph, index) => (
                 <p key={index} className="leading-relaxed text-sm sm:text-base">
                   {paragraph}
@@ -228,7 +270,7 @@ export const Presentation: React.FC<PresentationProps> = ({ companyName = 'defau
           </Card>
 
           {/* Contact CTA */}
-          <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/30 shadow-lg">
+          <Card className="print:hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/30 shadow-lg">
             <CardContent className="px-3 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-6">
               <div className="text-center space-y-3 sm:space-y-4">
                 <h3 className="text-base sm:text-lg font-semibold">{presentationData.contact.title}</h3>
