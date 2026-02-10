@@ -355,17 +355,23 @@ export const Project: React.FC<ProjectProps> = ({ projectName }) => {
             <Card>
               <CardContent className="pt-6">
                 <Tabs defaultValue={projectData.highlights ? "highlights" : projectData.challenges ? "challenges" : "learnings"}>
-                  <TabsList className="grid w-full grid-cols-3">
-                    {projectData.highlights && (
-                      <TabsTrigger value="highlights">{projectData.highlights.title}</TabsTrigger>
-                    )}
-                    {projectData.challenges && (
-                      <TabsTrigger value="challenges">{projectData.challenges.title}</TabsTrigger>
-                    )}
-                    {projectData.learnings && (
-                      <TabsTrigger value="learnings">{projectData.learnings.title}</TabsTrigger>
-                    )}
-                  </TabsList>
+                  {(() => {
+                    const tabCount = [projectData.highlights, projectData.challenges, projectData.learnings].filter(Boolean).length;
+                    const gridCols = tabCount === 1 ? 'grid-cols-1' : tabCount === 2 ? 'grid-cols-2' : 'grid-cols-3';
+                    return (
+                      <TabsList className={`grid w-full ${gridCols}`}>
+                        {projectData.highlights && (
+                          <TabsTrigger value="highlights">{projectData.highlights.title}</TabsTrigger>
+                        )}
+                        {projectData.challenges && (
+                          <TabsTrigger value="challenges">{projectData.challenges.title}</TabsTrigger>
+                        )}
+                        {projectData.learnings && (
+                          <TabsTrigger value="learnings">{projectData.learnings.title}</TabsTrigger>
+                        )}
+                      </TabsList>
+                    );
+                  })()}
 
                   {projectData.highlights && (
                     <TabsContent value="highlights" className="space-y-4 mt-4">
