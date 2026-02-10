@@ -6,12 +6,14 @@ import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from "react-router-dom";
 import { getAvailableCompanies } from "./hooks/use-presentation";
+import { getAvailableProjects } from "./hooks/use-project";
 import { LoadingSpinner } from "./components/ui/loadingSpinner";
 
 // Lazy load components
 const Index = lazy(() => import("./pages/Index"));
 const Curriculum = lazy(() => import("./pages/Curriculum"));
 const Presentation = lazy(() => import("./pages/Presentation"));
+const Project = lazy(() => import("./pages/Project"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -23,45 +25,69 @@ const PresentationWrapper = () => {
   return <Presentation companyName={company} />;
 };
 
-// Component that checks if unknown path is a company name
-const CompanyChecker = () => {
+// Wrapper component to capture URL params for Project
+const ProjectWrapper = () => {
+  const { projectName } = useParams<{ projectName?: string }>();
+  return <Project projectName={projectName} />;
+};
+
+// Wrapper component to capture URL params for Project or project name
+const DynamicRouteChecker = () => {
   const location = useLocation();
   const [isChecking, setIsChecking] = useState(true);
-  const [companyExists, setCompanyExists] = useState(false);
-  const [companyName, setCompanyName] = useState<string>("");
+  const [redirectTo, setRedirectTo] = useState<string | null>(null);
 
   useEffect(() => {
-    const checkCompany = async () => {
+    const checkRoute = async () => {
       // Extract the path without leading slash
       const pathName = location.pathname.substring(1);
       
       // Skip if it's empty or already a known route
-      if (!pathName || pathName === 'curriculum' || pathName === 'resume' || 
-          pathName === 'presentation' || pathName.startsWith('presentation/')) {
+      if (!pathName || 
+          pathName === 'curriculum' || 
+          pathName === 'resume' || 
+          pathName === 'presentation' || 
+          pathName === 'project' ||
+          pathName.startsWith('presentation/') ||
+          pathName.startsWith('project/')) {
         setIsChecking(false);
         return;
       }
 
       try {
+        // Check if it's a company name
         const companies = await getAvailableCompanies();
-        
-        // Check if company exists (case-insensitive)
         const foundCompany = companies.find(company => 
           company.name.toLowerCase() === pathName.toLowerCase()
         );
 
         if (foundCompany) {
-          setCompanyName(foundCompany.name);
-          setCompanyExists(true);
+          setRedirectTo(`/presentation/${foundCompany.name}`);
+          setIsChecking(false);
+          return;
         }
+
+        // Check if it's a project name
+        const projects = await getAvailableProjects();
+        const foundProject = projects.find(project => 
+          project.name.toLowerCase() === pathName.toLowerCase()
+        );
+
+        if (foundProject) {
+          setRedirectTo(`/project/${foundProject.name}`);
+          setIsChecking(false);
+          return;
+        }
+
+        // Not found
+        setIsChecking(false);
       } catch (error) {
-        console.error('Erro ao verificar empresas:', error);
-      } finally {
+        console.error('Erro ao verificar rotas dinâmicas:', error);
         setIsChecking(false);
       }
     };
 
-    checkCompany();
+    checkRoute();
   }, [location.pathname]);
 
   // Show loading while checking
@@ -69,12 +95,12 @@ const CompanyChecker = () => {
     return <LoadingSpinner />;
   }
 
-  // Redirect to presentation if company exists
-  if (companyExists && companyName) {
-    return <Navigate to={`/presentation/${companyName}`} replace />;
+  // Redirect if found
+  if (redirectTo) {
+    return <Navigate to={redirectTo} replace />;
   }
 
-  // Show NotFound if company doesn't exist
+  // Show NotFound if nothing matches
   return <NotFound />;
 };
 
@@ -92,8 +118,9 @@ const App = () => (
               <Route path="/resume" element={<Curriculum />} />
               <Route path="/presentation" element={<Presentation />} />
               <Route path="/presentation/:company" element={<PresentationWrapper />} />
+              <Route path="/project/:projectName" element={<ProjectWrapper />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<CompanyChecker />} />
+              <Route path="*" element={<DynamicRouteChecker />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
